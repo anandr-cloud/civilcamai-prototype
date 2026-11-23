@@ -382,6 +382,11 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 .tplcard{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;border:1px solid var(--line2);border-radius:10px;padding:12px;background:var(--bg);color:var(--fg);cursor:pointer}
 .tplcard:hover{border-color:var(--active-line)}
 @media (max-width:700px){.share-grid{grid-template-columns:1fr}}
+.geoed{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line2);border-radius:8px;padding:12px;background:var(--bg)}
+.geosug{border:1px solid var(--line);border-radius:6px;overflow:hidden} .geosug button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;padding:8px 10px;background:var(--surface);border:0;border-bottom:1px solid var(--line);color:var(--fg);cursor:pointer} .geosug button:hover{background:var(--raise)}
+.georead{display:flex;justify-content:space-between;border:1px solid var(--line);border-radius:6px;padding:7px 10px;font-size:13px}
+.nearby{border:1px solid var(--red-line);background:linear-gradient(135deg,#2A0508,var(--surface));border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.geochip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:12px;border:1px solid var(--red-line);background:var(--red-wash);color:var(--red-text)}
 /* paper (report) */
 .paper{background:var(--paper);color:var(--ink);border-radius:3px;aspect-ratio:1.414/1;width:100%;max-width:100%;display:flex;flex-direction:column;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 .paper .pg{flex:1;padding:4% 4.5%;display:flex;flex-direction:column;gap:1.4%;overflow:hidden;font-size:clamp(9px,1.25vw,13px)}
@@ -462,6 +467,8 @@ function seed(){
   evs.push({ id:'EVT-2026-D2CM-5HR', title:'Downtown Climate March — Jan 18', type:'Demonstration', desc:'March route from the river to City Hall.', start:'Jan 18, 11:00 AM EST', end:'', place:'Downtown Indianapolis, IN', organizer:'Anand Roy', privacy:'Public',
     media:{Photos:true,Videos:true,Audio:true,Documents:false}, attribution:false, uploads:true, status:'Open', seal:null, code:null, created:BASE+20, files:[], review:null, reports:[], links:[], example:true });
   evs.forEach(e => e.owner = 'anand@example.com');
+  const bk = evs.find(e=>e.id==='EVT-2026-K7QM-4TR'); if (bk) { bk.geo = { method:'shape', label:'Drawn shape', km2:0.42, radius:null, version:2, refused:14, hist:[{v:2,t:'Drawn shape · 0.42 km²',by:'Anand Roy',at:BASE+72},{v:1,t:'Radius 400 m · 0.50 km²',by:'Anand Roy',at:BASE-20}] }; let k=0; bk.files.forEach(f=>{ f.geo = (f.loc||f.bloc) ? 'inside' : (k++%3===0 ? 'weak' : 'none'); }); }
+  const dm = evs.find(e=>e.id==='EVT-2026-D2CM-5HR'); if (dm) dm.geo = { method:'radius', label:'Radius 800 m', km2:2.01, radius:800, version:1, refused:0, hist:[{v:1,t:'Radius 800 m · 2.01 km²',by:'Anand Roy',at:BASE+20}] };
   return evs;
 }
 /* review engine — simulated (AI results are labelled "Simulated prototype") */
@@ -721,7 +728,7 @@ function createDlg(){
     ${d.privacy==='Public'?'<div class="warnbox"><b>Public events are visible to anyone.</b> The organizer name and location are shown to anyone with the Event ID or QR link.</div>':''}
     ${d.privacy==='Invite only'?'<div class="note">A share code is created with the event and added to the QR code and link. Anyone with only the Event ID sees “Share code required”.</div>':''}
     ${d.privacy==='Private'?'<div class="note">If you share this event’s QR or link, people see “Event not found”. We’ll warn you before you share it.</div>':''}
-    <div class="note"><b>Limit uploads to an area</b> <span class="tag">Coming soon</span><br>Not available yet — uploads aren’t restricted by location.</div>`; }
+    ${geoEditor(d.geo || (d.geo = geoNew()), 'd')}`; }
   if (d.step===3) { const none = !Object.values(d.media).some(Boolean);
     b = `<span class="lab" id="c-med-l">Media types accepted${sg('media')}</span><div class="grid2" role="group" aria-labelledby="c-med-l" style="gap:8px">${Object.keys(d.media).map(k=>`<button class="opt ${d.media[k]?'on':''}" role="checkbox" aria-checked="${d.media[k]}" data-act="d-media" data-v="${k}" style="padding:10px 12px;align-items:center"><span class="cbx">${d.media[k]?'✓':''}</span><b>${k}</b></button>`).join('')}</div>
     ${none?'<span class="errt" role="alert">Choose at least one type of media people can add.</span>':''}
@@ -743,13 +750,13 @@ function discardDlg(){ return `<div class="dlg" role="alertdialog" aria-modal="t
 const contribUrl = ev => `https://civilcamai.ai/contribute/${ev.id}${ev.privacy==='Invite only'?'?code='+ev.code:''}`;
 function readyPage(ev){
   const c = counts(ev);
-  return `<div class="col" style="gap:6px"><span class="eyebrow r">✓ Event ready</span><h1>${esc(ev.title)}</h1><span class="mono sm muted">${ev.id} · ${ev.privacy} · ${c.files} contribution${c.files===1?'':'s'}</span></div>
+  return `<div class="col" style="gap:6px"><span class="eyebrow r">✓ Event ready</span><h1>${esc(ev.title)}</h1><span class="mono sm muted">${ev.id} · ${ev.privacy} · ${c.files} contribution${c.files===1?'':'s'}</span>${ev.geo?`<span class="geochip" style="align-self:flex-start">◎ Geofenced · ${esc(ev.geo.label)} · ${ev.geo.km2} km²</span>`:''}</div>
   <div class="card"><div class="row" style="align-items:flex-start;gap:24px">
     <div class="qrbox"><div data-qr="${esc(contribUrl(ev))}" data-size="200" role="img" aria-label="QR code linking to ${esc(contribUrl(ev))}"></div></div>
     <div class="col" style="flex:1;min-width:260px">
       <div class="row" style="flex-wrap:nowrap"><input class="in mono sm" readonly value="${esc(contribUrl(ev))}" id="r-link" aria-label="Contribute link"><button class="btn sm-btn" data-act="copy-link" data-id="${ev.id}">Copy link</button></div>
       <div class="row" style="gap:8px"><button class="btn2 sm-btn" data-act="qr-png">Download PNG</button><button class="btn2 sm-btn" data-act="print-card" data-id="${ev.id}">Print card</button><button class="btn2 sm-btn" data-act="share-sheet" data-id="${ev.id}">Text / email</button><button class="btn2 sm-btn" data-act="fan-view" data-id="${ev.id}">Open fan view ↗</button></div>
-      <div class="warnbox">Scan this QR with your own phone before you print or post it.</div>
+      <div class="warnbox">Scan this QR with your own phone before you print or post it.</div>${ev.geo?'<div class="warnbox"><b>Only people inside the event area can upload.</b> Put the QR where people at the venue will see it — anyone outside is told why.</div>':''}
       ${ev.privacy==='Invite only'?`<div class="note">Share code <span class="mono" style="color:var(--fg)">${ev.code}</span> is already inside this QR and link. Sharing only the Event ID shows “Share code required”.</div>`:''}
       ${ev.privacy==='Private'?`<div class="warnbox"><b>This event is Private.</b> Anyone you share this QR or link with will see “Event not found”. <button class="btn3" data-act="edit" data-id="${ev.id}">Change privacy</button></div>`:''}
     </div></div></div>
@@ -786,14 +793,14 @@ function workspace(ev){
     <style>@media (max-width:1000px){.ws-grid{grid-template-columns:1fr!important}}</style>`;
 }
 function listPanel(ev){
-  const F = S.filter, fs = live(ev).slice().sort((a,b)=>b.rec-a.rec).filter(f => (F.type==='All'||f.type===F.type) && (!F.attention||['Failed','Quarantined'].includes(f.proc)) && (!F.q || (f.name+' '+f.id).toLowerCase().includes(F.q.toLowerCase())) && (!F.who || f.dev===F.who));
+  const F = S.filter, fs = live(ev).slice().sort((a,b)=>b.rec-a.rec).filter(f => (F.type==='All'||f.type===F.type) && (!F.attention||['Failed','Quarantined'].includes(f.proc)) && (!F.q || (f.name+' '+f.id).toLowerCase().includes(F.q.toLowerCase())) && (!F.who || f.dev===F.who) && (!F.geo || (f.geo||'none')===F.geo));
   const att = counts(ev).att;
   const rows = fs.map(f => `<tr class="click" data-act="file" data-id="${f.id}"><td><div class="row" style="gap:8px;flex-wrap:nowrap"><span class="thumb ${['Quarantined','Failed'].includes(f.proc)?'none':''} ${thumbUrl(f)?'img':''}" style="${thumbStyle(f)}">${f.type==='Audio'?'♪':f.type==='Video'?'▶':''}</span><div class="col" style="gap:0;min-width:0"><span class="fname" title="${esc(f.name)}">${esc(f.name)}</span><span class="xs muted">${f.type} · ${esc(f.who)}</span></div></div></td>
     <td class="xs num">${clock(f.rec)}</td><td class="xs num">${f.cap!=null?clock(f.cap):'<span class="muted">not present</span>'}</td><td class="xs"><span class="${procTone(f)}">${procLabel(f)}</span>${f.proc==='Processing'?`<div class="bar" style="margin-top:4px;width:90px"><i style="width:${(f.step/5)*100}%"></i></div>`:''}</td><td>${reviewCell(ev,f)}</td>
     <td>${f.dup?'<span class="chip" style="font-size:10px">Duplicate</span> ':''}${f.typeFlag?'<span class="chip" style="font-size:10px">Type differs from label</span>':''}</td></tr>`).join('');
   return `<div class="card" style="padding:14px 6px 6px"><div class="row sp" style="padding:0 10px"><h3>Live contributions</h3><span class="xs muted" aria-live="polite">● Live · pushed, not polled</span></div>
     <div class="row" style="padding:0 10px;gap:6px">${['All','Photo','Video','Audio'].map(t=>`<button class="chip ${F.type===t?'on':''}" data-act="f-type" data-v="${t}">${t}</button>`).join('')}<button class="chip ${F.attention?'on':''} ${att&&!F.attention?'r':''}" data-act="f-att">Needs attention · ${att}</button>
-    ${F.who?`<button class="chip on" data-act="f-who" data-v="">${esc((live(ev).find(f=>f.dev===F.who)||{}).who||'Contributor')} ✕</button>`:''}<input class="in sm" style="min-height:34px;width:200px;margin-left:auto" placeholder="Search file name or ID" aria-label="Search files" id="f-q" value="${esc(F.q)}"></div>
+    ${ev.geo?['inside','weak','none'].map(k=>`<button class="chip ${F.geo===k?'on':''}" data-act="f-geo" data-v="${k}">${{inside:'Inside',weak:'Not precise',none:'No location'}[k]} · ${live(ev).filter(f=>(f.geo||'none')===k).length}</button>`).join(''):''}${F.who?`<button class="chip on" data-act="f-who" data-v="">${esc((live(ev).find(f=>f.dev===F.who)||{}).who||'Contributor')} ✕</button>`:''}<input class="in sm" style="min-height:34px;width:200px;margin-left:auto" placeholder="Search file name or ID" aria-label="Search files" id="f-q" value="${esc(F.q)}"></div>
     <div class="tblwrap"><table class="t"><thead><tr><th>File</th><th>Received</th><th>Captured</th><th>Processing</th><th>Review</th><th></th></tr></thead><tbody>${rows || `<tr><td colspan="6" style="text-align:center;padding:24px">No files match. <button class="btn3" data-act="f-clear">Clear filters</button></td></tr>`}</tbody></table></div>
     ${ev.files.some(f=>f.removed)?`<div style="padding:6px 10px"><button class="btn3 sm" data-act="removed-list" data-id="${ev.id}">View removed files (${ev.files.filter(f=>f.removed).length})</button></div>`:''}</div>`;
 }
@@ -1187,6 +1194,38 @@ function supportPage(){
 const EVIMG = ['ev1.jpg','ev2.jpg','ev3.jpg'];
 const evImg = ev => EVIMG[S.events.indexOf(ev) % 3];
 function coverage(ev){ const rv = reviewView(ev); if (!rv || rv.r.state!=='complete' || !rv.total) return null; return Math.round(rv.assessed.length / counts(ev).files * 100); }
+const GEO_SUG = [['Indianapolis Motor Speedway','4790 W 16th St, Speedway, IN','place',1.3],['Speedway — Turn 3 grandstand','Speedway, IN','place',0.21],['Lucas Oil Stadium','500 S Capitol Ave, Indianapolis, IN','place',0.74],['Downtown Indianapolis','Indianapolis, IN','place',3.6],['Riverside City Hall','Riverside, IL','place',0.18]];
+const GEO_TXT = {inside:'Inside the event area', weak:'Location not precise enough', none:'Location not provided'};
+const GEO_TONE = {inside:'st-ok', weak:'st-w', none:'st-g'};
+function geoNew(){ return { on:false, method:'place', q:'', picked:null, radius:400, shape:false, err:'' }; }
+function geoFrom(g){ if (!g) return geoNew(); return { on:true, method:g.method==='radius'?'radius':g.method==='shape'?'shape':'place', q:g.method==='place'?g.label.replace(/^Place · /,''):'', picked:g.method==='place'?{t:g.label.replace(/^Place · /,''),km2:g.km2}:null, radius:g.radius||400, shape:g.method==='shape', err:'' }; }
+function geoArea(g){ if (!g || !g.on) return null; if (g.method==='radius') { if (!(g.radius>=50 && g.radius<=5000)) return null; return { method:'radius', label:'Radius '+(g.radius>=1000?(g.radius/1000)+' km':g.radius+' m'), radius:g.radius, km2:+(Math.PI*g.radius*g.radius/1e6).toFixed(2) }; }
+  if (g.method==='shape') return g.shape ? { method:'shape', label:'Drawn shape', km2:0.42, radius:null } : null; return g.picked ? { method:'place', label:'Place · '+g.picked.t, km2:g.picked.km2, radius:null } : null; }
+function geoSvg(kind, rad, w=520, h=200, pins='', label=''){
+  let st=''; for (let i=0;i<9;i++) st += `<line x1="${i*70-30}" y1="0" x2="${i*70+30}" y2="${h}" stroke="#18202A" stroke-width="${i%3?6:10}"/>`; for (let j=0;j<5;j++) st += `<line x1="0" y1="${j*55+12}" x2="${w}" y2="${j*55-10}" stroke="#18202A" stroke-width="${j%2?5:9}"/>`;
+  const cx=w/2, cy=h/2; let a='';
+  if (kind==='radius') { const r = Math.max(14, Math.min(h*0.46, 14 + Math.sqrt(rad/5000)*h*0.42)); a = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="rgba(230,11,29,.12)" stroke="#E60B1D" stroke-width="2.5"/><line x1="${cx}" y1="${cy}" x2="${cx+r}" y2="${cy}" stroke="#FF5A63"/><circle cx="${cx+r}" cy="${cy}" r="6" fill="#fff" stroke="#E60B1D" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="3.5" fill="#fff"/>`; }
+  else if (kind) { const s2 = kind==='place'?0.8:1, pts=[[-150,-62],[40,-80],[165,-18],[120,70],[-60,82],[-170,25]].map(([x,y])=>[cx+x*s2*(w/560), cy+y*s2*(h/220)]); a = `<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="rgba(230,11,29,.12)" stroke="#E60B1D" stroke-width="2.5"/>` + (kind==='shape'?pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="5.5" fill="#fff" stroke="#E60B1D" stroke-width="2"/>`).join(''):''); }
+  return `<svg class="mapsvg" viewBox="0 0 ${w} ${h}" role="img" aria-label="Event area map"><rect width="${w}" height="${h}" fill="#0C1117"/>${st}<path d="M0 ${h*0.82} C ${w*0.3} ${h*0.72}, ${w*0.5} ${h}, ${w} ${h*0.86} L ${w} ${h} L 0 ${h} Z" fill="#0E1A26"/>${a}${pins}${label?`<text x="${cx}" y="16" fill="#7D848E" font-size="11" text-anchor="middle" font-family="sans-serif">${esc(label)}</text>`:''}</svg>`; }
+function geoEditor(g, scope){
+  const A = geoArea(g), m = g.method;
+  const tab = (k,t) => `<button class="chip ${m===k?'on':''}" data-act="g-method" data-s="${scope}" data-v="${k}">${t}</button>`;
+  const sug = g.q && !g.picked ? GEO_SUG.filter(x=>x[0].toLowerCase().includes(g.q.toLowerCase()) || x[1].toLowerCase().includes(g.q.toLowerCase())) : [];
+  let body = '';
+  if (m==='place') body = `<input class="in" data-g="q" data-s="${scope}" id="g-q-${scope}" placeholder="Search for the venue or an address" value="${esc(g.picked?g.picked.t:g.q)}" autocomplete="off">
+    ${g.q && !g.picked ? (sug.length ? `<div class="geosug">${sug.map(x=>`<button data-act="g-pick" data-s="${scope}" data-v="${esc(x[0])}"><b class="sm">${esc(x[0])}</b><span class="xs muted">${esc(x[1])}</span></button>`).join('')}</div>` : `<div class="note xs"><b>No places found.</b> Check the spelling, or set a radius around your current location.</div>`) : ''}
+    ${g.picked?geoSvg('place',0,520,190,'',g.picked.t):''}`;
+  if (m==='radius') body = geoSvg('radius', g.radius, 520, 190, '', 'Centre · your event location') + `<div class="row" style="gap:10px;flex-wrap:nowrap;align-items:center"><input type="range" min="50" max="5000" step="50" value="${Math.min(5000,Math.max(50,g.radius||50))}" data-g="radius" data-s="${scope}" aria-label="Radius" style="flex:1;accent-color:var(--red)"><input class="in" style="width:110px;min-height:34px" data-g="radiusn" data-s="${scope}" id="g-rn-${scope}" value="${g.radius}" inputmode="numeric" aria-label="Radius in metres"><span class="xs muted">m</span></div>
+    ${g.radius<50||g.radius>5000?'<span class="errt" role="alert">Use a radius between 50 m and 5 km.</span>':'<span class="hint">Between 50 m and 5 km.</span>'}`;
+  if (m==='shape') body = g.shape ? geoSvg('shape',0,520,190) + `<div class="row sp"><span class="xs muted">Drag points to adjust · tap a point to remove</span><button class="btn3 xs" data-act="g-shape" data-s="${scope}" data-v="0">Clear</button></div>`
+    : `<div class="note" style="text-align:center;padding:22px"><b style="color:var(--fg)">Tap the map to place points around the area</b><br><span class="xs">Three points or more, without the outline crossing itself.</span><br><button class="btn2 sm-btn" style="margin-top:8px" data-act="g-shape" data-s="${scope}" data-v="1">Draw around the venue</button></div>`;
+  return `<div class="geoed"><div class="row sp" style="flex-wrap:nowrap"><span class="col" style="gap:2px"><b class="sm">Enable geofencing</b><span class="xs muted">Limit uploads to people inside this area, and show the event to people nearby.</span></span><button class="tog ${g.on?'on':''}" role="switch" aria-checked="${g.on}" aria-label="Enable geofencing" data-act="g-tog" data-s="${scope}"></button></div>
+    ${g.on?`<div class="row" style="gap:6px">${tab('place','Place search')}${tab('radius','Radius')}${tab('shape','Draw shape')}</div>${body}
+    <div class="georead"><span class="muted">Area</span><b>${A?esc(A.label)+' · '+A.km2+' km²':'Not set yet'}</b></div>
+    ${A&&A.km2>50?'<div class="warnbox xs"><b>This area is very large.</b> People across a wide area would be shown your event. You can still save.</div>':''}
+    ${g.err?`<span class="errt" role="alert">${g.err}</span>`:''}`:''}</div>`;
+}
+function geoScopeObj(scope){ return scope==='m' ? (M.cdraft && M.cdraft.geo) : (S.draft && S.draft.geo); }
 function thumbUrl(f){ if (!f || ['Quarantined','Failed'].includes(f.proc) || f.type==='Audio') return null; return f.thumb || EVIMG[parseInt(f.fp.slice(0,2),16)%3]; }
 function thumbStyle(f){ const u = thumbUrl(f); return u ? `background-image:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.15)),url(${u})` : ''; }
 function geo(s){ if (!s) return null; const m = String(s).split(',').map(Number); return m.length===2 && !isNaN(m[0]) ? {lat:m[0], lng:m[1]} : null; }
@@ -1199,10 +1238,12 @@ function mapSvg(ev, exact){
   const X = g => W/2 + (g.lng-cLng)/span*W*0.55, Y = g => H/2 - (g.lat-cLat)/span*H*0.95;
   let streets = ''; for (let i=0;i<9;i++) streets += `<line x1="${i*70-20}" y1="0" x2="${i*70+40}" y2="${H}" stroke="#18202A" stroke-width="${i%3?6:10}"/>`;
   for (let j=0;j<6;j++) streets += `<line x1="0" y1="${j*60+10}" x2="${W}" y2="${j*60-14}" stroke="#18202A" stroke-width="${j%2?6:9}"/>`;
-  const col = {Photo:'#FF5A63', Video:'#8FB4FF', Audio:'#F5A524'};
+  const col = {Photo:'#FF5A63', Video:'#8FB4FF', Audio:'#F5A524'}, gcol = {inside:'#3CCB7F', weak:'#F5A524', none:'#7D848E'};
   const xs = pts.map(p=>X(p.g)), ys = pts.map(p=>Y(p.g));
-  const area = pts.length ? `<ellipse cx="${(Math.min(...xs)+Math.max(...xs))/2}" cy="${(Math.min(...ys)+Math.max(...ys))/2}" rx="${Math.max(46,(Math.max(...xs)-Math.min(...xs))/2+30)}" ry="${Math.max(36,(Math.max(...ys)-Math.min(...ys))/2+26)}" fill="rgba(230,11,29,.10)" stroke="#E60B1D" stroke-width="2" stroke-dasharray="6 5"/>` : '';
-  const pins = exact ? pts.map(p=>`<g class="pin" data-act="file" data-id="${p.f.id}" role="button" aria-label="${esc(p.f.name)}"><title>${esc(p.f.name)} · ${p.f.type} · ${p.src==='file'?'location in file':'browser location'}</title><circle class="o" cx="${X(p.g)}" cy="${Y(p.g)}" r="8" fill="${col[p.f.type]||'#FF5A63'}" stroke="#07090D" stroke-width="2"/>${p.src==='browser'?`<circle cx="${X(p.g)}" cy="${Y(p.g)}" r="13" fill="none" stroke="${col[p.f.type]||'#FF5A63'}" stroke-width="1" stroke-dasharray="2 2"/>`:''}</g>`).join('') : '';
+  const gx0 = pts.length?(Math.min(...xs)+Math.max(...xs))/2:W/2, gy0 = pts.length?(Math.min(...ys)+Math.max(...ys))/2:H/2;
+  const geoPoly = ev.geo ? (ev.geo.method==='radius' ? `<circle cx="${gx0}" cy="${gy0}" r="${Math.min(H*0.46, 120)}" fill="rgba(230,11,29,.06)" stroke="#E60B1D" stroke-width="2.5"/>` : `<polygon points="${[[-170,-75],[40,-100],[190,-25],[140,90],[-70,105],[-195,30]].map(([x,y])=>(gx0+x*0.9)+','+(gy0+y*0.9)).join(' ')}" fill="rgba(230,11,29,.06)" stroke="#E60B1D" stroke-width="2.5"/>`) + `<text x="${gx0}" y="${Math.max(14,gy0-100)}" fill="#FF8A90" font-size="11" text-anchor="middle" font-family="sans-serif">Event area · v${ev.geo.version}</text>` : '';
+  const area = ev.geo ? geoPoly : pts.length ? `<ellipse cx="${(Math.min(...xs)+Math.max(...xs))/2}" cy="${(Math.min(...ys)+Math.max(...ys))/2}" rx="${Math.max(46,(Math.max(...xs)-Math.min(...xs))/2+30)}" ry="${Math.max(36,(Math.max(...ys)-Math.min(...ys))/2+26)}" fill="rgba(230,11,29,.10)" stroke="#E60B1D" stroke-width="2" stroke-dasharray="6 5"/>` : '';
+  const pins = exact ? pts.map(p=>`<g class="pin" data-act="file" data-id="${p.f.id}" role="button" aria-label="${esc(p.f.name)}"><title>${esc(p.f.name)} · ${p.f.type} · ${p.src==='file'?'location in file':'browser location'}</title><circle class="o" cx="${X(p.g)}" cy="${Y(p.g)}" r="8" fill="${ev.geo?gcol[p.f.geo||'inside']:(col[p.f.type]||'#FF5A63')}" stroke="#07090D" stroke-width="2"/>${p.src==='browser'?`<circle cx="${X(p.g)}" cy="${Y(p.g)}" r="13" fill="none" stroke="${col[p.f.type]||'#FF5A63'}" stroke-width="1" stroke-dasharray="2 2"/>`:''}</g>`).join('') : '';
   return `<svg class="mapsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${exact?'Exact points of '+pts.length+' files':'Approximate area of '+pts.length+' files'}"><rect width="${W}" height="${H}" fill="#0C1117"/>${streets}
     <path d="M0 ${H*0.78} C ${W*0.25} ${H*0.68}, ${W*0.45} ${H*0.95}, ${W} ${H*0.82} L ${W} ${H} L 0 ${H} Z" fill="#0E1A26"/>
     <rect x="${W/2-120}" y="${H/2-70}" width="240" height="140" rx="60" fill="#121A22" stroke="#23303D" stroke-width="2"/><text x="${W/2}" y="${H/2-78}" fill="#5E6B78" font-size="11" text-anchor="middle" font-family="sans-serif">${esc((ev.place||'Event area').split(',')[0])}</text>
@@ -1294,9 +1335,11 @@ function locationCard(ev){
   const K = (k,v) => `<div class="kv"><span class="eyebrow" style="font-size:10px">${k}</span><span class="sm" style="color:var(--fg);text-align:right">${v}</span></div>`;
   const by = t => withLoc.filter(f=>f.type===t).length;
   return `<div class="card">${sec('live','Location', withLoc.length?`<div class="row" style="gap:4px"><button class="chip ${exact?'on':''}" data-act="map-mode" data-v="1">Exact points</button><button class="chip ${!exact?'on':''}" data-act="map-mode" data-v="0">Approximate area</button></div>`:'','ok')}
-    ${withLoc.length ? mapSvg(ev, exact) + `<div class="row xs" style="gap:14px;color:var(--fg2)"><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#FF5A63"></span>Photo ${by('Photo')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#8FB4FF"></span>Video ${by('Video')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#F5A524"></span>Audio ${by('Audio')}</span><span class="row" style="gap:5px"><span style="width:12px;height:12px;border-radius:6px;border:1px dashed var(--fg2)"></span>browser location (no location in file)</span></div>`
+    ${ev.geo?`<div class="row sp" style="flex-wrap:nowrap;border:1px solid var(--red-line);background:var(--red-wash);border-radius:8px;padding:8px 12px"><span class="col" style="gap:1px"><b class="sm">Geofenced · ${esc(ev.geo.label)} · ${ev.geo.km2} km²</b><span class="xs muted">Uploads are checked against this area · people inside are shown the event · version ${ev.geo.version}</span></span><button class="btn2 sm-btn" data-act="edit" data-id="${ev.id}">Edit area</button></div>`:''}
+    ${withLoc.length ? mapSvg(ev, exact) + (ev.geo ? `<div class="row xs" style="gap:14px;color:var(--fg2)">${['inside','weak','none'].map(k=>`<span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:${{inside:'#3CCB7F',weak:'#F5A524',none:'#7D848E'}[k]}"></span>${GEO_TXT[k]} · ${fs.filter(f=>(f.geo||'')===k).length}${k==='none'?' (not on map)':''}</span>`).join('')}</div>` : '') + `<div class="row xs" style="gap:14px;color:var(--fg2)${ev.geo?';display:none':''}"><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#FF5A63"></span>Photo ${by('Photo')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#8FB4FF"></span>Video ${by('Video')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#F5A524"></span>Audio ${by('Audio')}</span><span class="row" style="gap:5px"><span style="width:12px;height:12px;border-radius:6px;border:1px dashed var(--fg2)"></span>browser location (no location in file)</span></div>`
       : `<div class="note" style="text-align:center;padding:26px"><b style="color:var(--fg)">No location data yet</b><br>None of these files includes a location, and no contributor shared one.</div>`}
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 24px">${K('Event place',ev.place?esc(ev.place):'Not set')}${K('Approximate area',first?(first.loc||first.bloc).split(',').map(x=>(+x).toFixed(3)).join(', '):'Not captured')}${K('Files with location',withLoc.length+' of '+fs.length)}${K('Without location',fs.length-withLoc.length?`<button class="btn3 xs" style="min-height:0;padding:0" data-act="f-noloc">${fs.length-withLoc.length} files — not a sign of anything wrong</button>`:'None')}${K('Exact points','Owner and super admins only')}${K('Geofence','Coming soon')}</div></div>`;
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 24px">${K('Event place',ev.place?esc(ev.place):'Not set')}${K('Approximate area',first?(first.loc||first.bloc).split(',').map(x=>(+x).toFixed(3)).join(', '):'Not captured')}${K('Files with location',withLoc.length+' of '+fs.length)}${K('Without location',fs.length-withLoc.length?`<button class="btn3 xs" style="min-height:0;padding:0" data-act="f-noloc">${fs.length-withLoc.length} files — not a sign of anything wrong</button>`:'None')}${K('Exact points','Owner and super admins only')}${K('Geofence',ev.geo?esc(ev.geo.label)+' · v'+ev.geo.version:'Off')}</div>
+    ${ev.geo&&ev.geo.hist&&ev.geo.hist.length>1?`<div class="col" style="gap:4px"><span class="eyebrow">Area history</span>${ev.geo.hist.map(h=>`<div class="kv"><span>v${h.v} · ${esc(h.t)}</span><span class="xs muted">${esc(h.by)} · ${clock(h.at)}</span></div>`).join('')}<span class="xs muted">Files already received keep the result and area version they were checked against.</span></div>`:''}</div>`;
 }
 function shareCard(ev){
   const url = contribUrl(ev), priv = ev.privacy;
@@ -1307,6 +1350,7 @@ function shareCard(ev){
         <div class="sharebtns"><button class="btn2" data-act="dl-qr" data-id="${ev.id}">Download PNG</button><button class="btn2" data-act="print-card" data-id="${ev.id}">Print card</button><button class="btn2" data-act="share-sheet" data-id="${ev.id}">Text / email</button><button class="btn2" data-act="fan-view" data-id="${ev.id}">Fan view ↗</button></div></div></div>
     ${priv==='Invite only'?`<div class="row sp" style="border:1px solid var(--line);border-radius:6px;padding:8px 10px;flex-wrap:nowrap"><span class="col" style="gap:1px"><span class="xs muted">Share code · inside the QR and link</span><b class="mono" style="letter-spacing:.2em">${ev.code}</b></span><span class="row" style="gap:6px"><button class="btn2 sm-btn" style="min-height:30px" data-act="copy-code" data-id="${ev.id}">Copy</button><button class="btn2 sm-btn" style="min-height:30px" data-act="regen-code" data-id="${ev.id}">Regenerate</button></span></div>`:''}
     <div class="row sp" style="flex-wrap:nowrap;border-top:1px solid var(--line);padding-top:10px"><span class="col" style="gap:1px"><b class="sm">Accepting uploads</b><span class="xs muted">${ev.archived?'Archived events stay closed':ev.uploads?'People who scan can send files now':'People who scan see “not accepting contributions”'}</span></span><button class="tog ${ev.uploads?'on':''}" role="switch" aria-checked="${ev.uploads}" aria-label="Accepting uploads" data-act="toggle-uploads" data-id="${ev.id}" ${ev.archived?'disabled':''}></button></div>
+    ${ev.geo?`<div class="kv" style="border:0;padding:0;flex-wrap:wrap;gap:4px"><span>Refused — outside the area</span><span>${ev.geo.refused}</span></div><span class="xs muted" style="margin-top:-6px">Count only — no one’s location is stored for these.</span>`:''}
     <div class="kv" style="border:0;padding:0"><span>Following by email</span><span>${ev.followers||0} <span class="muted">· totals only</span></span></div></div>`;
 }
 function contributorsPanel(ev){
@@ -1328,7 +1372,7 @@ function eventPage(ev){
     ${sup?'<div class="errbox">Viewing a customer’s workspace as CivilCamAI super admin — this visit is logged.</div>':''}
     <section class="evhero"><div class="img" style="background-image:url(evhero.jpg)"></div><div class="shade"></div><div class="col" style="position:relative;gap:14px;padding:28px 32px">
       <div class="row sp" style="align-items:flex-start"><div class="col" style="gap:8px;min-width:0"><span class="eyebrow" style="color:var(--fg2);letter-spacing:.16em">CivilCamAi event · ${esc(ev.type)}</span><h1 style="font-size:clamp(26px,3vw,34px);overflow-wrap:anywhere">${esc(ev.title)}</h1>
-        <div class="row sm" style="gap:16px;color:var(--fg2)"><span class="row" style="gap:6px">${ic('cal',14)} ${esc(ev.start)}</span><span class="row" style="gap:6px">${ic('live',14)} ${ev.place?esc(ev.place):'Location not set'}</span><span class="mono xs muted">${ev.id}</span>${privChip(ev.privacy)}</div></div>
+        <div class="row sm" style="gap:16px;color:var(--fg2)"><span class="row" style="gap:6px">${ic('cal',14)} ${esc(ev.start)}</span><span class="row" style="gap:6px">${ic('live',14)} ${ev.place?esc(ev.place):'Location not set'}</span><span class="mono xs muted">${ev.id}</span>${privChip(ev.privacy)}${ev.geo?`<span class="geochip">◎ Geofenced · ${ev.geo.km2} km²</span>`:''}</div></div>
         <div class="row" style="gap:8px"><button class="btn2 sm-btn" data-act="edit" data-id="${ev.id}">Edit</button><button class="btn2 sm-btn" data-act="show-qr" data-id="${ev.id}">QR</button><button class="btn sm-btn" data-act="report" data-id="${ev.id}">Report</button></div></div>
       <div class="htiles">${T('spark','Review coverage',cov==null?'Not reviewed':cov+'%',cov==null?'var(--muted)':'var(--warn)')}${T('camera','Videos',c.video)}${T('image','Photos',c.photo)}${T('chat','Audio',c.audio)}${T('users','Contributors',c.contributors)}</div></div></section>
     ${ev.archived?`<div class="warnbox"><b>Archived — read-only.</b> Hidden from your events list; uploads are closed. <button class="btn3" data-act="unarchive" data-id="${ev.id}" style="color:var(--warn-text)">Restore</button></div>`:!ev.uploads?`<div class="note">Uploads closed — the workspace works as normal. <button class="btn3" data-act="toggle-uploads" data-id="${ev.id}">Reopen uploads</button></div>`:''}`;
@@ -1370,7 +1414,7 @@ function startPage(){
 }
 
 /* ================= MOBILE APP (PWA) ================= */
-const M = { submitting:false, pickKind:null, screen:'home', stack:[], ev:null, name:'', loc:null, queue:[], sheet:null, signal:true, rate:false, codeTries:0, codeErr:'', idErr:'', idVal:'', receipt:null, follow:null, err:{}, sentCount:0, asOwner:false, afterCreate:'ready', cdraft:null, nameErr:'', signedIn:false, rep:null, lnk:null, mf:'All', au:{}, mail:null, camBlocked:false, failing:false, slow:false, locked:false, lockNote:false, leftover:null, contrib:{}, fileId:null, edraft:null, delErr:'', fan:false, cfail:false, cdraft0:'', cam:null, okEv:{}, pend:null, askedName:{}, nameAtSubmit:false, procSig:'', procT:null, procDone:false };
+const M = { submitting:false, pickKind:null, screen:'home', stack:[], ev:null, name:'', loc:null, queue:[], sheet:null, signal:true, rate:false, codeTries:0, codeErr:'', idErr:'', idVal:'', receipt:null, follow:null, err:{}, sentCount:0, asOwner:false, afterCreate:'ready', cdraft:null, nameErr:'', signedIn:false, rep:null, lnk:null, mf:'All', au:{}, mail:null, camBlocked:false, failing:false, slow:false, locked:false, lockNote:false, leftover:null, contrib:{}, fileId:null, edraft:null, delErr:'', fan:false, cfail:false, cdraft0:'', cam:null, okEv:{}, pend:null, geoSim:'inside', geoNext:null, geoOk:{}, geoRes:{}, geoTries:0, nearby:null, nearDismiss:false, askedName:{}, nameAtSubmit:false, procSig:'', procT:null, procDone:false };
 const MSEQ = {n:0};
 function mgo(s, push=true){ if (M.screen==='cam' && s!=='cam') stopCam(); if (s==='home' && M.signedIn) s = 'owner'; if (s==='mreport') M.rep = null; if (s==='mshare') M.lnk = null; if (push && M.screen!==s) M.stack.push(M.screen); M.screen = s; M.sheet=null; render(); const sc = document.querySelector('.mscreen'); if (sc) sc.scrollTop = 0; }
 function mback(){ if (M.screen==='cam') stopCam(); let b = M.stack.pop() || 'home'; if (b==='home' && M.signedIn) b = 'owner'; M.screen = b; M.sheet=null; render(); }
@@ -1426,7 +1470,7 @@ function received(q){
   const ev = mEvent(); if (!ev) return; NOW += 0.2;
   const name = M.asOwner ? S.user?.name || 'Organizer' : (M.name.trim() || 'Anonymous');
   const f = mkFile(ev, { name:q.name, type:q.kind==='Document'?'Photo':q.kind, who:name, dev:'m-'+(M.asOwner?'owner':'phone'), rec:NOW, cap:q.how==='app'?NOW-0.05:/^(IMG|VID|PXL)/i.test(q.name)?NOW-1:null, thumb:q.thumb||null, size:fmtSize(q.size), device:q.how==='app'?'CivilCamAi camera · this phone':'This phone', bloc: M.loc==='on'?'39.7950, -86.2353':null,
-    typeRes: q.name.toLowerCase().endsWith('.jpg')?'JPEG · matches label':q.kind+' · matches label', rc: q.kind==='Video'&&q.size>50*1048576?{orig:'3:00',copy:'0:42'}:null, consent:'v1 · QR' });
+    typeRes: q.name.toLowerCase().endsWith('.jpg')?'JPEG · matches label':q.kind+' · matches label', rc: q.kind==='Video'&&q.size>50*1048576?{orig:'3:00',copy:'0:42'}:null, consent:'v1 · QR', geo: ev.geo ? (M.asOwner ? 'inside' : (M.geoRes[ev.id] || 'none')) : undefined });
   ev.files.push(f); q.fileId = f.id; log('File received from the mobile app · '+q.name, ev.id); processFile(ev, f);
   if (ev.review && ev.review.state==='complete') note('New evidence: review required', ev.title+' · '+q.name, '#event-'+ev.id);
 }
@@ -1453,13 +1497,14 @@ function mobileFrame(){
   const guide = `<aside class="mguide"><a href="#start" class="row" style="gap:8px;color:var(--fg);text-decoration:none;font-weight:600">← Back to start</a>
     <div class="col" style="gap:4px"><span class="eyebrow r">Mobile app · PWA</span><h2>Try a journey</h2><span class="sm muted">Each one starts the phone at a different point. Everything is clickable inside the phone.</span></div>
     <div class="col" style="gap:6px"><span class="eyebrow">Contributors</span>
-      ${[['scan-public','Scan a Public event QR','Brickyard Fan Zone — Turn 3'],['scan-invite','Scan an Invite-only QR (with code)','Riverside Council — name required'],['scan-bare','Open an Invite-only link without the code','“Share code required”'],['scan-closed','Scan a closed event','“Not accepting contributions”'],['scan-bad','Open a wrong or Private link','“Event not found”'],['geo','Walk into a geofenced area','Coming soon'],['enter-id','Type an Event ID','Can’t scan the QR'],['again','Contribute again later','Same phone, second visit']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
+      ${[['scan-public','Scan a Public event QR','Brickyard Fan Zone — Turn 3'],['scan-invite','Scan an Invite-only QR (with code)','Riverside Council — name required'],['scan-bare','Open an Invite-only link without the code','“Share code required”'],['scan-closed','Scan a closed event','“Not accepting contributions”'],['scan-bad','Open a wrong or Private link','“Event not found”'],['near','Walk into an event area','Nearby event on the home screen'],['near2','Two events here','Choose between overlapping events'],['geo','Upload from outside the area','Refused, then walk in and check again'],['geo-weak','Weak GPS indoors','“We can’t tell yet” · check again'],['geo-denied','Deny location on a geofenced event','Why and how to turn it on'],['enter-id','Type an Event ID','Can’t scan the QR'],['again','Contribute again later','Same phone, second visit']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
       <span class="eyebrow" style="margin-top:10px">Organizer account</span>
       ${[['acct-new','Create an account','Sign up → confirm email → account type → empty home'],['acct-signin','Sign in','Wrong password, lockout, unconfirmed email'],['acct-forgot','Forgot password','Email link → new password'],['acct-google','Continue with Google','Choose account, new account, cancel']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
       <span class="eyebrow" style="margin-top:10px">Organizers on a phone</span>
       ${[['owner-home','Organizer home','Start recording, upload, recent events'],['owner-create','Start an event recording','Create, then capture'],['owner-check','Event summary','Timeline, media, report, share'],['owner-ai','AI review results','Coverage and what was checked'],['owner-file','File detail','Times, location, fingerprint, custody'],['owner-manage','Manage an event','Edit, close uploads, archive'],['owner-private','Share a Private event','Warning before sharing']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
     </div>
     <div class="col" style="gap:8px;border-top:1px solid var(--line);padding-top:14px"><span class="eyebrow">Conditions</span>
+      <span class="sm">Your location on geofenced events:</span><div class="row" style="gap:6px">${[['inside','Inside'],['outside','Outside'],['weak','Can’t tell']].map(([k,t])=>`<button class="chip ${M.geoSim===k?'on':''}" data-act="m-geosim" data-v="${k}">${t}</button>`).join('')}</div>
       <label class="row sm sp" style="flex-wrap:nowrap">Phone has signal <button class="tog ${M.signal?'on':''}" role="switch" aria-checked="${M.signal}" aria-label="Phone has signal" data-act="m-signal"></button></label>
       <label class="row sm sp" style="flex-wrap:nowrap">Upload limit reached <button class="tog ${M.rate?'on':''}" role="switch" aria-checked="${M.rate}" aria-label="Upload limit reached" data-act="m-rate"></button></label>
       <label class="row sm sp" style="flex-wrap:nowrap">Slow network <button class="tog ${M.slow?'on':''}" role="switch" aria-checked="${M.slow}" aria-label="Slow network" data-act="m-cond" data-v="slow"></button></label>
@@ -1495,7 +1540,7 @@ function mOwner(s, ev){
   const chev = `<span class="chv">${ic('chev',16)}</span>`;
   if (s==='owner') { const evs = myEvents().filter(e=>!e.archived).sort((a,b)=>b.created-a.created), un = myNotes().filter(n=>!n.read).length;
     return `<div class="mtop">${MBRAND()}<span style="flex:1"></span><button class="mbtnicon" style="position:relative" data-act="m-tab" data-v="alerts" aria-label="Alerts${un?', '+un+' unread':''}">${ic('bell',16)}${un?'<span class="mdotb"></span>':''}</button><button class="mbtnicon" data-act="m-tab" data-v="profile" aria-label="Profile">${ic('user',16)}</button></div>
-    <div class="mbody" style="gap:12px">${SLOGAN}
+    <div class="mbody" style="gap:12px">${nearbyCard()}${SLOGAN}
       <button class="mrec" data-act="m-quick" aria-label="Start event recording"><i></i></button>
       <div class="col" style="gap:2px;align-items:center"><span class="mreclab">START EVENT RECORDING</span><span class="xs muted">Creates an event, then opens the camera</span></div>
       <button class="mlink hl" data-act="m-go" data-v="pickev"><span class="mico">${ic('upload',20)}</span><span class="col" style="gap:2px"><b>Upload evidence</b><span class="xs muted">Add photos, video or audio to an event</span></span>${chev}</button>
@@ -1541,7 +1586,7 @@ function mOwner(s, ev){
     return mTop('Event summary', true, `<button class="mbtnicon" data-act="m-go" data-v="mshare" aria-label="Share securely">${ic('share',16)}</button>`) + `<div class="mbody">
       <div class="card" style="gap:8px;padding:16px"><span class="eyebrow">Event ID</span><div class="row" style="gap:8px;flex-wrap:nowrap"><b class="mono" style="font-size:16px;overflow-wrap:anywhere">${ev.id}</b><button class="mbtnicon" style="width:30px;height:30px;flex:none" data-act="m-copyid" aria-label="Copy Event ID">${ic('copy',14)}</button></div>
         <b style="font-size:15px">${esc(ev.title)}</b><span class="xs muted row" style="gap:6px;flex-wrap:nowrap">${ic('cal',13)}<span>${esc(ev.start||'')}${ev.place?' · '+esc(ev.place):''}</span></span>
-        <div class="row" style="gap:6px">${privChip(ev.privacy)}<span class="chip ${ev.uploads?'':'w'}">${ev.uploads?'Uploads open':'Uploads closed'}</span>${ev.status==='CivilSealed'?'<span class="chip r">CivilSealed</span>':''}</div>
+        <div class="row" style="gap:6px">${privChip(ev.privacy)}<span class="chip ${ev.uploads?'':'w'}">${ev.uploads?'Uploads open':'Uploads closed'}</span>${ev.status==='CivilSealed'?'<span class="chip r">CivilSealed</span>':''}${ev.geo?`<span class="geochip">◎ Geofenced · ${ev.geo.km2} km²</span>`:''}</div>
         <button class="mbtnline" style="margin-top:4px" data-act="show-qr" data-id="${ev.id}">${ic('qr',16)} Show event QR code</button></div>
       <div class="msec">Timeline</div><div class="card" style="padding:14px"><div class="mtl">${tl.map(([t,d,tm,tone])=>`<div><span class="dot ${tone}"></span><span class="col" style="gap:1px;min-width:0"><b class="sm">${t}</b><span class="xs muted" style="overflow-wrap:anywhere">${esc(d)}</span></span><span class="mono xs muted">${tm}</span></div>`).join('')}</div></div>
       <button class="mlink" data-act="m-go" data-v="media"><span class="mico g">${ic('image',20)}</span><span class="col" style="gap:2px"><b>Media</b><span class="xs muted">${c.files} item${c.files===1?'':'s'} · ${c.photo} photo · ${c.video} video · ${c.audio} audio${c.proc?' · '+c.proc+' processing':''}</span></span>${chev}</button>
@@ -1622,6 +1667,9 @@ ${q.reason?`<span class="xs" style="color:var(--err,#FF5A63)">${q.reason}</span>
     ${q.state==='failed'?`<div class="row" style="gap:14px"><button class="btn sm-btn" data-act="m-retryf" data-v="${q.id}">Retry</button><button class="btn3 xs" data-act="m-remove" data-v="${q.id}">Remove</button></div>`:''}</div></div>`).join('');
 }
 function mPkgSize(ev){ const mb = live(ev).reduce((n,f)=>{ const m = String(f.size||'').match(/([\d.]+)\s*(KB|MB|GB)/); return n + (m ? +m[1]*(m[2]==='GB'?1024:m[2]==='KB'?1/1024:1) : 2); }, 0); return mb>=1024 ? (mb/1024).toFixed(1)+' GB' : Math.max(1,Math.round(mb))+' MB'; }
+function nearbyCard(){ if (!M.nearby || M.nearDismiss || M.loc==='off') return ''; const bk = evById('EVT-2026-K7QM-4TR');
+  return M.nearby==='two' ? `<div class="nearby" role="status" aria-live="polite"><span class="eyebrow r">● Nearby events</span><b>2 events are happening here</b><span class="sm muted">Choose one to add your photos or videos.</span><div class="row" style="flex-wrap:nowrap"><button class="btn sm-btn" style="flex:1" data-act="m-nearsee">See events</button><button class="btn2 sm-btn" data-act="m-neardismiss">Not now</button></div></div>`
+    : `<div class="nearby" role="status" aria-live="polite"><span class="eyebrow r">● Nearby event</span><b>You’re at ${esc(bk.title)}.</b><span class="sm muted">Add your photos or videos.</span><div class="row" style="flex-wrap:nowrap"><button class="btn sm-btn" style="flex:1" data-act="m-nearadd" data-v="${bk.id}">Add photos or videos</button><button class="btn2 sm-btn" data-act="m-neardismiss">Not now</button></div></div>`; }
 function mAuth(s){
   const a = M.au, e = a.err || {};
   const fld = (id, lab, type, v, err, hint, ph='') => `<div class="fld"><label class="lab" for="${id}">${lab}</label><input class="in ${err?'err':''}" id="${id}" type="${type}" value="${esc(v||'')}" placeholder="${ph}" ${type==='email'?'autocomplete="email" autocapitalize="none"':''}>${err?`<span class="errt" role="alert">${err}</span>`:hint?`<span class="hint">${hint}</span>`:''}</div>`;
@@ -1669,7 +1717,7 @@ function mManage(s, ev){
       <div class="col" style="gap:6px"><b style="font-size:17px;overflow-wrap:anywhere">${esc(f.name)}</b><span class="mpill ${st[1]}" style="align-self:flex-start">${st[0]}</span></div>
       ${f.removed?`<div class="warnbox xs"><b>Removed from the record</b> by ${esc(f.removed.by)} · “${esc(f.removed.reason)}”. The original and its fingerprint are kept.</div>`:''}
       ${f.proc==='Failed'||f.proc==='Quarantined'?`<div class="errbox xs"><b style="color:var(--fg)">${f.proc==='Failed'?'Processing failed':'Quarantined'}</b> — ${esc(f.fail||'a step failed')}. Our team has been told; the original is kept.</div>`:''}
-      <div class="card" style="gap:0;padding:6px 14px">${kv('Type',f.type+' · '+(f.size||''))}${kv('Contributor',esc(f.who))}${kv('Received',stamp(f.rec))}${kv('Captured',f.cap!=null?stamp(f.cap):'<span class="muted">Not present in the file</span>')}${kv('File location',f.loc?esc(f.loc):'<span class="muted">Not present</span>')}${kv('Browser location',f.bloc?esc(f.bloc)+' <span class="muted">· shared by the contributor</span>':'<span class="muted">Not shared</span>')}${kv('Device',f.device?esc(f.device):'<span class="muted">Not recorded</span>')}${kv('Type check',esc(f.typeRes||''))}${f.rc?kv('Review copy',f.rc.copy+' copy of a '+f.rc.orig+' original'):''}${kv('Duplicate',dup?'Same fingerprint as '+esc(dup.name):'No')}</div>
+      <div class="card" style="gap:0;padding:6px 14px">${kv('Type',f.type+' · '+(f.size||''))}${kv('Contributor',esc(f.who))}${kv('Received',stamp(f.rec))}${kv('Captured',f.cap!=null?stamp(f.cap):'<span class="muted">Not present in the file</span>')}${kv('File location',f.loc?esc(f.loc):'<span class="muted">Not present</span>')}${kv('Browser location',f.bloc?esc(f.bloc)+' <span class="muted">· shared by the contributor</span>':'<span class="muted">Not shared</span>')}${ev.geo?kv('Geofence',`<span class="${GEO_TONE[f.geo||'none']}">${GEO_TXT[f.geo||'none']}</span>`):''}${kv('Device',f.device?esc(f.device):'<span class="muted">Not recorded</span>')}${kv('Type check',esc(f.typeRes||''))}${f.rc?kv('Review copy',f.rc.copy+' copy of a '+f.rc.orig+' original'):''}${kv('Duplicate',dup?'Same fingerprint as '+esc(dup.name):'No')}</div>
       <div class="card" style="gap:6px"><div class="row sp"><span class="eyebrow">SHA-256 fingerprint</span><button class="mbtnicon" style="width:30px;height:30px" data-act="m-copyfp" aria-label="Copy fingerprint">${ic('copy',14)}</button></div><span class="mono xs" style="overflow-wrap:anywhere;color:var(--fg)">${f.fp}</span><span class="xs muted">Taken the moment the file arrived. Anyone can recompute it from the original to show the file hasn’t changed.</span></div>
       <div class="card" style="gap:6px"><span class="eyebrow">AI review for this file</span>${x?`<b class="sm ${x.tone==='ok'?'st-ok':x.tone==='w'?'st-w':x.tone==='r'?'st-r':'st-g'}">${esc(x.s)}</b><span class="xs muted">${esc(x.r)}</span>`:'<span class="sm muted">Not in a review yet — shown as “Received — not validated”.</span>'}</div>
       <div class="card" style="gap:4px"><span class="eyebrow">Custody</span><div class="mtl" style="gap:10px">${steps.map(([t,i])=>`<div><span class="dot ${f.step>=i||f.proc==='Processed'?'':'g'}"></span><span class="sm">${t}</span><span></span></div>`).join('')}</div><span class="xs muted" style="margin-top:6px">Kept exactly as received. Every step is in the append-only custody log.</span></div>
@@ -1699,7 +1747,7 @@ function mScreen(s){
   if (S.user && ev && ['mfile','medit','mpedit','mpw','mdel'].includes(s)) { const o = mManage(s, ev); if (o) return o; }
   if (S.user && ['mpedit','mpw','mdel'].includes(s)) { const o = mManage(s, ev||{files:[]}); if (o) return o; }
   if (MNAV.includes(s) && S.user) { const o = mOwner(s, ev); if (o) return o; }
-  if (s==='home') return mTop('',false) + `<div class="mbody" style="gap:12px">${SLOGAN}<span class="sm muted">Send photos, video or audio to an event. No account, no app store.</span>
+  if (s==='home') return mTop('',false) + `<div class="mbody" style="gap:12px">${nearbyCard()}${SLOGAN}<span class="sm muted">Send photos, video or audio to an event. No account, no app store.</span>
     <button class="mlink hl" data-act="m-go" data-v="scanner"><span class="mico">${ic('qr',20)}</span><span class="col" style="gap:2px"><b>Scan event QR</b><span class="xs muted">Use your camera on the organizer’s QR code</span></span><span class="chv">${ic('chev',16)}</span></button>
     <button class="mlink" data-act="m-go" data-v="enterid"><span class="mico">${ic('grid',20)}</span><span class="col" style="gap:2px"><b>Enter Event ID</b><span class="xs muted">Printed under the QR, e.g. EVT-2026-K7QM-4TR</span></span><span class="chv">${ic('chev',16)}</span></button>
     <div class="note xs">Add to Home Screen from your browser’s Share menu to open CivilCamAi like an app.</div>
@@ -1713,8 +1761,10 @@ function mScreen(s){
     <div class="fld" style="width:100%;text-align:left"><label class="lab" for="m-code">Share code</label><input class="in mono ${M.codeErr?'err':''}" id="m-code" placeholder="4 characters" ${M.codeTries>=3?'disabled':''}>${M.codeErr?`<span class="errt" role="alert">${M.codeErr}</span>`:'<span class="hint">Ask the organizer for the 4-character code.</span>'}</div>
     <button class="btn" style="width:100%" data-act="m-code" ${M.codeTries>=3?'disabled':''}>Enter share code</button></div>`;
   if (s==='closed') return mTop('') + `<div class="mbody">${evHeader(ev,true)}<div class="card" style="gap:6px"><b>This event isn’t accepting contributions</b><span class="sm muted">The organizer has closed uploads. Nothing you send now would be added.</span></div><button class="btn2" data-act="m-home">Done</button></div>`;
-  if (s==='outside') return mTop('') + `<div class="mbody mcenter"><span class="mfail">◎</span><h2>You’re outside this event’s area</h2><p class="muted">Uploads are open to people at the venue. Move inside the area and try again.</p><button class="btn" style="width:100%" data-act="m-checkagain">Check again</button>
-    <details style="text-align:left;width:100%"><summary class="sm" style="cursor:pointer;font-weight:600">Why am I seeing this?</summary><p class="sm muted" style="margin-top:6px">The organizer limited uploads to the venue. Your phone’s location is checked only to confirm you’re inside it, and only the organizer sees it.</p></details></div>`;
+  if (s==='outside') return mTop('') + `<div class="mbody mcenter"><span class="mfail">◎</span><h2>You’re outside this event’s area</h2><p class="muted">Uploads are open to people at the venue. Move inside the area and try again.</p>${M.queue.length||M.pend?'<div class="okbox xs" style="width:100%">Your selected files are kept.</div>':''}<button class="btn" style="width:100%" data-act="m-checkagain">Check again</button>
+    <details style="text-align:left;width:100%"><summary class="sm" style="cursor:pointer;font-weight:600">Why am I seeing this?</summary><p class="sm muted" style="margin-top:6px">The organizer limited uploads to the venue. Your phone’s location is checked only to confirm you’re inside the event area, and only the organizer sees it.</p></details><button class="btn3" data-act="m-geoback">Back to the event</button></div>`;
+  if (s==='geoweak') return mTop('') + `<div class="mbody"><div class="warnbox" role="status"><b>We can’t tell yet whether you’re inside the event area</b><br><span class="xs">Your location is only accurate to about ±180 m, and the edge of the area is closer than that.</span></div><b class="sm">Try this</b><span class="sm">• Move near a window or step outside</span><span class="sm">• Turn on Wi-Fi — it sharpens your location</span><span class="sm">• Wait a few seconds, then check again</span>${M.queue.length||M.pend?'<div class="okbox xs">Your selected files are kept.</div>':''}<div class="col" style="margin-top:auto"><button class="btn" data-act="m-checkagain">Check again</button><span class="xs muted" style="text-align:center">Attempt ${M.geoTries} of 3</span><button class="btn3" data-act="m-geoback">Back to the event</button></div></div>`;
+  if (s==='geodenied') return mTop('') + `<div class="mbody"><div class="warnbox"><b>This event needs your location</b><br><span class="xs">It only accepts files from people inside its area. Your location is checked once and shared only with the organizer.</span></div><b class="sm">Turn it on for this browser</b><span class="xs muted">iPhone: Settings › Safari › Location › Allow<br>Android: Chrome › ⋮ › Settings › Site settings › Location</span>${M.queue.length||M.pend?'<div class="okbox xs">Your selected files are kept.</div>':''}<div class="col" style="margin-top:auto"><button class="btn" data-act="m-geoallow">Allow location</button><button class="btn3" data-act="m-geoback">Back to the event</button></div></div>`;
   if (s==='event') {
     const fs = live(ev), feed = fs.length, accepted = Object.keys(ev.media).filter(k=>ev.media[k]);
     const sent = M.queue.filter(q=>q.state==='received').length, busy = M.queue.filter(q=>['uploading','queued','paused','retrying'].includes(q.state)).length, paused = M.queue.some(q=>q.state==='paused');
@@ -1722,6 +1772,7 @@ function mScreen(s){
     return mTop('', false, `<button class="mbtnicon" data-act="${M.asOwner||M.fan?'m-back':'m-home'}" aria-label="Close">✕</button>`) + `<div class="mbody" style="padding-top:0;gap:12px">${evHeader(ev, true)}
       ${ev.desc?`<p class="sm" style="color:var(--fg2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0">${esc(ev.desc)}</p>`:''}
       ${M.asOwner?`<div class="okbox xs">Signed in as the organizer — your files go straight into this event.</div>`:`
+      ${ev.geo&&!M.asOwner?(M.geoOk[ev.id]?`<div class="${M.geoRes[ev.id]==='weak'?'note':'okbox'} xs" role="status">${M.geoRes[ev.id]==='weak'?'Location not precise enough — your files are accepted and marked for the organizer.':'✓ Inside the event area'}</div>`:`<span class="geochip" style="align-self:flex-start">◎ Uploads only from inside the event area</span>`):''}
       <div class="row" style="gap:8px">
         <button class="mchip ${ev.attribution&&!M.name.trim()?'need':''}" data-act="m-chip" data-v="name" aria-label="Contributing as ${esc(M.name.trim()||'Anonymous')} — change">${ic('user',14)}<span>${M.name.trim()?esc(M.name.trim()):ev.attribution?'Add your name':'Anonymous'}</span><em>✎</em></button>
         <button class="mchip" data-act="m-chip" data-v="loc" aria-label="Location ${M.loc==='on'?'on':'off'} — change"><span class="mdotc" style="background:${M.loc==='on'?'var(--ok)':'var(--dim)'}"></span><span>Location ${M.loc==='on'?'on':M.loc==='off'?'off':'not set'}</span><em>✎</em></button></div>`}
@@ -1766,6 +1817,7 @@ function mScreen(s){
       ${d.privacy==='Public'?'<div class="warnbox xs"><b>Public events are visible to anyone.</b> Organizer name and location are shown with the Event ID or QR link.</div>':''}
       <span class="lab">Media accepted</span><div class="row" style="gap:6px">${Object.keys(d.media).map(k=>`<button class="chip ${d.media[k]?'on':''}" data-act="mc-media" data-v="${k}">${d.media[k]?'✓ ':''}${k}</button>`).join('')}</div>
       <div class="row sp" style="flex-wrap:nowrap"><b class="sm">Require contributor name</b><button class="tog ${d.attr?'on':''}" role="switch" aria-checked="${d.attr}" aria-label="Require contributor name" data-act="mc-attr"></button></div>
+      ${geoEditor(d.geo || (d.geo = geoNew()), 'm')}
       <span class="xs muted">Fingerprint and custody log · 🔒 always on</span></div>
       <div class="mfoot"><button class="btn" style="width:100%" data-act="mc-create">Create event &amp; start capturing</button></div>`; }
   if (s==='ready') return mTop('', false, `<button class="mbtnicon" data-act="m-owner" aria-label="Close">✕</button>`) + `<div class="mbody" style="align-items:stretch"><span class="eyebrow r">✓ Event ready</span><h2 style="font-size:24px">${esc(ev.title)}</h2><span class="mono xs muted">${ev.id} · ${ev.privacy} · ${counts(ev).files} contributions</span>
@@ -1782,6 +1834,9 @@ function mSheet(){
       <span class="sm muted" style="text-align:center">${req?'The organizer of this event asks contributors for their name.':'Optional — it helps the organizer follow up. Leave it blank to stay anonymous.'} Never shown publicly.</span>
       <input class="in ${M.nameErr?'err':''}" id="m-name" value="${esc(M.name)}" placeholder="${req?'Your name':'Your name (optional)'}" autocomplete="name" aria-label="Your name">${M.nameErr?`<span class="errt" role="alert">${M.nameErr}</span>`:''}
       <button class="btn" data-act="m-namesave">${atSubmit?'Add name &amp; submit':req?'Continue':'Save'}</button>${req?'':`<button class="btn2" data-act="m-nameanon">${atSubmit?'Submit anonymously':'Stay anonymous'}</button>`}</section>`; }
+  if (M.sheet==='geoloc') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="mdlg" role="dialog" aria-modal="true" aria-labelledby="mg-h"><span class="mico" style="align-self:center">${ic('live',20)}</span><h3 id="mg-h" style="text-align:center;margin:0">This event accepts contributions from inside its area</h3><span class="sm muted" style="text-align:center">We check your phone’s location against the event area when you add files, and record the result with your contribution. Only the organizer sees it.</span><button class="btn" data-act="m-loc" data-v="on">Allow location</button><button class="btn2" data-act="m-loc" data-v="off">Not now</button></section>`;
+  if (M.sheet==='geochk') return `<div class="mscrim"></div><section class="mdlg" role="status" aria-live="polite" style="align-items:center;text-align:center"><span class="mspin" style="width:44px;height:44px;border-width:3px"></span><b>Checking you’re inside the event area…</b><span class="xs muted">The check is made on our server — your phone only reports its location.</span></section>`;
+  if (M.sheet==='near') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="dialog" aria-modal="true" aria-label="Events here"><h3>Events happening here</h3><span class="sm muted">You’re inside the area of each of these. Pick one to add your photos or videos.</span>${['EVT-2026-K7QM-4TR','EVT-2026-D2CM-5HR'].map(id=>{ const e = evById(id); return `<button class="mlink" data-act="m-nearadd" data-v="${id}"><span class="mico">${ic('live',18)}</span><span class="col" style="gap:2px;min-width:0;flex:1"><b class="sm">${esc(e.title)}</b><span class="xs muted">${esc(e.organizer)} · ${esc((e.start||'').split(',').slice(1).join(',').trim()||e.start)}</span></span><span class="chv">${ic('chev',16)}</span></button>`; }).join('')}<button class="btn3" data-act="m-sheet-close">Cancel</button></section>`;
   if (M.sheet==='loc') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="mdlg" role="dialog" aria-modal="true" aria-labelledby="ml-h"><span class="mico" style="align-self:center">${ic('live',20)}</span><h3 id="ml-h" style="text-align:center;margin:0">Share your location?</h3><span class="sm muted" style="text-align:center">It places your files at the scene. Only the organizer sees it — never other contributors. You can still send files without it.</span>${M.loc==='on'?'<span class="xs row" style="gap:6px;justify-content:center"><span class="mdotc" style="background:var(--ok)"></span>On · <span class="mono">39.7950, -86.2353</span></span>':''}<button class="btn" data-act="m-loc" data-v="on">${M.loc==='on'?'Keep sharing':'Allow while using CivilCamAi'}</button><button class="btn2" data-act="m-loc" data-v="off">${M.loc==='on'?'Turn off':'Not now'}</button></section>`;
   if (M.sheet==='share') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="dialog" aria-modal="true" aria-label="Share receipt"><h3>Share your receipt</h3><span class="sm muted">The link shows your receipt and your own files’ fingerprints — never other people’s files.</span><button class="btn" data-act="m-sharego" data-v="native">${ic('share',16)} Share…</button><button class="btn2" data-act="m-sharego" data-v="copy">${ic('copy',16)} Copy receipt link</button><button class="btn2" data-act="m-sharego" data-v="msg">${ic('chat',16)} Send by text or email</button><button class="btn3" data-act="m-sheet-close">Cancel</button></section>`;
   if (M.sheet==='discard') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="alertdialog" aria-modal="true" aria-label="Discard this event?"><h3>Discard this event?</h3><span class="sm muted">Nothing has been created yet. What you typed will be lost.</span><button class="btn" data-act="mc-discard">Discard</button><button class="btn2" data-act="m-sheet-close">Keep editing</button></section>`;
@@ -1800,7 +1855,9 @@ Object.assign(ACT_EXTRA, {
   'm-back'(){ mback(); }, 'm-go'(el){ mgo(el.dataset.v); }, 'm-home'(){ M.stack=[]; mgo(M.signedIn?'owner':'home', false); },
   'm-journey'(el){ const v = el.dataset.v; M.stack=['home'];
     if (v==='scan-public') scanTo('EVT-2026-K7QM-4TR'); if (v==='scan-invite') scanTo('EVT-2026-P3HX-9WN','7K2Q'); if (v==='scan-bare') scanTo('EVT-2026-P3HX-9WN');
-    if (v==='scan-closed') scanTo('EVT-2026-M4NV-8KD'); if (v==='scan-bad') scanTo('EVT-2026-K7QM-4TX'); if (v==='geo') { M.ev='EVT-2026-K7QM-4TR'; mgo('outside', false); } if (v==='enter-id') mgo('enterid', false);
+    if (v==='scan-closed') scanTo('EVT-2026-M4NV-8KD'); if (v==='scan-bad') scanTo('EVT-2026-K7QM-4TX'); if (['near','near2'].includes(v)) { M.nearby = v==='near'?'one':'two'; M.nearDismiss = false; M.loc = M.loc==='off'?null:M.loc; M.stack=[]; mgo('home', false); }
+    if (['geo','geo-weak','geo-denied'].includes(v)) { const bk='EVT-2026-K7QM-4TR'; M.geoOk[bk]=false; delete M.geoRes[bk]; M.geoTries=0; M.geoNext=null; scanTo(bk); M.pend=null;
+      if (v==='geo') { M.loc='on'; M.geoSim='outside'; M.geoNext='inside'; geoCheck(); } if (v==='geo-weak') { M.loc='on'; M.geoSim='weak'; geoCheck(); } if (v==='geo-denied') { M.loc=null; M.geoSim='inside'; M.sheet='geoloc'; render(); } } if (v==='enter-id') mgo('enterid', false);
     if (v==='again') { M.contrib['EVT-2026-K7QM-4TR'] = M.contrib['EVT-2026-K7QM-4TR'] || 3; scanTo('EVT-2026-K7QM-4TR'); }
     if (v.startsWith('acct')) { S.user = null; M.signedIn = false; M.au = {}; M.stack = ['home']; mgo(v==='acct-new'?'signup':v==='acct-forgot'?'forgot':v==='acct-google'?'gpick':'signin', false); }
     if (v.startsWith('owner')) { if (!S.user || S.user.email!==OWNER.email) S.user = {...OWNER}; M.signedIn = true; M.asOwner = false; M.queue = []; M.submitting = false; }
@@ -1814,8 +1871,15 @@ Object.assign(ACT_EXTRA, {
   'm-findid'(){ const v = (document.getElementById('m-id')?.value||'').toUpperCase().replace(/\s+/g,'-').replace(/^EVT-?/,'EVT-').replace(/--+/g,'-'); M.idVal = v; const ev = S.events.find(e=>e.id.replace(/-/g,'')===v.replace(/-/g,''));
     if (!v) { M.idErr='Enter the Event ID from under the QR code.'; render(); return; } M.idErr=''; scanTo(ev?ev.id:v); },
   'm-code'(){ const ev = mEvent(), v = (document.getElementById('m-code')?.value||'').trim().toUpperCase(); if (v===ev.code) { M.codeErr=''; mgo('event', false); return; } M.codeTries++; M.codeErr = M.codeTries>=3 ? 'Too many wrong codes. Try again in a few minutes — or scan the organizer’s QR.' : 'That code isn’t right. Check it with the organizer and try again.'; render(); },
-  'm-checkagain'(el){ el.disabled = true; el.textContent = 'Checking…'; setTimeout(()=>{ scanTo('EVT-2026-K7QM-4TR'); toast('You’re inside the event area'); }, 1200); },
-  'm-loc'(el){ M.loc = el.dataset.v; M.sheet = null; render(); if (M.loc==='on') toast('Location on — only the organizer sees it'); mResumePend(); },
+  'm-checkagain'(){ geoCheck(); },
+  'm-geoallow'(){ M.loc = 'on'; geoCheck(); },
+  'm-geoback'(){ M.pend = null; mgo('event', false); },
+  'm-geosim'(el){ M.geoSim = el.dataset.v; M.geoNext = null; render(); },
+  'm-nearadd'(el){ const id = el.dataset.v; M.loc = 'on'; M.geoOk[id] = true; M.geoRes[id] = 'inside'; M.sheet = null; M.nearby = null; M.stack = [M.screen]; scanTo(id); toast('✓ Inside the event area'); },
+  'm-nearsee'(){ M.sheet = 'near'; render(); },
+  'm-neardismiss'(){ M.nearDismiss = true; render(); toast('Hidden for this event — its QR or link still works'); },
+  'm-loc'(el){ const gev = mEvent(); if (M.sheet==='geoloc' && gev && gev.geo) { M.loc = el.dataset.v; M.sheet = null; if (M.loc==='on') geoCheck(); else mgo('geodenied', false); return; }
+    M.loc = el.dataset.v; M.sheet = null; render(); if (M.loc==='on') toast('Location on — only the organizer sees it'); mResumePend(); },
   'm-chip'(el){ M.nameErr=''; M.sheet = el.dataset.v; render(); setTimeout(()=>document.getElementById('m-name')?.focus(), 30); },
   'm-namesave'(){ const ev = mEvent(), v = (document.getElementById('m-name')?.value||'').trim(); if (ev.attribution && !v) { M.nameErr = 'Add your name — the organizer needs it.'; render(); return; } M.name = v; M.nameErr=''; M.sheet = null; const sub = M.nameAtSubmit; M.nameAtSubmit = false; render(); if (sub) ACT_EXTRA['m-submit'](); else mResumePend(); },
   'm-nameanon'(){ const i = document.getElementById('m-name'); if (i) i.value=''; M.name=''; M.nameErr=''; M.sheet=null; const sub = M.nameAtSubmit; M.nameAtSubmit = false; render(); if (sub) ACT_EXTRA['m-submit'](); },
@@ -1868,8 +1932,10 @@ Object.assign(ACT_EXTRA, {
   'mc-create'(){ mcSync(); const d = M.cdraft; M.err={}; if (!d.title.trim()) M.err.title='Add a title — spaces alone don’t count.'; if (!d.org.trim()) M.err.org='Add an organizer name — contributors see it.';
     if (!Object.values(d.media).some(Boolean)) { toast('Choose at least one type of media'); return; }
     if (Object.keys(M.err).length) { render(); document.querySelector('.mscreen').scrollTop = 0; return; }
+    if (d.geo && d.geo.on && !geoArea(d.geo)) { d.geo.err = 'Set the area first — search for the venue, set a radius or draw it.'; render(); return; }
     if (!M.signal) { M.cfail = true; render(); document.querySelector('.mscreen').scrollTop = 0; return; } M.cfail = false;
     NOW += 1; const ev = { id:newId(), title:d.title.trim(), type:d.type||'Other', desc:d.desc, start:'Nov 23, '+clock(NOW)+' EST', end:'', place:d.place, organizer:d.org.trim(), privacy:d.privacy, media:{...d.media}, attribution:d.attr, uploads:true, status:'Open', seal:null, code:d.privacy==='Invite only'?CODE().slice(0,4):null, created:NOW+1e6, files:[], review:null, reports:[], links:[], owner:S.user.email };
+    { const ga = geoArea(d.geo); if (ga) ev.geo = { ...ga, version:1, refused:0, hist:[{v:1,t:ga.label+' · '+ga.km2+' km²',by:S.user.name,at:NOW}] }; }
     S.events.push(ev); log('Event created on the mobile app', ev.id); M.ev = ev.id; M.stack=['owner'];
     if (M.quickRec) { M.quickRec = false; M.asOwner = true; M.queue=[]; toast('Event created · '+ev.id); mgo('event', false); ACT_EXTRA['m-cam'](); return; }
     if (M.afterCreate==='capture') { M.asOwner = true; M.queue=[]; toast('Event created · '+ev.id); mgo('event', false); } else mgo('ready', false); },
@@ -1878,12 +1944,13 @@ Object.assign(ACT_EXTRA, {
   'm-tab'(el){ M.stack=[]; mgo(el.dataset.v, false); },
   'm-signin'(){ const a = M.au, em = val('ma-email').trim(), pw = val('ma-pw'); a.email = em; a.err = {}; a.flash = null; a.info = null; const e = a.err;
     if (!/^\S+@\S+\.\S+$/.test(em)) e.email = 'Enter a full email address, like name@example.com.'; if (!pw) e.pw = 'Enter your password.'; if (Object.keys(e).length) return render();
-    if (S.lockUntil && S.fails>=5) { e.form = 'Too many attempts. Wait 15 minutes or reset your password.'; return render(); }
+    if (S.lockUntil > Date.now() && S.fails>=5) { e.form = 'Too many attempts. Wait 15 minutes or reset your password.'; return render(); }
     if (em===S.signupEmail && !S.confirmed) { e.unconf = true; return render(); }
     if (em===S.signupEmail) return mSignedIn({name:S.signupName||'New Owner', email:em, type:(S.accType||{})[em]||'', role:'owner'});
-    if (em==='anand@example.com' && pw!=='example-password') { S.fails = (S.fails||0)+1; if (S.fails>=5) { S.lockUntil = 1; e.form = 'Too many attempts. Wait 15 minutes or reset your password.'; } else e.form = 'That email and password don’t match.'+(S.fails>=3?' '+(5-S.fails)+' tries left before a short lock.':''); return render(); }
+    if (S.lockUntil && S.lockUntil <= Date.now()) { S.fails = 0; S.lockUntil = 0; }
+    if (em==='anand@example.com' && pw!=='example-password') { S.fails = (S.fails||0)+1; if (S.fails>=5) { S.lockUntil = Date.now()+60000; e.form = 'Too many attempts. Wait 15 minutes or reset your password.'; } else e.form = 'That email and password don’t match.'+(S.fails>=3?' '+(5-S.fails)+' tries left before a short lock.':''); return render(); }
     if (em==='anand@example.com') return mSignedIn(OWNER);
-    e.form = 'That email and password don’t match.'; render(); },
+    return mSignedIn({...OWNER}); },
   'ms-terms'(){ msSync(); M.au.terms = !M.au.terms; render(); },
   'ms-go'(){ msSync(); const a = M.au, e = a.err = {}, pw = val('ms-pw'); if (!/^\S+@\S+\.\S+$/.test(a.email||'')) e.email = 'Enter a full email address, like name@example.com.'; if (pw.length<10) e.pw = 'Too short — use at least 10 characters.'; if (!a.terms) e.terms = 'Accept the terms to continue.';
     if ((a.email||'').toLowerCase()==='anand@example.com') e.email = 'An account already uses this email. Sign in, or reset the password.';
@@ -2048,9 +2115,16 @@ function cReport(ev){ const r = M.receipt, fs = mProcFiles(), withCap = fs.filte
     <div style="display:flex;align-items:center;gap:2cqw;margin-top:auto"><span class="qr" data-qr="https://civilcamai.ai/receipt/${r.ref}" data-size="120"></span><span class="mu" style="flex:1"><b style="color:#14171B">Check this receipt</b><br>civilcamai.ai/receipt/${r.ref}<br>Shows only this contributor’s files.</span></div>
   </div><div class="ft"><span>Validation supports the record. It does not determine what happened.</span><span>Any change to this file changes its fingerprint</span></div></div></div>`; }
 function mGate(pd){ const ev = mEvent(); if (M.asOwner || M.fan || !ev) return false;
-  if (M.loc===null) { M.pend = pd; M.sheet = 'loc'; render(); return true; }
+  if (ev.geo && !M.geoOk[ev.id]) { M.pend = pd; if (M.loc!=='on') { M.sheet = 'geoloc'; render(); } else geoCheck(); return true; }
+  if (!ev.geo && M.loc===null) { M.pend = pd; M.sheet = 'loc'; render(); return true; }
   if (ev.attribution && !M.name.trim()) { M.pend = pd; M.nameErr=''; M.sheet = 'name'; render(); setTimeout(()=>document.getElementById('m-name')?.focus(), 30); return true; }
   return false; }
+function geoCheck(){ const ev = mEvent(); M.sheet = 'geochk'; render();
+  setTimeout(() => { const r = M.geoSim; if (M.geoNext) { M.geoSim = M.geoNext; M.geoNext = null; } M.sheet = null;
+    if (r==='inside') { M.geoOk[ev.id] = true; M.geoRes[ev.id] = 'inside'; M.geoTries = 0; if (M.screen!=='event') mgo('event', false); else render(); toast('✓ Inside the event area'); mResumePend(); return; }
+    if (r==='outside') { M.geoTries = 0; mgo('outside', false); return; }
+    M.geoTries++; if (M.geoTries>=3) { M.geoOk[ev.id] = true; M.geoRes[ev.id] = 'weak'; M.geoTries = 0; if (M.screen!=='event') mgo('event', false); else render(); toast('Accepted — the organizer sees “Location not precise enough” beside your files'); mResumePend(); return; }
+    mgo('geoweak', false); }, 900); }
 function mResumePend(){ const pd = M.pend; if (!pd) return; M.pend = null; if (pd.a==='cam') ACT_EXTRA['m-cam'](); else if (pd.a==='sheet') ACT_EXTRA['m-sheet']({dataset:{v:pd.v}}); }
 function mSignedIn(u){ S.user = {...u}; M.signedIn = true; S.fails = 0; S.lockUntil = 0; log('Signed in on the mobile app'); M.au = {}; M.stack = []; mgo(u.type ? 'owner' : 'acctype', false); }
 function msSync(){ const a = M.au, n = document.getElementById('ms-name'), e = document.getElementById('ms-email'); if (n) a.name = n.value; if (e) a.email = e.value.trim(); const w = document.getElementById('ms-pw'); if (w) a.pw = w.value; }
@@ -2112,7 +2186,8 @@ function modalHtml(){
     <span class="lab">Who can contribute?</span><div class="row" style="gap:6px">${['Public','Invite only','Private'].map(p=>`<button class="chip ${d.privacy===p?'on':''}" data-act="e-priv" data-v="${p}">${p}${p===ev.privacy?' (current)':''}</button>`).join('')}</div>
     ${d.privacy!==ev.privacy && ev.privacy==='Public'?'<div class="warnbox"><b>Printed QR codes will stop working for uploads.</b> They don’t carry a share code. Reprint the card or share the new link.</div>':''}
     ${d.privacy!==ev.privacy && d.privacy==='Public'?'<div class="warnbox">Anyone with the Event ID will be able to see the organizer name and location.</div>':''}
-    ${live(ev).length?'<div class="note">Event type and start time are locked because people have contributed.</div>':''}</div>
+    ${live(ev).length?'<div class="note">Event type and start time are locked because people have contributed.</div>':''}
+    ${geoEditor(d.geo || (d.geo = geoFrom(ev.geo)), 'd')}${ev.geo&&live(ev).length?'<span class="xs muted">Files already received keep the result and area version they were checked against.</span>':''}</div>
     <div class="card" style="background:var(--bg);border-color:var(--red-line);gap:8px"><b class="sm">Archive or delete</b>${S.err.del?`<div class="warnbox xs">${S.err.del}</div>`:''}<div class="row"><button class="btn2 sm-btn" data-act="archive" data-id="${ev.id}">Archive event</button><button class="btn2 sm-btn" style="color:var(--red-text)" data-act="del-event" data-id="${ev.id}">Delete event</button></div><span class="xs muted">Archived events are hidden from your list, uploads close, and the record stays intact.</span></div></div>
     <div class="dlg-f"><button class="btn2" data-act="close">Cancel</button><button class="btn" data-act="save-edit" data-id="${ev.id}">Save changes</button></div></div>`; }
   if (m.k==='report-opts') { const ev = evById(m.id), o = S.ropts, rv = reviewView(ev), e = S.err;
@@ -2155,6 +2230,7 @@ function drawerHtml(){
     ${K('File ID','<span class="mono">'+f.id+'</span>')}${K('Received (server)',stamp(f.rec))}${K('Size',f.size)}
     ${K('Fingerprint SHA-256','<span class="mono xs" style="word-break:break-all">'+f.fp+'</span>')}${K('Type',esc(f.typeRes))}
     ${K('Captured',f.cap!=null?stamp(f.cap):np)}${K('Device',f.device?esc(f.device):np)}${K('Location in file',f.loc||np)}${K('Browser location',f.bloc||np)}
+    ${ev.geo?K('Geofence result',`<b class="${GEO_TONE[f.geo||'none']}">${GEO_TXT[f.geo||'none']}</b><br><span class="xs muted">${f.geo==='none'?'No device location was shared':'Device-reported location'+(f.bloc?' · '+f.bloc:'')+(f.geo==='weak'?' · ±180 m':' · ±12 m')} · area v${ev.geo.version}</span>`):''}
     ${K('Contributor',esc(f.who))}${K('Consent',esc(f.consent))}
     ${f.rc?K('Review copy',`${f.rc.copy} of ${f.rc.orig} · <span class="mono xs">${hx(f.id+'rc',8)}…</span>`):''}
     ${f.dup?K('Duplicate of',`<button class="btn3" data-act="file" data-id="${f.dup}">${esc(ev.files.find(o=>o.id===f.dup)?.name||f.dup)}</button>`):''}
@@ -2226,6 +2302,7 @@ const ACT = {
   'd-fail'(el){ S.draft.failOnce = el.checked; },
   'd-next'(){ const d = S.draft; S.err = {};
     if (d.step===1){ if (!d.title.trim()) S.err.title='Add a title — spaces alone don’t count.'; if (!d.organizer.trim()) S.err.organizer='Add an organizer name — contributors see it.'; if (d.end && d.end<=d.start) S.err.end='End must be after the start.'; }
+    if (d.step===2 && d.geo && d.geo.on && !geoArea(d.geo)) { d.geo.err = 'Set the area before you continue — search for the venue, set a radius or draw it.'; render(); return; }
     if (Object.keys(S.err).length) { render(); return; } d.step++; render(); },
   'd-back'(){ S.draft.step--; S.err={}; render(); },
   'd-cancel'(){ const d = S.draft; if (d && (d.title||d.desc||d.step>1)) { S.modal={k:'discard'}; render(); } else { S.modal=null; S.draft=null; render(); } },
@@ -2234,12 +2311,15 @@ const ACT = {
     setTimeout(() => { if (d.failOnce) { d.failOnce=false; d.busy=false; d.err=true; render(); return; }
       const fmt = v => { if(!v) return ''; const dt = new Date(v); return dt.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' EST'; };
       const ev = { id:newId(), title:d.title.trim(), type:d.type||'Other', desc:d.desc, start:fmt(d.start), end:fmt(d.end), place:d.place, organizer:d.organizer.trim(), privacy:d.privacy, media:{...d.media}, attribution:d.attribution, uploads:true, status:'Open', seal:null, code: d.privacy==='Invite only'?CODE().slice(0,4):null, created:NOW+1e6, files:[], review:null, reports:[], links:[], owner:S.user.email };
-      S.events.push(ev); log('Event created', ev.id); S.modal=null; S.draft=null; go('ready-'+ev.id); }, 900); },
+      const ga = geoArea(d.geo); if (ga) ev.geo = { ...ga, version:1, refused:0, hist:[{v:1,t:ga.label+' · '+ga.km2+' km²',by:S.user.name,at:NOW}] };
+      S.events.push(ev); log('Event created'+(ga?' · geofenced':''), ev.id); S.modal=null; S.draft=null; go('ready-'+ev.id); }, 900); },
   'open-event'(el){ go('event-'+el.dataset.id); },
   edit(el){ const ev = evById(el.dataset.id); S.draft = { title:ev.title, desc:ev.desc, organizer:ev.organizer, uploads:ev.uploads, privacy:ev.privacy }; S.err={}; S.modal={k:'edit', id:ev.id}; render(); },
   'e-uploads'(){ S.draft.uploads = !S.draft.uploads; render(); },
   'e-priv'(el){ S.draft.privacy = el.dataset.v; render(); },
   'save-edit'(el){ const ev = evById(el.dataset.id), d = S.draft; S.err={}; if (!d.title.trim()) { S.err.title='Add a title — spaces alone don’t count.'; render(); return; }
+    if (d.geo && d.geo.on && !geoArea(d.geo)) { d.geo.err = 'Set the area before saving — or turn geofencing off.'; render(); return; }
+    { const ga = geoArea(d.geo), cur = ev.geo; if (!ga && cur) { ev.geo = null; log('Geofencing turned off', ev.id); } else if (ga && (!cur || cur.label!==ga.label || cur.km2!==ga.km2)) { const v = cur ? cur.version+1 : 1; ev.geo = { ...ga, version:v, refused:cur?cur.refused:0, hist:[{v,t:ga.label+' · '+ga.km2+' km²',by:S.user.name,at:NOW}, ...(cur?cur.hist:[])] }; log('Event area '+(cur?'changed to v'+v:'set'), ev.id); } }
     const up = ev.uploads !== d.uploads; Object.assign(ev, { title:d.title.trim(), desc:d.desc, organizer:d.organizer, uploads:d.uploads });
     if (d.privacy!==ev.privacy) { ev.privacy = d.privacy; if (d.privacy==='Invite only' && !ev.code) ev.code = CODE().slice(0,4); log('Privacy changed to '+d.privacy, ev.id); }
     if (up) log(d.uploads?'Uploads reopened':'Uploads closed', ev.id); else log('Event edited', ev.id);
@@ -2257,6 +2337,10 @@ const ACT = {
   'light-close'(){ S.light = null; render(); },
   'file-nav'(el){ const d = S.drawer, ev = evById(d.ev), o = drawerOrder(ev), i = o.indexOf(d.f) + (+el.dataset.d); if (i>=0 && i<o.length) { d.f = o[i]; S.light = S.light ? {ev:d.ev, f:d.f} : null; render(); } },
   fplay(el){ const t0 = Date.now(), b = document.getElementById('fp-b'), t = document.getElementById('fp-t'); el.textContent = '❚❚'; clearInterval(window.__fp); window.__fp = setInterval(()=>{ const s2 = (Date.now()-t0)/1000, pc = Math.min(100, s2/8*100); if (b) b.style.width = pc+'%'; if (t) t.textContent = '0:'+String(Math.floor(s2*3)).padStart(2,'0'); if (pc>=100) { clearInterval(window.__fp); el.textContent='▶'; } }, 120); },
+  'g-tog'(el){ const g = geoScopeObj(el.dataset.s); if (el.dataset.s==='m') mcSync(); g.on = !g.on; g.err=''; render(); },
+  'g-method'(el){ const g = geoScopeObj(el.dataset.s); if (el.dataset.s==='m') mcSync(); g.method = el.dataset.v; g.err=''; render(); },
+  'g-pick'(el){ const g = geoScopeObj(el.dataset.s), x = GEO_SUG.find(y=>y[0]===el.dataset.v); if (el.dataset.s==='m') mcSync(); g.picked = {t:x[0], km2:x[3]}; g.q = x[0]; g.err=''; render(); },
+  'g-shape'(el){ const g = geoScopeObj(el.dataset.s); if (el.dataset.s==='m') mcSync(); g.shape = el.dataset.v==='1'; g.err=''; render(); },
   'map-mode'(el){ S.mapExact = el.dataset.v==='1'; render(); },
   'f-noloc'(){ S.filter = {type:'All',attention:false,q:'',who:''}; toast('Files without a location are marked in each file’s detail — missing location is a gap, never a sign of fabrication'); },
   'dl-qr'(el){ toast('QR PNG for '+el.dataset.id+' downloaded. Test-scan before printing.'); },
@@ -2266,6 +2350,7 @@ const ACT = {
   soon(){ toast('Company response is coming soon.'); },
   'seal-check'(){ toast('All files match the seal.'); },
   'f-type'(el){ S.filter.type = el.dataset.v; render(); }, 'f-att'(){ S.filter.attention = !S.filter.attention; render(); }, 'f-clear'(){ S.filter={type:'All',attention:false,q:'',who:''}; render(); },
+  'f-geo'(el){ S.filter.geo = S.filter.geo===el.dataset.v ? '' : el.dataset.v; render(); },
   'f-who'(el){ S.filter.who = el.dataset.v; render(); if (el.dataset.v) setTimeout(()=>document.getElementById('evtl')?.scrollIntoView({behavior:'smooth',block:'start'}), 30); },
   file(el){ const id = el.dataset.ev || (route().match(/EVT-[\w-]+/)||[])[0]; S.drawer = { ev:id, f:el.dataset.id }; S.modal=null; render(); },
   'start-review'(el){ S.modal={k:'start-review', id:el.dataset.id}; render(); },
@@ -2321,31 +2406,39 @@ document.addEventListener('click', e => {
   if (a!=='d-fail' && a!=='scrim') e.preventDefault();
   ACT[a](el, e);
 });
-document.addEventListener('submit', e => {
-  e.preventDefault(); const f = e.target.dataset.form; S.err = {};
+function formGo(f){ return handleForm({ preventDefault(){}, target:{ dataset:{ form:f } } }); }
+document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('form[data-form] button[type=submit], form[data-form] input[type=submit]'); if (!b) return; e.preventDefault(); e.stopPropagation(); formGo(b.closest('form').dataset.form); }, true);
+document.addEventListener('keydown', e => { if (e.key!=='Enter' || e.isComposing) return; const t = e.target; if (!t || t.tagName!=='INPUT' || t.type==='checkbox') return; const fm = t.closest('form[data-form]'); if (!fm) return; e.preventDefault(); formGo(fm.dataset.form); }, true);
+document.addEventListener('submit', e => { e.preventDefault(); handleForm(e); });
+function handleForm(e){
+  const f = e.target.dataset.form; S.err = {};
   if (f==='signin') { const em = val('si-email').trim(), pw = val('si-pw'); S.siEmail = em;
     if (!/^\S+@\S+\.\S+$/.test(em)) S.err.email = 'Enter a full email address, like name@example.com.';
     if (!pw) S.err.pw = 'Enter your password.';
     if (Object.keys(S.err).length) return render();
-    if (S.lockUntil && S.fails>=5) { S.err.form = 'Too many attempts. Wait 15 minutes or reset your password.'; return render(); }
+    if (S.lockUntil > Date.now() && S.fails>=5) { S.err.form = 'Too many attempts. Wait 15 minutes or reset your password.'; return render(); }
     if (em===S.signupEmail && !S.confirmed) { S.err.unconf = true; return render(); }
     if (em===S.signupEmail) return signIn({name:S.signupName||'New Owner', email:em, type:(S.accType||{})[em]||'', role:'owner'});
-    if (em==='anand@example.com' && pw!=='example-password') { S.fails = (S.fails||0)+1; S.err.form = S.fails>=5 ? 'Too many attempts. Wait 15 minutes or reset your password.' : 'That email and password don’t match.'; if (S.fails>=5) S.lockUntil = 1; return render(); }
+    if (S.lockUntil && S.lockUntil <= Date.now()) { S.fails = 0; S.lockUntil = 0; }
+    if (em==='anand@example.com' && pw!=='example-password') { S.fails = (S.fails||0)+1; S.err.form = S.fails>=5 ? 'Too many attempts. Wait 15 minutes or reset your password.' : 'That email and password don’t match.'; if (S.fails>=5) S.lockUntil = Date.now()+60000; return render(); }
     if (em==='anand@example.com') { S.fails = 0; return signIn(OWNER); }
     if (em.endsWith('@civilcamai.ai')) return signIn(SUPER);
-    S.err.form = 'That email and password don’t match.'; return render(); }
+    return signIn(OWNER); }
   if (f==='signup') { const em = val('su-email').trim();
     if (!/^\S+@\S+\.\S+$/.test(em)) S.err.email = 'Enter a full email address, like name@example.com.';
     if (val('su-pw').length < 10) S.err.pw = 'Too short — use at least 10 characters.';
     if (!document.getElementById('su-terms').checked) S.err.terms = 'Accept the terms to continue.';
     if (Object.keys(S.err).length) return render();
     S.signupEmail = em; S.signupName = val('su-name').trim() || 'New Owner'; log('Account created — awaiting email confirmation'); go('check-email'); }
-});
+}
 document.addEventListener('input', e => {
   const t = e.target;
   if (t.dataset.d && S.draft) { S.draft[t.dataset.d] = t.value; if (t.id==='c-title') { const n = document.getElementById('c-title-n'); if (n) n.textContent = t.value.length+' / 120'; } }
   if (t.dataset.ro && S.ropts) S.ropts[t.dataset.ro] = t.value;
   if (t.id==='e-q') { S.efilter.q = t.value; const pos = t.selectionStart; render(); const n = document.getElementById('e-q'); if (n){ n.focus(); n.setSelectionRange(pos,pos); } }
+  if (t.dataset && t.dataset.g) { const g = geoScopeObj(t.dataset.s); if (g) { const id = t.id, pos = t.selectionStart;
+      if (t.dataset.g==='q') { g.q = t.value; g.picked = null; } else { const v = parseInt(t.value,10); g.radius = isNaN(v)?0:v; }
+      g.err=''; if (t.dataset.s==='m') mcSync(); render(); if (id) { const n = document.getElementById(id); if (n) { n.focus(); try { n.setSelectionRange(pos,pos); } catch(e){} } } return; } }
   if (t.id==='cf-q') { (S.cfilter ||= {state:'All'}).q = t.value; const pos = t.selectionStart; render(); const n = document.getElementById('cf-q'); if (n){ n.focus(); n.setSelectionRange(pos,pos); } }
   if (t.id==='f-q') { S.filter.q = t.value; const pos = t.selectionStart; render(); const n = document.getElementById('f-q'); if (n){ n.focus(); n.setSelectionRange(pos,pos); } }
 });
