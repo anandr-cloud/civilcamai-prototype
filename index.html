@@ -122,6 +122,91 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .htiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 @media (max-width:900px){.htiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .htile{border:1px solid var(--line2);background:rgba(13,18,25,.85);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+/* My Events, compact */
+.mehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.mehead h1{font-size:28px;margin:0;line-height:1.1}
+.mehead p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
+.mestats{display:flex;flex-wrap:wrap;row-gap:10px;padding:12px 18px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.mestats div{display:flex;align-items:baseline;gap:8px;padding:0 18px;border-left:1px solid var(--line)}
+.mestats div:first-child{padding-left:0;border-left:0}
+.mestats b{font-size:20px}
+.mestats span{font-size:12.5px;color:var(--muted)}
+.mebar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.evgrid3{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+.evc{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);text-align:left;color:inherit;font:inherit;cursor:pointer;width:100%;transition:border-color .12s,background .12s}
+.evc:hover{border-color:var(--line2);background:var(--raise)}
+.evc .im{width:96px;height:96px;border-radius:10px;background-size:cover;background-position:center}
+.evc .bd{display:flex;flex-direction:column;gap:6px;min-width:0}
+.evc .t{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.evc .t b{font-size:15.5px;line-height:1.2;overflow-wrap:anywhere}
+.evc .sub{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.evc .nums{display:flex;gap:14px;font-size:12.5px;color:var(--muted)}
+.evc .nums b{color:var(--fg);font-size:13.5px;margin-right:3px}
+.evc .cov{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.evc .cov .bar{flex:1;height:4px}
+.evc .cov .bar i{background:var(--ok)}
+.mebar .seg2{flex:none}
+.mebar .seg2 button{white-space:nowrap}
+.evc .flags{display:flex;gap:6px;flex-wrap:wrap}
+.evflag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid var(--line2);color:var(--fg2)}
+.evflag.w{border-color:var(--warn-line);background:var(--warn-bg);color:var(--warn-text)}
+.evflag.r{border-color:var(--red-line);background:var(--red-wash);color:var(--red-text)}
+.evflag.ok{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ok-text)}
+.dlc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dlc summary::-webkit-details-marker{display:none}
+.dlc[open] summary .car{transform:rotate(180deg)}
+/* Event workspace: minimal + advanced */
+.wshead{display:flex;flex-direction:column;gap:12px;padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.wshead .t1{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.wshead h1{font-size:24px;line-height:1.15;margin:0;overflow-wrap:anywhere}
+.wshead .meta{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;font-size:13px;color:var(--fg2)}
+.wshead .idtag{font-family:var(--f-mono);font-size:11px;color:var(--fg2);background:var(--raise);border:1px solid var(--line2);border-radius:5px;padding:2px 7px}
+.wsinfo{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:12px;border:1px solid var(--warn-line);background:var(--warn-bg);color:var(--warn-text)}
+.wstats{display:flex;gap:0;border-top:1px solid var(--line);padding-top:12px;flex-wrap:wrap;row-gap:10px}
+.wstats div{display:flex;flex-direction:column;gap:2px;padding:0 18px;border-left:1px solid var(--line)}
+.wstats div:first-child{padding-left:0;border-left:0}
+.wstats b{font-size:18px;line-height:1.1}
+.wstats span{font-size:11.5px;color:var(--muted)}
+.wsbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.wsplit{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(340px,1fr);gap:18px;align-items:start}
+.wsplit>.col{gap:18px;min-width:0}
+.tlpanel{position:sticky;top:76px;max-height:calc(100vh - 96px);display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.tlpanel .hd{padding:14px 16px 10px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--line)}
+.tlpanel .hd .row{gap:6px}
+.tlbody{overflow-y:auto;padding:12px 16px 16px;display:flex;flex-direction:column;gap:0}
+.tlitem{display:grid;grid-template-columns:62px 14px 1fr;gap:0 10px;align-items:start;background:none;border:0;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer;width:100%}
+.tlitem .tm{font-family:var(--f-mono);font-size:11px;color:var(--muted);padding-top:12px;text-align:right}
+.tlitem .ln{position:relative;align-self:stretch}
+.tlitem .ln::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--line2)}
+.tlitem .ln i{position:absolute;left:2px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--fg2);box-shadow:0 0 0 3px var(--surface)}
+.tlitem .ln i.att{background:var(--red)}
+.tlitem .cd{display:flex;gap:10px;align-items:center;padding:8px 10px;margin:4px 0;border:1px solid var(--line);border-radius:10px;background:var(--bg);min-width:0}
+.tlitem:hover .cd{border-color:var(--line2);background:var(--raise)}
+.tlitem .cd .thumb{flex:none}
+.tlitem .cd .tx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.tlitem .cd .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tlitem .cd .sb{font-size:11.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.tlitem .cd .rt{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none;font-size:11.5px}
+.conf{font-weight:700}
+.advbar{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 18px;border:1px dashed var(--line2);border-radius:12px;background:transparent;color:var(--fg);font:inherit;cursor:pointer;text-align:left}
+.advbar:hover{background:var(--surface)}
+.advbar b{font-size:14px}
+.advbar span.d{font-size:12.5px;color:var(--muted)}
+.advnav{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:5;padding:10px 0;background:var(--bg)}
+.advnav a{font-size:13px;font-weight:600;color:var(--fg2);text-decoration:none;padding:6px 12px;border:1px solid var(--line2);border-radius:999px;background:var(--surface)}
+.advnav a:hover{color:var(--fg);border-color:var(--fg2)}
+.advsec{display:flex;flex-direction:column;gap:14px;scroll-margin-top:120px}
+.advh{display:flex;gap:12px;align-items:flex-start;padding-top:8px;border-top:1px solid var(--line)}
+.advh h2{margin:0;font-size:17px}
+.advn{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;background:var(--raise);border:1px solid var(--line2);flex:none;margin-top:2px}
+.finalstep{display:flex;flex-direction:column;gap:8px;padding:12px;border:1.5px solid var(--warn-line);border-radius:14px;background:var(--warn-bg)}
+.finalstep .fsl{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--warn-text)}
+.finalstep>.card{background:var(--surface)}
+.advnav a b{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-right:2px}
+.advn{width:auto;min-width:30px;padding:0 6px;border-radius:8px;font-family:var(--f-mono)}
+.advgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,1fr);gap:18px;align-items:start}
+.advgrid>.col{gap:18px;min-width:0}
+@media (max-width:1100px){.wsplit,.advgrid{grid-template-columns:1fr}.tlpanel{position:static;max-height:none}.tlbody{max-height:560px}}
 .evgrid2{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(300px,1fr);gap:22px;align-items:start}
 @media (max-width:1100px){.evgrid2{grid-template-columns:1fr}}
 .lanes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
@@ -167,6 +252,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cblink{font-family:var(--f-mono);font-size:12px;color:var(--fg);background:var(--raise);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;overflow-wrap:anywhere}
 .cbchk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--fg2);cursor:pointer}
 .cbchk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--red);flex:none}
+/* Event cover photo */
+.cvf{display:flex;flex-direction:column;gap:8px}
+.cvrow{display:flex;gap:12px;align-items:center}
+.cvprev{width:120px;height:68px;border-radius:8px;background-size:cover;background-position:center;flex:none;border:1px solid var(--line2);position:relative}
+.cvprev span{position:absolute;left:5px;bottom:5px;font-size:10px;font-weight:700;background:rgba(0,0,0,.6);color:#fff;padding:1px 6px;border-radius:4px}
+.cvbtns{display:flex;flex-wrap:wrap;gap:6px}
+.cvgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
+.cvgrid button{all:unset;cursor:pointer;aspect-ratio:1;border-radius:8px;background-size:cover;background-position:center;border:2px solid transparent}
+.cvgrid button:hover,.cvgrid button:focus-visible{border-color:var(--fg)}
+.cvgrid button.on{border-color:var(--red)}
 /* A3 guest event screen */
 .g3hero{margin:0 -18px;height:200px;flex:none;background-size:cover;background-position:center 40%;position:relative}
 .g3hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,13,.55) 0%,rgba(7,9,13,.1) 35%,rgba(7,9,13,.6) 70%,var(--bg) 100%)}
@@ -463,7 +558,7 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 <div id="layer"></div>
 <div id="toast" class="toast" hidden></div>
 <div class="proto" id="proto"></div>
-<div aria-hidden="true" style="position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden"><input type="file" id="pick-take" tabindex="-1"><input type="file" id="pick-lib" multiple tabindex="-1"></div>
+<div aria-hidden="true" style="position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden"><input type="file" id="cv-file" accept="image/jpeg,image/png" tabindex="-1"><input type="file" id="pick-take" tabindex="-1"><input type="file" id="pick-lib" multiple tabindex="-1"></div>
 
 <script>
 /* ============ data ============ */
@@ -524,7 +619,7 @@ function seed(){
   evs.push({ id:'EVT-2026-D2CM-5HR', title:'Downtown Climate March, Jan 18', type:'Demonstration', desc:'March route from the river to City Hall.', start:'Jan 18, 11:00 AM EST', end:'', place:'Downtown Indianapolis, IN', organizer:'Anand Roy', privacy:'Public',
     media:{Photos:true,Videos:true,Audio:true,Documents:false}, attribution:false, uploads:true, status:'Open', seal:null, code:null, created:BASE+20, files:[], review:null, reports:[], links:[], example:true });
   evs.forEach(e => e.owner = 'anand@example.com');
-  const bk = evs.find(e=>e.id==='EVT-2026-K7QM-4TR'); if (bk) { bk.geo = { method:'shape', label:'Drawn shape', km2:0.42, radius:null, version:2, refused:14, hist:[{v:2,t:'Drawn shape · 0.42 km²',by:'Anand Roy',at:BASE+72},{v:1,t:'Radius 400 m · 0.50 km²',by:'Anand Roy',at:BASE-20}] }; let k=0; bk.files.forEach(f=>{ f.geo = (f.loc||f.bloc) ? 'inside' : (k++%3===0 ? 'weak' : 'none'); }); }
+  const bk = evs.find(e=>e.id==='EVT-2026-K7QM-4TR'); if (bk) { bk.geo = { method:'shape', label:'Drawn shape', km2:0.42, radius:null, version:2, refused:14, hist:[{v:2,t:'Drawn shape · 0.42 km²',by:'Anand Roy',at:BASE+72},{v:1,t:'Radius 400 m · 0.50 km²',by:'Anand Roy',at:BASE-20}] }; let k=0; bk.files.forEach(f=>{ f.geo = (f.loc||f.bloc) ? 'inside' : ['weak','none','outside'][k++%3]; }); }
   const dm = evs.find(e=>e.id==='EVT-2026-D2CM-5HR'); if (dm) dm.geo = { method:'radius', label:'Radius 800 m', km2:2.01, radius:800, version:1, refused:0, hist:[{v:1,t:'Radius 800 m · 2.01 km²',by:'Anand Roy',at:BASE+20}] };
   return evs;
 }
@@ -778,6 +873,7 @@ function createDlg(){
     <div class="fld"><label class="lab" for="c-title">Event title <span style="color:var(--red-text)">*</span></label><input class="in ${e.title?'err':''}" id="c-title" maxlength="120" data-d="title" value="${esc(d.title)}" placeholder="e.g. Downtown Climate March, Jan 18" data-autofocus><span class="cnt" id="c-title-n">${d.title.length} / 120</span>${e.title?`<span class="errt">${e.title}</span>`:''}</div>
     <div class="fld"><span class="lab" id="c-type-l">Event type${sg('type')}</span><div class="row" role="radiogroup" aria-labelledby="c-type-l" style="gap:6px">${TYPES.map(t=>`<button class="chip ${d.type===t?'on':''}" role="radio" aria-checked="${d.type===t}" data-act="d-type" data-v="${t}">${t}</button>`).join('')}</div><span class="hint">Sets suggested media and report wording. Your own choices are kept.</span></div>
     <div class="fld"><label class="lab" for="c-desc">Description <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="c-desc" maxlength="500" data-d="desc" placeholder="What should people capture?">${esc(d.desc)}</textarea></div>
+    ${coverField(d,'d',null)}
     <div class="grid2" style="gap:10px"><div class="fld"><label class="lab" for="c-start">Starts</label><input class="in" id="c-start" type="datetime-local" data-d="start" value="${d.start}"></div><div class="fld"><label class="lab" for="c-end">Ends <span class="muted" style="font-weight:400">(optional)</span></label><input class="in ${e.end?'err':''}" id="c-end" type="datetime-local" data-d="end" value="${d.end}">${e.end?`<span class="errt">${e.end}</span>`:''}</div></div>
     <div class="fld"><label class="lab" for="c-place">Location</label><input class="in" id="c-place" data-d="place" value="${esc(d.place)}" placeholder="${d.locState==='detecting'?'Detecting location…':'Type a place'}"><span class="hint">${d.locState==='detecting'?'Detecting your location, type now if you like; what you type is never overwritten.':d.locState==='found'?'Detected · editable':'Location is off, type it, or leave it. You can still create the event.'}</span></div>
     <div class="fld"><label class="lab" for="c-org">Organizer name <span style="color:var(--red-text)">*</span> <span class="muted" style="font-weight:400">· shown to contributors</span></label><input class="in ${e.organizer?'err':''}" id="c-org" data-d="organizer" value="${esc(d.organizer)}">${e.organizer?`<span class="errt">${e.organizer}</span>`:''}</div>`;
@@ -814,7 +910,7 @@ function readyPage(ev){
     <div class="col" style="flex:1;min-width:260px">
       <div class="row" style="flex-wrap:nowrap"><input class="in mono sm" readonly value="${esc(contribUrl(ev))}" id="r-link" aria-label="Contribute link"><button class="btn sm-btn" data-act="copy-link" data-id="${ev.id}">Copy link</button></div>
       <div class="row" style="gap:8px"><button class="btn2 sm-btn" data-act="qr-png">Download PNG</button><button class="btn2 sm-btn" data-act="print-card" data-id="${ev.id}">Print card</button><button class="btn2 sm-btn" data-act="share-sheet" data-id="${ev.id}">Text / email</button><button class="btn2 sm-btn" data-act="fan-view" data-id="${ev.id}">Open fan view ↗</button></div>
-      <div class="warnbox">Scan this QR with your own phone before you print or post it.</div>${ev.geo?'<div class="warnbox"><b>Only people inside the event area can upload.</b> Put the QR where people at the venue will see it, anyone outside is told why.</div>':''}
+      <div class="warnbox">Scan this QR with your own phone before you print or post it.</div>${ev.geo?'<div class="note"><b>Geofenced.</b> Anyone can upload, from anywhere. Each file is marked inside or outside the event area, and people inside are shown the event.</div>':''}
       ${ev.privacy==='Invite only'?`<div class="note">Share code <span class="mono" style="color:var(--fg)">${ev.code}</span> is already inside this QR and link. Sharing only the Event ID shows “Share code required”.</div>`:''}
       ${ev.privacy==='Private'?`<div class="warnbox"><b>This event is Private.</b> Anyone you share this QR or link with will see “Event not found”. <button class="btn3" data-act="edit" data-id="${ev.id}">Change privacy</button></div>`:''}
     </div></div></div>
@@ -858,7 +954,7 @@ function listPanel(ev){
     <td>${f.dup?'<span class="chip" style="font-size:10px">Duplicate</span> ':''}${f.typeFlag?'<span class="chip" style="font-size:10px">Type differs from label</span>':''}</td></tr>`).join('');
   return `<div class="card" style="padding:14px 6px 6px"><div class="row sp" style="padding:0 10px"><h3>Live contributions</h3><span class="xs muted" aria-live="polite">● Live · pushed, not polled</span></div>
     <div class="row" style="padding:0 10px;gap:6px">${['All','Photo','Video','Audio'].map(t=>`<button class="chip ${F.type===t?'on':''}" data-act="f-type" data-v="${t}">${t}</button>`).join('')}<button class="chip ${F.attention?'on':''} ${att&&!F.attention?'r':''}" data-act="f-att">Needs attention · ${att}</button>
-    ${ev.geo?['inside','weak','none'].map(k=>`<button class="chip ${F.geo===k?'on':''}" data-act="f-geo" data-v="${k}">${{inside:'Inside',weak:'Not precise',none:'No location'}[k]} · ${live(ev).filter(f=>(f.geo||'none')===k).length}</button>`).join(''):''}${F.who?`<button class="chip on" data-act="f-who" data-v="">${esc((live(ev).find(f=>f.dev===F.who)||{}).who||'Contributor')} ✕</button>`:''}<input class="in sm" style="min-height:34px;width:200px;margin-left:auto" placeholder="Search file name or ID" aria-label="Search files" id="f-q" value="${esc(F.q)}"></div>
+    ${ev.geo?['inside','outside','weak','none'].map(k=>`<button class="chip ${F.geo===k?'on':''}" data-act="f-geo" data-v="${k}">${{inside:'Inside',outside:'Outside',weak:'Not precise',none:'No location'}[k]} · ${live(ev).filter(f=>(f.geo||'none')===k).length}</button>`).join(''):''}${F.who?`<button class="chip on" data-act="f-who" data-v="">${esc((live(ev).find(f=>f.dev===F.who)||{}).who||'Contributor')} ✕</button>`:''}<input class="in sm" style="min-height:34px;width:200px;margin-left:auto" placeholder="Search file name or ID" aria-label="Search files" id="f-q" value="${esc(F.q)}"></div>
     <div class="tblwrap"><table class="t"><thead><tr><th>File</th><th>Received</th><th>Captured</th><th>Processing</th><th>Review</th><th></th></tr></thead><tbody>${rows || `<tr><td colspan="6" style="text-align:center;padding:24px">No files match. <button class="btn3" data-act="f-clear">Clear filters</button></td></tr>`}</tbody></table></div>
     ${ev.files.some(f=>f.removed)?`<div style="padding:6px 10px"><button class="btn3 sm" data-act="removed-list" data-id="${ev.id}">View removed files (${ev.files.filter(f=>f.removed).length})</button></div>`:''}</div>`;
 }
@@ -1250,11 +1346,11 @@ function supportPage(){
 }
 /* ---------- My Events portfolio + event page (layout from the CivilCamAi Consumer design) ---------- */
 const EVIMG = ['ev1.jpg','ev2.jpg','ev3.jpg'];
-const evImg = ev => EVIMG[S.events.indexOf(ev) % 3];
+const evImg = ev => (ev && ev.cover && ev.cover.src) || EVIMG[Math.max(0,S.events.indexOf(ev)) % 3];
 function coverage(ev){ const rv = reviewView(ev); if (!rv || rv.r.state!=='complete' || !rv.total) return null; return Math.round(rv.assessed.length / counts(ev).files * 100); }
 const GEO_SUG = [['Indianapolis Motor Speedway','4790 W 16th St, Speedway, IN','place',1.3],['Speedway, Turn 3 grandstand','Speedway, IN','place',0.21],['Lucas Oil Stadium','500 S Capitol Ave, Indianapolis, IN','place',0.74],['Downtown Indianapolis','Indianapolis, IN','place',3.6],['Riverside City Hall','Riverside, IL','place',0.18]];
-const GEO_TXT = {inside:'Inside the event area', weak:'Location not precise enough', none:'Location not provided'};
-const GEO_TONE = {inside:'st-ok', weak:'st-w', none:'st-g'};
+const GEO_TXT = {inside:'Inside the event area', outside:'Outside the event area', weak:'Location not precise enough', none:'Location not provided'};
+const GEO_TONE = {inside:'st-ok', outside:'st-g', weak:'st-w', none:'st-g'};
 function geoNew(){ return { on:false, method:'place', q:'', picked:null, radius:400, shape:false, err:'' }; }
 function geoFrom(g){ if (!g) return geoNew(); return { on:true, method:g.method==='radius'?'radius':g.method==='shape'?'shape':'place', q:g.method==='place'?g.label.replace(/^Place · /,''):'', picked:g.method==='place'?{t:g.label.replace(/^Place · /,''),km2:g.km2}:null, radius:g.radius||400, shape:g.method==='shape', err:'' }; }
 function geoArea(g){ if (!g || !g.on) return null; if (g.method==='radius') { if (!(g.radius>=50 && g.radius<=5000)) return null; return { method:'radius', label:'Radius '+(g.radius>=1000?(g.radius/1000)+' km':g.radius+' m'), radius:g.radius, km2:+(Math.PI*g.radius*g.radius/1e6).toFixed(2) }; }
@@ -1277,7 +1373,7 @@ function geoEditor(g, scope){
     ${g.radius<50||g.radius>5000?'<span class="errt" role="alert">Use a radius between 50 m and 5 km.</span>':'<span class="hint">Between 50 m and 5 km.</span>'}`;
   if (m==='shape') body = g.shape ? geoSvg('shape',0,520,190) + `<div class="row sp"><span class="xs muted">Drag points to adjust · tap a point to remove</span><button class="btn3 xs" data-act="g-shape" data-s="${scope}" data-v="0">Clear</button></div>`
     : `<div class="note" style="text-align:center;padding:22px"><b style="color:var(--fg)">Tap the map to place points around the area</b><br><span class="xs">Three points or more, without the outline crossing itself.</span><br><button class="btn2 sm-btn" style="margin-top:8px" data-act="g-shape" data-s="${scope}" data-v="1">Draw around the venue</button></div>`;
-  return `<div class="geoed"><div class="row sp" style="flex-wrap:nowrap"><span class="col" style="gap:2px"><b class="sm">Enable geofencing</b><span class="xs muted">Limit uploads to people inside this area, and show the event to people nearby.</span></span><button class="tog ${g.on?'on':''}" role="switch" aria-checked="${g.on}" aria-label="Enable geofencing" data-act="g-tog" data-s="${scope}"></button></div>
+  return `<div class="geoed"><div class="row sp" style="flex-wrap:nowrap"><span class="col" style="gap:2px"><b class="sm">Enable geofencing</b><span class="xs muted">Show the event to people nearby, and mark each file as inside or outside this area. Anyone can still upload, from anywhere.</span></span><button class="tog ${g.on?'on':''}" role="switch" aria-checked="${g.on}" aria-label="Enable geofencing" data-act="g-tog" data-s="${scope}"></button></div>
     ${g.on?`<div class="row" style="gap:6px">${tab('place','Place search')}${tab('radius','Radius')}${tab('shape','Draw shape')}</div>${body}
     <div class="georead"><span class="muted">Area</span><b>${A?esc(A.label)+' · '+A.km2+' km²':'Not set yet'}</b></div>
     ${A&&A.km2>50?'<div class="warnbox xs"><b>This area is very large.</b> People across a wide area would be shown your event. You can still save.</div>':''}
@@ -1296,7 +1392,7 @@ function mapSvg(ev, exact){
   const X = g => W/2 + (g.lng-cLng)/span*W*0.55, Y = g => H/2 - (g.lat-cLat)/span*H*0.95;
   let streets = ''; for (let i=0;i<9;i++) streets += `<line x1="${i*70-20}" y1="0" x2="${i*70+40}" y2="${H}" stroke="#18202A" stroke-width="${i%3?6:10}"/>`;
   for (let j=0;j<6;j++) streets += `<line x1="0" y1="${j*60+10}" x2="${W}" y2="${j*60-14}" stroke="#18202A" stroke-width="${j%2?6:9}"/>`;
-  const col = {Photo:'#FF5A63', Video:'#8FB4FF', Audio:'#F5A524'}, gcol = {inside:'#3CCB7F', weak:'#F5A524', none:'#7D848E'};
+  const col = {Photo:'#FF5A63', Video:'#8FB4FF', Audio:'#F5A524'}, gcol = {inside:'#3CCB7F', outside:'#8FB4FF', weak:'#F5A524', none:'#7D848E'};
   const xs = pts.map(p=>X(p.g)), ys = pts.map(p=>Y(p.g));
   const gx0 = pts.length?(Math.min(...xs)+Math.max(...xs))/2:W/2, gy0 = pts.length?(Math.min(...ys)+Math.max(...ys))/2:H/2;
   const geoPoly = ev.geo ? (ev.geo.method==='radius' ? `<circle cx="${gx0}" cy="${gy0}" r="${Math.min(H*0.46, 120)}" fill="rgba(230,11,29,.06)" stroke="#E60B1D" stroke-width="2.5"/>` : `<polygon points="${[[-170,-75],[40,-100],[190,-25],[140,90],[-70,105],[-195,30]].map(([x,y])=>(gx0+x*0.9)+','+(gy0+y*0.9)).join(' ')}" fill="rgba(230,11,29,.06)" stroke="#E60B1D" stroke-width="2.5"/>`) + `<text x="${gx0}" y="${Math.max(14,gy0-100)}" fill="#FF8A90" font-size="11" text-anchor="middle" font-family="sans-serif">Event area · v${ev.geo.version}</text>` : '';
@@ -1312,33 +1408,29 @@ function sec(icon, title, right, tone){ const c = {r:'var(--red-text)',ok:'var(-
 function portfolioPage(){
   const F = S.efilter || (S.efilter = {tab:'All Events', q:'', view:'grid'});
   const all = myEvents(), evs = F.tab==='Archived' ? all.filter(e=>e.archived) : all.filter(e=>!e.archived);
-  const tot = { files: evs.reduce((n,e)=>n+counts(e).files,0), contrib: evs.reduce((n,e)=>n+counts(e).contributors,0), sealed: evs.filter(e=>e.status==='CivilSealed').length, reviewed: evs.filter(e=>e.review&&e.review.state==='complete').length };
-  const shown = evs.filter(e => (F.tab==='All Events' || F.tab==='Archived' || (F.tab==='CivilSealed'&&e.status==='CivilSealed') || (F.tab==='Reviewed'&&e.review&&e.review.state==='complete') || (F.tab==='Not reviewed'&&!(e.review&&e.review.state==='complete')))
+  const tot = { files: evs.reduce((n,e)=>n+counts(e).files,0), contrib: evs.reduce((n,e)=>n+counts(e).contributors,0), sealed: evs.filter(e=>e.status==='CivilSealed').length, reviewed: evs.filter(e=>e.review&&e.review.state==='complete').length, open: evs.filter(e=>e.uploads).length };
+  const needs = e => { const rv = reviewView(e); return (rv && rv.newer ? rv.newer.length : 0); };
+  const shown = evs.filter(e => (F.tab==='All Events' || F.tab==='Archived' || (F.tab==='Needs review'&&(needs(e)>0||(!(e.review&&e.review.state==='complete')&&counts(e).files>0))) || (F.tab==='CivilSealed'&&e.status==='CivilSealed') || (F.tab==='Reviewed'&&e.review&&e.review.state==='complete'))
     && (!F.q || (e.title+' '+e.id+' '+e.place+' '+e.type).toLowerCase().includes(F.q.toLowerCase()))).sort((a,b)=>b.created-a.created);
-  const T = (icon,label,n,c) => `<div class="stat" style="padding:16px 18px"><div class="row sp"><span style="color:${c}">${ic(icon,18)}</span><span class="eyebrow" style="font-size:10px">${label}</span></div><b style="font-size:28px;color:${c==='var(--muted)'?'var(--fg)':c}">${n}</b></div>`;
-  const card = e => { const c = counts(e), cov = coverage(e), sealed = e.status==='CivilSealed';
-    return `<button class="evcard" data-act="open-event" data-id="${e.id}"><span class="evimg" style="background-image:url(${evImg(e)})"><span class="chip ${sealed?'r':'blue'}" style="font-size:10px;padding:2px 7px">${sealed?'SEALED':'OPEN'}</span><span class="evcap"><span class="eyebrow" style="color:var(--fg2)">${esc(e.type)}</span><b style="font-size:18px;overflow-wrap:anywhere">${esc(e.title)}</b></span></span>
-      <span class="col" style="gap:10px;padding:14px 16px 16px">
-        <span class="row sp xs"><span class="mono muted">${e.id}</span><span class="muted row" style="gap:4px">${ic('cal',13)} ${esc(e.start.split(',')[0])}</span></span>
-        <span class="xs muted row" style="gap:6px">${ic('live',13)} ${e.place?esc(e.place):'Location not provided'}</span>
-        <span style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border-top:1px solid var(--line);padding-top:10px">
-          <span class="row" style="gap:6px;flex-wrap:nowrap"><span class="dim">${ic('camera',15)}</span><span class="col" style="gap:0"><b>${c.files}</b><span class="eyebrow" style="font-size:9px">Files</span></span></span>
-          <span class="row" style="gap:6px;flex-wrap:nowrap"><span class="dim">${ic('users',15)}</span><span class="col" style="gap:0"><b>${c.contributors}</b><span class="eyebrow" style="font-size:9px">Contrib.</span></span></span>
-          <span class="row" style="gap:6px;flex-wrap:nowrap"><span class="dim">${ic('folder',15)}</span><span class="col" style="gap:0"><b>${e.reports.length}</b><span class="eyebrow" style="font-size:9px">Reports</span></span></span></span>
-        <span class="row sp xs"><span class="muted">Review coverage</span><b>${cov==null?'Not reviewed':cov+'%'}</b></span><span class="bar" style="height:4px"><i style="width:${cov||0}%"></i></span>
-        <span class="row sp xs"><span class="mono dim">${e.privacy.toUpperCase()}</span><span style="font-weight:600">Open ↗</span></span></span></button>`; };
-  const list = `<div class="card" style="padding:6px"><div class="tblwrap"><table class="t"><thead><tr><th>Event</th><th>Starts</th><th>Privacy</th><th>Status</th><th>Uploads</th><th style="text-align:right">Files</th><th>Review coverage</th></tr></thead><tbody>${shown.map(e=>`<tr class="click" data-act="open-event" data-id="${e.id}"><td><b style="color:var(--fg)">${esc(e.title)}</b><br><span class="mono xs muted">${e.id}</span></td><td class="sm">${esc(e.start)}</td><td>${privChip(e.privacy)}</td><td>${e.status==='CivilSealed'?'<span class="chip r">CivilSealed</span>':'<span class="chip">Open</span>'}</td><td class="sm">${e.uploads?'Open':'Closed'}</td><td class="num" style="text-align:right">${counts(e).files}</td><td class="sm">${coverage(e)==null?'Not reviewed':coverage(e)+'%'}</td></tr>`).join('')}</tbody></table></div></div>`;
-  const D = (icon,t,d,a) => `<button class="dlitem" data-act="${a}" data-v="${t}"><span class="secic">${ic(icon,16)}</span><span class="col" style="gap:2px;flex:1;text-align:left"><b class="sm">${t}</b><span class="xs muted">${d}</span></span><span class="dim">↓</span></button>`;
-  return `<section class="hero" style="min-height:240px"><div class="img" style="background-image:url(portfolio.jpg);background-position:center"></div><div class="shade" style="background:linear-gradient(90deg,#0B0F15 20%,rgba(11,15,21,.6) 60%,rgba(42,10,15,.35))"></div>
-    <div class="row sp" style="position:relative;width:100%;padding:32px 40px;align-items:flex-end;gap:20px"><div class="col" style="gap:12px;max-width:620px"><span class="chip" style="align-self:flex-start;border-radius:20px;letter-spacing:.14em;font-size:10px">${ic('lock',12)} YOUR PERSONAL EVIDENCE PORTFOLIO</span><h1 style="font-size:clamp(34px,4vw,48px)">My Events</h1><p style="color:var(--fg2)">Every event you’ve created. The files people sent, fingerprinted on arrival and kept unchanged, with their reviews, reports and seals.</p></div>
-    <div class="row"><button class="btn" data-act="create">${ic('spark',16)} New Event</button><button class="btn2" data-act="portfolio-export">↓ Export Portfolio</button></div></div></section>
-  ${evs.length?`<div class="grid4" style="grid-template-columns:repeat(5,minmax(0,1fr))" id="pstats">${T('cal','Total events',evs.length,'var(--muted)')}${T('shieldok','CivilSealed',tot.sealed,'var(--warn)')}${T('spark','Reviewed',tot.reviewed,'var(--ok)')}${T('camera','Evidence files',tot.files,'#8FB4FF')}${T('users','Contributors',tot.contrib,'var(--muted)')}</div>
-  <div class="row sp"><div class="row" style="gap:6px">${['All Events','CivilSealed','Reviewed','Not reviewed','Archived'].map(x=>`<button class="tabbtn ${F.tab===x?'on':''}" data-act="etab" data-v="${x}">${x}</button>`).join('')}</div>
-    <div class="row" style="gap:8px;flex-wrap:nowrap;max-width:100%"><input class="in sm" id="e-q" style="min-height:38px;width:min(300px,100%)" placeholder="Search by event, ID, location…" value="${esc(F.q)}" aria-label="Search events"><span class="seg2"><button class="${F.view==='grid'?'on':''}" data-act="eview" data-v="grid">▦ Grid</button><button class="${F.view==='list'?'on':''}" data-act="eview" data-v="list">☰ List</button></span></div></div>
-  ${shown.length ? (F.view==='grid'?`<div class="evgrid">${shown.map(card).join('')}</div>`:list) : '<div class="card" style="align-items:center;padding:30px"><span class="muted">No events match.</span></div>'}`
+  const card = e => { const c = counts(e), cov = coverage(e), sealed = e.status==='CivilSealed', nw = needs(e);
+    const flags = [sealed?'<span class="evflag ok">CivilSealed</span>':'', nw?`<span class="evflag w">${nw} new file${nw>1?'s':''} to review</span>`:(!(e.review&&e.review.state==='complete')&&c.files?'<span class="evflag w">Not reviewed</span>':''), c.att?`<span class="evflag r">${c.att} need attention</span>`:'', `<span class="evflag">${e.uploads?'Uploads open':'Uploads closed'}</span>`].join('');
+    return `<button class="evc" data-act="open-event" data-id="${e.id}"><span class="im" style="background-image:url(${evImg(e)})"></span><span class="bd">
+      <span class="t"><b>${esc(e.title)}</b>${privChip(e.privacy)}</span>
+      <span class="sub">${esc(e.start.split(',')[0])} · ${e.place?esc(e.place):'Location not provided'}</span>
+      <span class="nums"><span><b>${c.files}</b>files</span><span><b>${c.contributors}</b>contributors</span><span><b>${e.reports.length}</b>reports</span></span>
+      <span class="cov"><span>Review</span><span class="bar"><i style="width:${cov||0}%"></i></span><span>${cov==null?'none':cov+'%'}</span></span>
+      <span class="flags">${flags}</span></span></button>`; };
+  const list = `<div class="card" style="padding:6px"><div class="tblwrap"><table class="t"><thead><tr><th>Event</th><th>Starts</th><th>Privacy</th><th>Status</th><th>Uploads</th><th style="text-align:right">Files</th><th>Review coverage</th></tr></thead><tbody>${shown.map(e=>`<tr class="click" data-act="open-event" data-id="${e.id}"><td><b style="color:var(--fg)">${esc(e.title)}</b><br><span class="mono xs muted">${e.id}</span></td><td class="sm">${esc(e.start)}</td><td>${privChip(e.privacy)}</td><td>${e.status==='CivilSealed'?'<span class="chip">CivilSealed</span>':'<span class="chip">Open</span>'}</td><td class="sm">${e.uploads?'Open':'Closed'}</td><td class="num" style="text-align:right">${counts(e).files}</td><td class="sm">${coverage(e)==null?'Not reviewed':coverage(e)+'%'}</td></tr>`).join('')}</tbody></table></div></div>`;
+  const D = (t,d) => `<button class="dlitem" data-act="dl" data-v="${t}"><span class="col" style="gap:2px;flex:1;text-align:left"><b class="sm">${t}</b><span class="xs muted">${d}</span></span><span class="dim">↓</span></button>`;
+  const St = (n,l) => `<div><b>${n}</b><span>${l}</span></div>`;
+  return `<div class="mehead"><div><h1>My Events</h1><p>Every event you’ve created, with its files, reviews, reports and seals.</p></div><div class="row"><button class="btn" data-act="create">New event</button></div></div>
+  ${evs.length?`<div class="mestats" id="pstats">${St(evs.length,'events')}${St(tot.open,'taking uploads')}${St(tot.files,'files')}${St(tot.contrib,'contributors')}${St(tot.reviewed,'reviewed')}${St(tot.sealed,'CivilSealed')}</div>
+  <div class="mebar"><div class="row" style="gap:6px">${['All Events','Needs review','Reviewed','CivilSealed','Archived'].map(x=>`<button class="tabbtn ${F.tab===x?'on':''}" data-act="etab" data-v="${x}">${x}</button>`).join('')}</div>
+    <div class="row" style="gap:8px;flex-wrap:nowrap;max-width:100%"><input class="in sm" id="e-q" style="min-height:38px;width:min(260px,100%)" placeholder="Search by event, ID, location…" value="${esc(F.q)}" aria-label="Search events"><span class="seg2"><button class="${F.view==='grid'?'on':''}" data-act="eview" data-v="grid">Cards</button><button class="${F.view==='list'?'on':''}" data-act="eview" data-v="list">List</button></span></div></div>
+  ${shown.length ? (F.view==='grid'?`<div class="evgrid3">${shown.map(card).join('')}</div>`:list) : '<div class="card" style="align-items:center;padding:30px"><span class="muted">No events match.</span></div>'}`
   : `<div class="card" style="align-items:center;text-align:center;padding:48px 20px;border-style:dashed"><h2>No events yet</h2><p class="muted" style="max-width:420px">An event gives you an Event ID and a QR code. People scan it to send you photos, video and audio, no app needed.</p><button class="btn" data-act="create">Create your first event</button></div>`}
-  <div class="card"><div class="cardhead"><div class="col" style="gap:4px"><h2>Download Center</h2><span class="sm muted">Export your portfolio. Per-event PDF reports are on each event.</span></div>${SPEC('Portfolio exports: no spec yet')}</div>
-    <div class="cols3" style="gap:14px">${D('folder','Event Summary','Overview of every event in your portfolio','dl')}${D('users','Contribution History','Every file received, by event','dl')}${D('shieldok','CivilSeal Report','All issued CivilSeals with their seal IDs','dl')}${D('finger','Chain of Custody','Fingerprint and step record for every file','dl')}${D('camera','Evidence Package','Originals with a manifest (.zip)','dl')}${D('cal','Timeline Report','Files in capture order across events','dl')}</div></div>`;
+  <details class="card dlc"><summary><span class="col" style="gap:2px"><b>Portfolio exports</b><span class="xs muted">Across all your events. Per-event reports are on each event.</span></span><span class="car dim">▾</span></summary>
+    <div class="cols3" style="gap:10px;margin-top:12px">${D('Event Summary','Overview of every event')}${D('Contribution History','Every file received, by event')}${D('CivilSeal Report','All issued CivilSeals with their seal IDs')}${D('Chain of Custody','Fingerprint and step record for every file')}${D('Evidence Package','Originals with a manifest (.zip)')}${D('Timeline Report','Files in capture order across events')}</div></details>`;
 }
 function procPanel(ev){
   const fs = live(ev), proc = fs.filter(f=>f.proc==='Processing'), wait = fs.filter(f=>f.proc==='Waiting'), done = fs.filter(f=>f.proc==='Processed');
@@ -1393,8 +1485,8 @@ function locationCard(ev){
   const K = (k,v) => `<div class="kv"><span class="eyebrow" style="font-size:10px">${k}</span><span class="sm" style="color:var(--fg);text-align:right">${v}</span></div>`;
   const by = t => withLoc.filter(f=>f.type===t).length;
   return `<div class="card">${sec('live','Location', withLoc.length?`<div class="row" style="gap:4px"><button class="chip ${exact?'on':''}" data-act="map-mode" data-v="1">Exact points</button><button class="chip ${!exact?'on':''}" data-act="map-mode" data-v="0">Approximate area</button></div>`:'','ok')}
-    ${ev.geo?`<div class="row sp" style="flex-wrap:nowrap;border:1px solid var(--red-line);background:var(--red-wash);border-radius:8px;padding:8px 12px"><span class="col" style="gap:1px"><b class="sm">Geofenced · ${esc(ev.geo.label)} · ${ev.geo.km2} km²</b><span class="xs muted">Uploads are checked against this area · people inside are shown the event · version ${ev.geo.version}</span></span><button class="btn2 sm-btn" data-act="edit" data-id="${ev.id}">Edit area</button></div>`:''}
-    ${withLoc.length ? mapSvg(ev, exact) + (ev.geo ? `<div class="row xs" style="gap:14px;color:var(--fg2)">${['inside','weak','none'].map(k=>`<span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:${{inside:'#3CCB7F',weak:'#F5A524',none:'#7D848E'}[k]}"></span>${GEO_TXT[k]} · ${fs.filter(f=>(f.geo||'')===k).length}${k==='none'?' (not on map)':''}</span>`).join('')}</div>` : '') + `<div class="row xs" style="gap:14px;color:var(--fg2)${ev.geo?';display:none':''}"><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#FF5A63"></span>Photo ${by('Photo')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#8FB4FF"></span>Video ${by('Video')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#F5A524"></span>Audio ${by('Audio')}</span><span class="row" style="gap:5px"><span style="width:12px;height:12px;border-radius:6px;border:1px dashed var(--fg2)"></span>browser location (no location in file)</span></div>`
+    ${ev.geo?`<div class="row sp" style="flex-wrap:nowrap;border:1px solid var(--warn-line);background:var(--warn-bg);border-radius:8px;padding:8px 12px"><span class="col" style="gap:1px"><b class="sm">Geofenced · ${esc(ev.geo.label)} · ${ev.geo.km2} km²</b><span class="xs muted">Files are marked inside or outside this area · people inside are shown the event · version ${ev.geo.version}</span></span><button class="btn2 sm-btn" data-act="edit" data-id="${ev.id}">Edit area</button></div>`:''}
+    ${withLoc.length ? mapSvg(ev, exact) + (ev.geo ? `<div class="row xs" style="gap:14px;color:var(--fg2)">${['inside','outside','weak','none'].map(k=>`<span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:${{inside:'#3CCB7F',outside:'#8FB4FF',weak:'#F5A524',none:'#7D848E'}[k]}"></span>${GEO_TXT[k]} · ${fs.filter(f=>(f.geo||'')===k).length}${k==='none'?' (not on map)':''}</span>`).join('')}</div>` : '') + `<div class="row xs" style="gap:14px;color:var(--fg2)${ev.geo?';display:none':''}"><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#FF5A63"></span>Photo ${by('Photo')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#8FB4FF"></span>Video ${by('Video')}</span><span class="row" style="gap:5px"><span style="width:9px;height:9px;border-radius:5px;background:#F5A524"></span>Audio ${by('Audio')}</span><span class="row" style="gap:5px"><span style="width:12px;height:12px;border-radius:6px;border:1px dashed var(--fg2)"></span>browser location (no location in file)</span></div>`
       : `<div class="note" style="text-align:center;padding:26px"><b style="color:var(--fg)">No location data yet</b><br>None of these files includes a location, and no contributor shared one.</div>`}
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 24px">${K('Event place',ev.place?esc(ev.place):'Not set')}${K('Approximate area',first?(first.loc||first.bloc).split(',').map(x=>(+x).toFixed(3)).join(', '):'Not captured')}${K('Files with location',withLoc.length+' of '+fs.length)}${K('Without location',fs.length-withLoc.length?`<button class="btn3 xs" style="min-height:0;padding:0" data-act="f-noloc">${fs.length-withLoc.length} files, not a sign of anything wrong</button>`:'None')}${K('Exact points','Owner and super admins only')}${K('Geofence',ev.geo?esc(ev.geo.label)+' · v'+ev.geo.version:'Off')}</div>
     ${ev.geo&&ev.geo.hist&&ev.geo.hist.length>1?`<div class="col" style="gap:4px"><span class="eyebrow">Area history</span>${ev.geo.hist.map(h=>`<div class="kv"><span>v${h.v} · ${esc(h.t)}</span><span class="xs muted">${esc(h.by)} · ${clock(h.at)}</span></div>`).join('')}<span class="xs muted">Files already received keep the result and area version they were checked against.</span></div>`:''}</div>`;
@@ -1408,7 +1500,7 @@ function shareCard(ev){
         <div class="sharebtns"><button class="btn2" data-act="dl-qr" data-id="${ev.id}">Download PNG</button><button class="btn2" data-act="print-card" data-id="${ev.id}">Print card</button><button class="btn2" data-act="share-sheet" data-id="${ev.id}">Text / email</button><button class="btn2" data-act="fan-view" data-id="${ev.id}">Fan view ↗</button></div></div></div>
     ${priv==='Invite only'?`<div class="row sp" style="border:1px solid var(--line);border-radius:6px;padding:8px 10px;flex-wrap:nowrap"><span class="col" style="gap:1px"><span class="xs muted">Share code · inside the QR and link</span><b class="mono" style="letter-spacing:.2em">${ev.code}</b></span><span class="row" style="gap:6px"><button class="btn2 sm-btn" style="min-height:30px" data-act="copy-code" data-id="${ev.id}">Copy</button><button class="btn2 sm-btn" style="min-height:30px" data-act="regen-code" data-id="${ev.id}">Regenerate</button></span></div>`:''}
     <div class="row sp" style="flex-wrap:nowrap;border-top:1px solid var(--line);padding-top:10px"><span class="col" style="gap:1px"><b class="sm">Accepting uploads</b><span class="xs muted">${ev.archived?'Archived events stay closed':ev.uploads?'People who scan can send files now':'People who scan see “not accepting contributions”'}</span></span><button class="tog ${ev.uploads?'on':''}" role="switch" aria-checked="${ev.uploads}" aria-label="Accepting uploads" data-act="toggle-uploads" data-id="${ev.id}" ${ev.archived?'disabled':''}></button></div>
-    ${ev.geo?`<div class="kv" style="border:0;padding:0;flex-wrap:wrap;gap:4px"><span>Refused, outside the area</span><span>${ev.geo.refused}</span></div><span class="xs muted" style="margin-top:-6px">Count only. No one’s location is stored for these.</span>`:''}
+    ${ev.geo?`<div class="kv" style="border:0;padding:0;flex-wrap:wrap;gap:4px"><span>Sent from outside the area</span><span>${live(ev).filter(f=>f.geo==='outside').length}</span></div>`:''}
     <div class="kv" style="border:0;padding:0"><span>Following by email</span><span>${ev.followers||0} <span class="muted">· totals only</span></span></div></div>`;
 }
 function contributorsPanel(ev){
@@ -1421,26 +1513,63 @@ function contributorsPanel(ev){
     ${rows.map(r=>`<tr class="click" data-act="f-who" data-v="${r.d}"><td><div class="row" style="gap:8px;flex-wrap:nowrap"><span class="avatar" style="width:28px;height:28px;font-size:11px;background:${r.who==='Anonymous'?'#2B323C':'#1C2A44'}">${r.who==='Anonymous'?'?':esc(r.who.split(' ').map(x=>x[0]).join('').slice(0,2))}</span><span class="col" style="gap:0;min-width:0"><span class="fname">${esc(r.label)}</span><span class="xs muted">${esc(r.dev||'Device not recorded')}</span></span></div></td><td class="num">${r.list.length}</td><td class="xs">${['Photo','Video','Audio'].map(t=>{ const n = r.list.filter(f=>f.type===t).length; return n?n+' '+t.toLowerCase():''; }).filter(Boolean).join(' · ')}</td><td class="xs num">${clock(r.first)}</td><td class="xs num">${clock(r.last)}</td><td class="xs">${r.loc?'<span class="st-ok">Yes</span>':'<span class="muted">No</span>'}</td></tr>`).join('')}</tbody></table></div>
     <span class="xs dim" style="padding:6px 10px;display:block">Names are what contributors typed; nothing here is checked. Click a row to see that contributor’s files.</span></div>`;
 }
+function tlPanel(ev){
+  const F = S.tlf||(S.tlf={type:'All',att:false}), r = ev.review;
+  const all = live(ev).slice().sort((a,b)=>b.rec-a.rec), att = counts(ev).att;
+  const fs = all.filter(f=>(F.type==='All'||f.type===F.type) && (!F.att||['Failed','Quarantined'].includes(f.proc)));
+  const geoTxt = f => !ev.geo ? '' : ({inside:'<span class="st-ok">Inside area</span>',outside:'<span class="muted">Outside area</span>',weak:'<span class="st-w">Location not precise</span>',none:'<span class="muted">No location</span>'})[f.geo||'none'];
+  const conf = f => { if (['Failed','Quarantined'].includes(f.proc)) return `<span class="${procTone(f)}" style="font-weight:700">${f.proc}</span>`; if (f.proc!=='Processed') return `<span class="${procTone(f)}">${f.proc}</span>`;
+    const x = r && r.results && r.ids && r.ids.includes(f.id) ? r.results[f.id] : null; if (!x) return '<span class="muted">Not reviewed yet</span>';
+    return x.score!=null ? `<span class="conf ${x.score>=60?'st-ok':'st-w'}">AI ${x.score}%</span>` : `<span class="muted">${esc(x.s)}</span>`; };
+  const items = fs.map(f=>{ const bad = ['Failed','Quarantined'].includes(f.proc);
+    return `<button class="tlitem" data-act="file" data-id="${f.id}"><span class="tm">${clock(f.rec)}</span><span class="ln"><i class="${bad?'att':''}"></i></span><span class="cd"><span class="thumb ${bad?'none':''} ${thumbUrl(f)?'img':''}" style="${thumbStyle(f)}">${f.type==='Audio'?'♪':f.type==='Video'?'▶':''}</span><span class="tx"><span class="nm" title="${esc(f.name)}">${esc(f.name)}</span><span class="sb"><span>${esc(f.who)}</span><span>· ${f.cap!=null?'captured '+clock(f.cap):'no capture time'}</span></span></span><span class="rt">${conf(f)}${geoTxt(f)}</span></span></button>`; }).join('');
+  return `<aside class="tlpanel" aria-label="Evidence timeline"><div class="hd"><div class="row sp"><span class="row" style="gap:10px"><span class="sectitle">Evidence timeline</span><span class="xs muted">${all.length} file${all.length===1?'':'s'}</span></span><span class="xs muted" aria-live="polite">● Live</span></div>
+    <div class="row" style="flex-wrap:wrap">${['All','Photo','Video','Audio'].map(t=>`<button class="chip ${F.type===t?'on':''}" data-act="tl-type" data-v="${t}">${t}</button>`).join('')}${att?`<button class="chip ${F.att?'on':''}" data-act="tl-att">Needs attention · ${att}</button>`:''}</div></div>
+    <div class="tlbody">${items || (all.length?`<div class="note" style="text-align:center">No files match. <button class="btn3" data-act="tl-clear">Show all</button></div>`:`<div class="note" style="text-align:center;padding:24px;display:flex;flex-direction:column;gap:8px;align-items:center"><b style="color:var(--fg)">No evidence received yet</b><span>Share the QR so people can start adding photos, video and audio.</span><button class="btn sm-btn" data-act="show-qr" data-id="${ev.id}">Show QR</button></div>`)}
+    ${all.length?`<div class="row" style="gap:10px;padding:10px 0 0 72px"><span class="xs dim">Event start · ${esc(ev.start)}</span></div>`:''}</div></aside>`;
+}
+function cvDraft(sc){ return sc==='m' ? (M.screen==='create' ? M.cdraft : M.edraft) : S.draft; }
+function coverField(d, scope, ev){
+  const cur = d.cover && d.cover.src, src = cur || (ev ? EVIMG[Math.max(0,S.events.indexOf(ev)) % 3] : EVIMG[0]);
+  const photos = ev ? live(ev).filter(f=>f.type==='Photo' && thumbUrl(f)) : [];
+  const tag = !cur ? 'Default' : d.cover.from==='file' ? 'From a contribution' : 'Uploaded';
+  return `<div class="fld cvf"><span class="lab">Cover photo <span class="muted" style="font-weight:400">(optional)</span></span>
+    <div class="cvrow"><span class="cvprev" style="background-image:url(${src})"><span>${tag}</span></span><div class="col" style="gap:6px;min-width:0"><div class="cvbtns"><button class="btn2 sm-btn" data-act="cv-up" data-s="${scope}">${cur?'Replace':'Upload photo'}</button>${photos.length?`<button class="btn2 sm-btn" data-act="cv-pick" data-s="${scope}" aria-expanded="${!!d.cvPick}">From received photos</button>`:''}${cur?`<button class="btn3 sm-btn" data-act="cv-clear" data-s="${scope}">Use default</button>`:''}</div><span class="hint">Shown at the top of the page people see after scanning your QR. JPG or PNG, landscape works best.</span></div></div>
+    ${d.cvPick&&photos.length?`<div class="cvgrid" role="group" aria-label="Received photos">${photos.slice(0,12).map(f=>`<button class="${d.cover&&d.cover.fileId===f.id?'on':''}" style="background-image:url(${thumbUrl(f)})" data-act="cv-set" data-s="${scope}" data-id="${f.id}" aria-label="Use ${esc(f.name)}"></button>`).join('')}</div><span class="hint">This photo will be shown to everyone who scans the QR. Only use one you’re comfortable showing publicly.</span>`:''}</div>`;
+}
 function eventPage(ev){
-  const c = counts(ev), sup = S.user.role==='super', cov = coverage(ev), sealed = ev.status==='CivilSealed';
+  const c = counts(ev), sup = S.user.role==='super', cov = coverage(ev), sealed = ev.status==='CivilSealed', adv = !!(S.wsAdv && S.wsAdv[ev.id]);
   if (sup && !S.visitLogged?.[ev.id]) { (S.visitLogged ||= {})[ev.id]=1; log('Super admin viewed workspace', ev.id); }
-  const T = (icon,l,v,col) => `<div class="htile"><span class="eyebrow row" style="font-size:10px;gap:6px">${ic(icon,13)} ${l}</span><b style="font-size:22px;color:${col||'var(--fg)'}">${v}</b></div>`;
-  const hero = `<div class="row sp"><a href="#${sup?'all-events':'events'}" class="row" style="gap:8px;color:var(--fg);text-decoration:none">← All Events</a>
-      <div class="row" style="gap:8px"><span class="chip ${sealed?'r':'blue'}" style="border-radius:14px;font-size:11px;letter-spacing:.08em">${sealed?'CIVILSEALED':ev.uploads?'● OPEN':'UPLOADS CLOSED'}</span></div></div>
-    ${sup?'<div class="errbox">Viewing a customer’s workspace as CivilCamAI super admin. This visit is logged.</div>':''}
-    <section class="evhero"><div class="img" style="background-image:url(evhero.jpg)"></div><div class="shade"></div><div class="col" style="position:relative;gap:14px;padding:28px 32px">
-      <div class="row sp" style="align-items:flex-start"><div class="col" style="gap:8px;min-width:0"><span class="eyebrow" style="color:var(--fg2);letter-spacing:.16em">CivilCamAi event · ${esc(ev.type)}</span><h1 style="font-size:clamp(26px,3vw,34px);overflow-wrap:anywhere">${esc(ev.title)}</h1>
-        <div class="row sm" style="gap:16px;color:var(--fg2)"><span class="row" style="gap:6px">${ic('cal',14)} ${esc(ev.start)}</span><span class="row" style="gap:6px">${ic('live',14)} ${ev.place?esc(ev.place):'Location not set'}</span><span class="mono xs muted">${ev.id}</span>${privChip(ev.privacy)}${ev.geo?`<span class="geochip">◎ Geofenced · ${ev.geo.km2} km²</span>`:''}</div></div>
-        <div class="row" style="gap:8px"><button class="btn2 sm-btn" data-act="edit" data-id="${ev.id}">Edit</button><button class="btn2 sm-btn" data-act="show-qr" data-id="${ev.id}">QR</button><button class="btn sm-btn" data-act="report" data-id="${ev.id}">Report</button></div></div>
-      <div class="htiles">${T('spark','Review coverage',cov==null?'Not reviewed':cov+'%',cov==null?'var(--muted)':'var(--warn)')}${T('camera','Videos',c.video)}${T('image','Photos',c.photo)}${T('chat','Audio',c.audio)}${T('users','Contributors',c.contributors)}</div></div></section>
+  const St = (v,l) => `<div><b>${v}</b><span>${l}</span></div>`;
+  const head = `${sup?'<div class="errbox">Viewing a customer’s workspace as CivilCamAI super admin. This visit is logged.</div>':''}
+    <section class="wshead"><div class="t1"><div class="col" style="gap:8px;min-width:0"><a href="#${sup?'all-events':'events'}" class="xs muted" style="text-decoration:none">← All events</a>
+      <div class="row" style="gap:10px;flex-wrap:wrap"><h1>${esc(ev.title)}</h1><span class="chip ${sealed?'r':'blue'}" style="border-radius:14px;font-size:11px">${sealed?'CivilSealed':ev.uploads?'Open':'Uploads closed'}</span>${privChip(ev.privacy)}${ev.geo?`<span class="wsinfo">Geofenced · ${ev.geo.km2} km²</span>`:''}</div>
+      <div class="meta"><span>${esc(ev.start)}</span><span>${ev.place?esc(ev.place):'Location not set'}</span><span class="idtag">${ev.id}</span></div></div>
+      <div class="row" style="gap:8px"><button class="btn2 sm-btn" data-act="edit" data-id="${ev.id}">Edit</button><button class="btn2 sm-btn" data-act="show-qr" data-id="${ev.id}">QR</button><button class="btn sm-btn" data-act="report" data-id="${ev.id}">Report</button></div></div>
+      <div class="wstats">${St(c.files,'files')}${St(c.photo+' / '+c.video+' / '+c.audio,'photo / video / audio')}${St(c.contributors,'contributors')}${(()=>{ const rv = reviewView(ev); return rv && rv.r.state==='complete' ? St(rv.assessed.length+' / '+c.files,'files assessed by AI') : St('Not reviewed','AI review'); })()}${c.att?`<div><b class="st-r">${c.att}</b><span>need attention</span></div>`:''}</div></section>
     ${ev.archived?`<div class="warnbox"><b>Archived, read-only.</b> Hidden from your events list; uploads are closed. <button class="btn3" data-act="unarchive" data-id="${ev.id}" style="color:var(--warn-text)">Restore</button></div>`:!ev.uploads?`<div class="note">Uploads closed. The workspace works as normal. <button class="btn3" data-act="toggle-uploads" data-id="${ev.id}">Reopen uploads</button></div>`:''}`;
-  const timeline = c.files ? listPanel(ev).replace('<h3>Live contributions</h3>', `<span class="row" style="gap:12px"><span class="secic" style="color:#8FB4FF">${ic('folder',16)}</span><span class="sectitle">Evidence timeline</span></span>`)
-    : `<div class="card">${sec('folder','Evidence timeline','<span class="xs muted">0 files</span>','b')}<div class="note" style="text-align:center;padding:30px;display:flex;flex-direction:column;gap:8px;align-items:center"><b style="color:var(--fg)">No evidence received yet</b><span>Share the QR so people can start adding photos, video and audio.</span><div class="row"><button class="btn sm-btn" data-act="show-qr" data-id="${ev.id}">Show QR</button></div></div></div>`;
   const ai = aiPanel(ev).replace(/<h3>AI Incident Summary<\/h3>/, `<span class="row" style="gap:12px"><span class="secic" style="color:var(--warn)">${ic('spark',16)}</span><span class="sectitle">AI incident summary</span></span>`);
-  return hero + `<div class="evgrid2"><div class="col" style="gap:22px;min-width:0">${ai}${procPanel(ev)}<div id="evtl">${timeline}</div>${contributorsPanel(ev)}${c.files?timelinePanel(ev):''}${locationCard(ev)}</div>
-    <div class="col" style="gap:22px;min-width:0">${shareCard(ev)}${custodyCard(ev)}${vcPanel(ev)}${sealCard(ev)}${signalsCard(ev)}${exportPanel(ev).replace(/grid2/,'col')}</div></div>`;
+  const timeline = c.files ? listPanel(ev).replace('<h3>Live contributions</h3>', `<span class="sectitle">All files</span>`) : '';
+  const minimal = `<div class="wsplit"><div class="col">${ai}${vcPanel(ev)}${shareCard(ev)}<div class="finalstep"><span class="fsl">Final step · when you’re satisfied with the evidence</span>${sealCard(ev)}</div></div>${tlPanel(ev)}</div>`;
+  const advBar = `<button class="advbar" data-act="ws-adv" data-id="${ev.id}" aria-expanded="${adv}"><span class="col" style="gap:3px"><b>${adv?'Hide advanced details':'Advanced details'}</b><span class="d">01 Files and contributors · 02 Event location and reports · 03 Integrity and custody · 04 Processing log</span></span><span aria-hidden="true">${adv?'▴':'▾'}</span></button>`;
+  const G = (id,n,t,d,body) => `<section class="advsec" id="adv-${id}" aria-labelledby="advh-${id}"><div class="advh"><span class="advn">${n}</span><span class="col" style="gap:2px"><h2 id="advh-${id}">${t}</h2><span class="xs muted">${d}</span></span></div>${body}</section>`;
+  const advanced = adv ? `<nav class="advnav" aria-label="Advanced sections">${[['files','Files and contributors'],['place','Event location and reports'],['integrity','Integrity and custody'],['proc','Processing log']].map(([k,t],i)=>`<a href="#event-${ev.id}" data-act="adv-jump" data-v="adv-${k}"><b>0${i+1}</b> ${t}</a>`).join('')}</nav>
+    ${G('files','01','Files and contributors','Every file with filters and search, and who sent them.', `<div class="col" style="gap:18px"><div id="evtl">${timeline}</div>${contributorsPanel(ev)}</div>`)}
+    ${G('place','02','Event location and reports','Where files came from, the event area, and reports you can download or share.', `<div class="advgrid"><div class="col">${locationCard(ev)}</div><div class="col">${exportPanel(ev).replace(/grid2/,'col')}</div></div>`)}
+    ${G('integrity','03','Integrity and custody','What supports the record if it is ever challenged.', `<div class="advgrid"><div class="col">${signalsCard(ev)}</div><div class="col">${custodyCard(ev)}</div></div>`)}
+    ${G('proc','04','Processing log','For support and engineering. How each file moved through receive, fingerprint, checks and review copy.', procPanel(ev))}` : '';
+  return head + minimal + advBar + advanced;
 }
 Object.assign(ACT_EXTRA, {
+  'adv-jump'(el, e){ const t = document.getElementById(el.dataset.v); if (t) t.scrollIntoView({behavior:'smooth',block:'start'}); },
+  'cv-up'(el){ S.cvScope = el.dataset.s; if (el.dataset.s==='m') { if (M.screen==='create') mcSync(); else meSync(); } document.getElementById('cv-file').click(); },
+  'cv-pick'(el){ const d = cvDraft(el.dataset.s); if (!d) return; if (el.dataset.s==='m') { if (M.screen==='create') mcSync(); else meSync(); } d.cvPick = !d.cvPick; render(); },
+  'cv-set'(el){ const d = cvDraft(el.dataset.s), ev = el.dataset.s==='m' ? mEvent() : evById(S.modal&&S.modal.id), f = ev && ev.files.find(x=>x.id===el.dataset.id); if (!d || !f) return; if (el.dataset.s==='m') meSync(); d.cover = { src:thumbUrl(f), from:'file', fileId:f.id }; d.cvPick = false; render(); toast('Cover photo set. Save to apply it'); },
+  'cv-clear'(el){ const d = cvDraft(el.dataset.s); if (!d) return; if (el.dataset.s==='m') { if (M.screen==='create') mcSync(); else meSync(); } d.cover = null; render(); },
+  'ws-adv'(el){ const id = el.dataset.id; (S.wsAdv ||= {})[id] = !(S.wsAdv[id]); render(); },
+  'tl-type'(el){ (S.tlf ||= {type:'All',att:false}).type = el.dataset.v; render(); },
+  'tl-att'(){ (S.tlf ||= {type:'All',att:false}).att = !S.tlf.att; render(); },
+  'tl-clear'(){ S.tlf = {type:'All',att:false}; render(); },
   etab(el){ S.efilter.tab = el.dataset.v; render(); }, eview(el){ S.efilter.view = el.dataset.v; render(); },
   'portfolio-export'(){ toast('Preparing your portfolio export. We’ll email you a download link.'); },
   dl(el){ toast(el.dataset.v+' is being prepared. We’ll email you when it’s ready.'); },
@@ -1472,7 +1601,7 @@ function startPage(){
 }
 
 /* ================= MOBILE APP (PWA) ================= */
-const M = { submitting:false, pickKind:null, screen:'home', stack:[], ev:null, name:'', loc:null, queue:[], sheet:null, signal:true, rate:false, codeTries:0, codeErr:'', idErr:'', idVal:'', receipt:null, follow:null, err:{}, sentCount:0, asOwner:false, afterCreate:'ready', cdraft:null, nameErr:'', signedIn:false, rep:null, lnk:null, mf:'All', au:{}, mail:null, camBlocked:false, failing:false, slow:false, locked:false, lockNote:false, leftover:null, contrib:{}, fileId:null, edraft:null, delErr:'', fan:false, cfail:false, cdraft0:'', cam:null, okEv:{}, pend:null, geoSim:'inside', geoNext:null, geoOk:{}, geoRes:{}, geoTries:0, nearby:null, nearDismiss:false, askedName:{}, nameAtSubmit:false, procSig:'', procT:null, procDone:false };
+const M = { contactDone:{}, contact:'', anon:false, submitting:false, pickKind:null, screen:'home', stack:[], ev:null, name:'', loc:null, queue:[], sheet:null, signal:true, rate:false, codeTries:0, codeErr:'', idErr:'', idVal:'', receipt:null, follow:null, err:{}, sentCount:0, asOwner:false, afterCreate:'ready', cdraft:null, nameErr:'', signedIn:false, rep:null, lnk:null, mf:'All', au:{}, mail:null, camBlocked:false, failing:false, slow:false, locked:false, lockNote:false, leftover:null, contrib:{}, fileId:null, edraft:null, delErr:'', fan:false, cfail:false, cdraft0:'', cam:null, okEv:{}, pend:null, geoSim:'inside', geoNext:null, geoOk:{}, geoRes:{}, geoTries:0, nearby:null, nearDismiss:false, askedName:{}, nameAtSubmit:false, procSig:'', procT:null, procDone:false };
 const MSEQ = {n:0};
 function mgo(s, push=true){ if (M.screen==='cam' && s!=='cam') stopCam(); if (s==='home' && M.signedIn) s = 'owner'; if (s==='mreport') M.rep = null; if (s==='mshare') M.lnk = null; if (push && M.screen!==s) M.stack.push(M.screen); M.screen = s; M.sheet=null; render(); const sc = document.querySelector('.mscreen'); if (sc) sc.scrollTop = 0; }
 function mback(){ if (M.screen==='cam') stopCam(); let b = M.stack.pop() || 'home'; if (b==='home' && M.signedIn) b = 'owner'; M.screen = b; M.sheet=null; render(); }
@@ -1555,7 +1684,7 @@ function mobileFrame(){
   const guide = `<aside class="mguide"><a href="#start" class="row" style="gap:8px;color:var(--fg);text-decoration:none;font-weight:600">← Back to start</a>
     <div class="col" style="gap:4px"><span class="eyebrow r">Mobile app · PWA</span><h2>Try a journey</h2><span class="sm muted">Each one starts the phone at a different point. Everything is clickable inside the phone.</span></div>
     <div class="col" style="gap:6px"><span class="eyebrow">Contributors</span>
-      ${[['scan-public','Scan a Public event QR','Brickyard Fan Zone, Turn 3'],['scan-invite','Scan an Invite-only QR (with code)','Riverside Council, name required'],['scan-bare','Open an Invite-only link without the code','“Share code required”'],['scan-closed','Scan a closed event','“Not accepting contributions”'],['scan-bad','Open a wrong or Private link','“Event not found”'],['near','Walk into an event area','Nearby event on the home screen'],['near2','Two events here','Choose between overlapping events'],['geo','Upload from outside the area','Refused, then walk in and check again'],['geo-weak','Weak GPS indoors','“We can’t tell yet” · check again'],['geo-denied','Deny location on a geofenced event','Why and how to turn it on'],['enter-id','Type an Event ID','Can’t scan the QR'],['again','Contribute again later','Same phone, second visit']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
+      ${[['scan-public','Scan a Public event QR','Brickyard Fan Zone, Turn 3'],['scan-invite','Scan an Invite-only QR (with code)','Riverside Council, name required'],['scan-bare','Open an Invite-only link without the code','“Share code required”'],['scan-closed','Scan a closed event','“Not accepting contributions”'],['scan-bad','Open a wrong or Private link','“Event not found”'],['near','Walk into an event area','Nearby event on the home screen'],['near2','Two events here','Choose between overlapping events'],['geo','Upload from outside the area','Accepted and marked outside'],['geo-weak','Weak GPS indoors','Accepted and marked not precise'],['geo-denied','Decline location on a geofenced event','Still accepted, no location'],['enter-id','Type an Event ID','Can’t scan the QR'],['again','Contribute again later','Same phone, second visit']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
       <span class="eyebrow" style="margin-top:10px">Organizer account</span>
       ${[['acct-new','Create an account','Sign up → confirm email → account type → empty home'],['acct-signin','Sign in','Wrong password, lockout, unconfirmed email'],['acct-forgot','Forgot password','Email link → new password'],['acct-google','Continue with Google','Choose account, new account, cancel']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
       <span class="eyebrow" style="margin-top:10px">Organizers on a phone</span>
@@ -1786,6 +1915,7 @@ function mManage(s, ev){
     return mTop('Edit event') + `<div class="mbody" style="gap:12px">
       <div class="fld"><label class="lab" for="me-title">Event title <span style="color:var(--err)">*</span></label><input class="in ${e.title?'err':''}" id="me-title" maxlength="120" value="${esc(d.title)}">${e.title?`<span class="errt">${e.title}</span>`:''}</div>
       <div class="fld"><label class="lab" for="me-desc">Description</label><textarea class="in" id="me-desc" maxlength="500">${esc(d.desc||'')}</textarea></div>
+      ${coverField(d,'m',mEvent())}
       <div class="fld"><label class="lab" for="me-org">Organizer name</label><input class="in" id="me-org" value="${esc(d.org)}"></div>
       <div class="row sp" style="flex-wrap:nowrap"><span class="lab">Who can contribute?</span></div><div class="col" style="gap:6px">${['Public','Invite only','Private'].map(p=>`<button class="opt ${d.privacy===p?'on':''}" style="padding:10px 12px" data-act="me-priv" data-v="${p}"><span class="rad"></span><b class="sm">${p}</b></button>`).join('')}</div>
       ${d.privacy!==ev.privacy?`<div class="warnbox xs">Changing from ${ev.privacy} to ${d.privacy}: ${d.privacy==='Private'?'people who already have the QR will see “Event not found”.':d.privacy==='Invite only'?'a share code is added to the QR and link. The old link stops working without it.':'anyone with the QR or Event ID can contribute.'}</div>`:''}
@@ -1837,7 +1967,7 @@ function mScreen(s){
       <div class="g3hero" style="background-image:url(${evImg(ev)})"><div class="g3bar"><span class="g3pill">${MARK.replace(/width="30" height="30"/,'width="20" height="20"')}<span>CivilCam<em>Ai</em></span></span><button class="g3x" data-act="${M.asOwner||M.fan?'m-back':'m-home'}" aria-label="Close">✕</button></div></div>
       <div class="g3lift"><h2>${esc(ev.title)}</h2><div class="g3meta">${ev.place?`<span>${esc(ev.place)}</span>`:''}<code>${ev.id}</code></div>${feed?`<div class="g3stat"><b>${feed}</b><span>file${feed>1?'s':''} received so far</span></div>`:''}</div>
       ${M.asOwner?`<div class="okbox xs">Signed in as the organizer. Your files go straight into this event.</div>`:''}
-      ${ev.geo&&!M.asOwner&&M.geoOk[ev.id]?(M.geoRes[ev.id]==='weak'?`<div class="note xs" role="status">Location not precise enough. Your files are accepted and marked for the organizer.</div>`:`<div class="okbox xs" role="status">Inside the event area</div>`):''}
+      ${ev.geo&&!M.asOwner&&M.geoOk[ev.id]?({weak:`<div class="note xs" role="status">Location not precise enough. Your files are accepted and marked for the organizer.</div>`,outside:`<div class="note xs" role="status">Outside the event area. Your files are accepted and marked for the organizer.</div>`,none:''}[M.geoRes[ev.id]] ?? `<div class="okbox xs" role="status">Inside the event area</div>`):''}
       ${M.fan?`<div class="note xs"><b>Preview as a contributor.</b> This is what people see after scanning your QR.</div>`:''}
       ${M.leftover&&M.leftover.ev===ev.id&&!hasQ?`<div class="warnbox" role="status"><b>${M.leftover.items.length} file${M.leftover.items.length>1?'s':''} from your last visit didn’t finish.</b><br><span class="xs">The tab closed before they were sent. Pick up where they stopped?</span><div class="row" style="margin-top:8px;flex-wrap:nowrap"><button class="btn sm-btn" style="flex:1" data-act="m-resume">Resume upload</button><button class="btn2 sm-btn" style="flex:1" data-act="m-discardleft">Discard</button></div></div>`:''}
       ${!M.asOwner&&M.contrib[ev.id]&&!hasQ?`<div class="note xs">You sent ${M.contrib[ev.id]} file${M.contrib[ev.id]>1?'s':''} to this event earlier. Anything you add now is a new contribution with its own receipt.</div>`:''}
@@ -1854,7 +1984,7 @@ function mScreen(s){
   }
   if (s==='cam' && M.cam) return mCam(ev);
   if (s==='mproc' && M.receipt) return mTop('Processing', false, '<span style="width:36px"></span>') + mProc(ev);
-  if (s==='creport' && M.receipt) return mTop('Contribution report') + `<div class="mbody"><span class="sm muted">Your files only. The organizer’s other evidence is never included.</span>${cReport(ev)}<button class="btn" data-act="m-toast" data-v="${M.receipt.ref}.pdf opens in your phone’s PDF viewer, share or save it from there">${ic('download',16)} Download PDF</button><button class="mbtnline" data-act="m-share">${ic('share',16)} Share</button></div>`;
+  if (s==='creport' && M.receipt) return mTop('Contribution report') + `<div class="mbody"><span class="sm muted">Your files only. The organizer’s other evidence is never included.</span>${cReport(ev)}<button class="btn" data-act="m-toast" data-v="${M.receipt.ref}.pdf opens in your phone’s PDF viewer, share or save it from there">${ic('download',16)} Download PDF</button><button class="mbtnline" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button><span class="xs muted" style="text-align:center">${M.receipt.anon?'Save this link to view your report again.':'We also sent this link to '+esc(M.receipt.contact)+'.'}</span></div>`;
   if (s==='receipt' && M.receipt && M.receipt.ids) return mReceipt(ev);
   if (s==='receipt') { const r = M.receipt;
     return mTop('', false) + `<div class="mbody"><h2 style="font-size:26px">Thank you</h2><p class="muted">Your files were received and added to this event’s record. You can close this page.</p>
@@ -1872,6 +2002,7 @@ function mScreen(s){
       <div class="fld"><label class="lab" for="mc-title">Event title <span style="color:var(--red-text)">*</span></label><input class="in ${e.title?'err':''}" id="mc-title" maxlength="120" value="${esc(d.title)}" placeholder="e.g. Downtown Climate March">${e.title?`<span class="errt">${e.title}</span>`:''}</div>
       <div class="fld"><span class="lab">Event type</span><div class="row" style="gap:6px">${TYPES.map(t=>`<button class="chip ${d.type===t?'on':''}" data-act="mc-type" data-v="${t}">${t}</button>`).join('')}</div></div>
       <div class="fld"><label class="lab" for="mc-desc">Description <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="mc-desc" maxlength="500" placeholder="What should people capture?">${esc(d.desc)}</textarea></div>
+      ${coverField(d,'m',null)}
       <div class="fld"><label class="lab" for="mc-place">Location</label><input class="in" id="mc-place" value="${esc(d.place)}" placeholder="Type a place"><span class="hint">Detected from GPS · editable</span></div>
       <div class="fld"><label class="lab" for="mc-org">Organizer name <span style="color:var(--red-text)">*</span></label><input class="in ${e.org?'err':''}" id="mc-org" value="${esc(d.org)}">${e.org?`<span class="errt">${e.org}</span>`:''}</div>
       <span class="lab">Who can contribute?</span><div class="col" style="gap:6px">${['Public','Invite only','Private'].map(p=>`<button class="opt ${d.privacy===p?'on':''}" style="padding:10px 12px" data-act="mc-priv" data-v="${p}"><span class="rad"></span><b class="sm">${p}</b></button>`).join('')}</div>
@@ -1890,12 +2021,19 @@ function mScreen(s){
 }
 function mSheet(){
   const evq = mEvent();
+  if (M.sheet==='contact') { const req = evq && evq.attribution;
+    return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="dialog" aria-modal="true" aria-labelledby="mc2-h"><h3 id="mc2-h">Get a link to come back</h3><span class="sm muted">We’ll send you a link to your receipt and report, so you can view it and add more files later. No account and no code.</span>
+      <div class="fld"><label class="lab" for="m-name">Your name${req?'':' (optional)'}</label><input class="in ${M.nameErr?'err':''}" id="m-name" value="${esc(M.name)}" autocomplete="name" placeholder="${req?'Your name':'Leave blank if you prefer'}">${M.nameErr?`<span class="errt" role="alert">${M.nameErr}</span>`:''}</div>
+      <div class="fld"><label class="lab" for="m-contact">Email or phone</label><input class="in ${M.err.ct?'err':''}" id="m-contact" value="${esc(M.contact||'')}" autocomplete="email" placeholder="name@example.com or phone number">${M.err.ct?`<span class="errt" role="alert">${M.err.ct}</span>`:'<span class="hint">Used only to send you your link.</span>'}</div>
+      <button class="btn" data-act="m-contactgo">Submit</button>
+      ${req?'':`<div class="note xs"><b style="color:var(--fg)">Submitting anonymously?</b> Anonymous submissions are final. You won’t be able to come back to this submission, add files to it or change it.</div><button class="btn2" data-act="m-nameanon">Submit anonymously</button>`}
+      <button class="btn3" data-act="m-sheet-close">Cancel</button></section>`; }
   if (M.sheet==='name') { const req = evq && evq.attribution, atSubmit = M.nameAtSubmit;
     return `<div class="mscrim" data-act="m-sheet-close"></div><section class="mdlg" role="dialog" aria-modal="true" aria-labelledby="mn-h"><span class="mico" style="align-self:center">${ic('user',20)}</span><h3 id="mn-h" style="text-align:center;margin:0">${req?'Your name, please':atSubmit?'Add your name?':'Your name'}</h3>
       <span class="sm muted" style="text-align:center">${req?'The organizer of this event asks contributors for their name.':'Optional. It helps the organizer follow up. Leave it blank to stay anonymous.'} Never shown publicly.</span>
       <input class="in ${M.nameErr?'err':''}" id="m-name" value="${esc(M.name)}" placeholder="${req?'Your name':'Your name (optional)'}" autocomplete="name" aria-label="Your name">${M.nameErr?`<span class="errt" role="alert">${M.nameErr}</span>`:''}
       <button class="btn" data-act="m-namesave">${atSubmit?'Add name &amp; submit':req?'Continue':'Save'}</button>${req?'':`<button class="btn2" data-act="m-nameanon">${atSubmit?'Submit anonymously':'Stay anonymous'}</button>`}</section>`; }
-  if (M.sheet==='geoloc') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="mdlg" role="dialog" aria-modal="true" aria-labelledby="mg-h"><span class="mico" style="align-self:center">${ic('live',20)}</span><h3 id="mg-h" style="text-align:center;margin:0">This event accepts contributions from inside its area</h3><span class="sm muted" style="text-align:center">We check your phone’s location against the event area when you add files, and record the result with your contribution. Only the organizer sees it.</span><button class="btn" data-act="m-loc" data-v="on">Allow location</button><button class="btn2" data-act="m-loc" data-v="off">Not now</button></section>`;
+  if (M.sheet==='geoloc') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="mdlg" role="dialog" aria-modal="true" aria-labelledby="mg-h"><span class="mico" style="align-self:center">${ic('live',20)}</span><h3 id="mg-h" style="text-align:center;margin:0">This event has an event area</h3><span class="sm muted" style="text-align:center">We check your phone’s location against it and record the result with your files, so the organizer knows where they were taken. You can add files from anywhere, even after you leave.</span><button class="btn" data-act="m-loc" data-v="on">Allow location</button><button class="btn2" data-act="m-loc" data-v="off">Not now</button></section>`;
   if (M.sheet==='geochk') return `<div class="mscrim"></div><section class="mdlg" role="status" aria-live="polite" style="align-items:center;text-align:center"><span class="mspin" style="width:44px;height:44px;border-width:3px"></span><b>Checking you’re inside the event area…</b><span class="xs muted">The check is made on our server. Your phone only reports its location.</span></section>`;
   if (M.sheet==='near') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="dialog" aria-modal="true" aria-label="Events here"><h3>Events happening here</h3><span class="sm muted">You’re inside the area of each of these. Pick one to add your photos or videos.</span>${['EVT-2026-K7QM-4TR','EVT-2026-D2CM-5HR'].map(id=>{ const e = evById(id); return `<button class="mlink" data-act="m-nearadd" data-v="${id}"><span class="mico">${ic('live',18)}</span><span class="col" style="gap:2px;min-width:0;flex:1"><b class="sm">${esc(e.title)}</b><span class="xs muted">${esc(e.organizer)} · ${esc((e.start||'').split(',').slice(1).join(',').trim()||e.start)}</span></span><span class="chv">${ic('chev',16)}</span></button>`; }).join('')}<button class="btn3" data-act="m-sheet-close">Cancel</button></section>`;
   if (M.sheet==='loc') return `<div class="mscrim" data-act="m-sheet-close"></div><section class="mdlg" role="dialog" aria-modal="true" aria-labelledby="ml-h"><span class="mico" style="align-self:center">${ic('live',20)}</span><h3 id="ml-h" style="text-align:center;margin:0">Share your location?</h3><span class="sm muted" style="text-align:center">It places your files at the scene. Only the organizer sees it, never other contributors. You can still send files without it.</span>${M.loc==='on'?'<span class="xs row" style="gap:6px;justify-content:center"><span class="mdotc" style="background:var(--ok)"></span>On · <span class="mono">39.7950, -86.2353</span></span>':''}<button class="btn" data-act="m-loc" data-v="on">${M.loc==='on'?'Keep sharing':'Allow while using CivilCamAi'}</button><button class="btn2" data-act="m-loc" data-v="off">${M.loc==='on'?'Turn off':'Not now'}</button></section>`;
@@ -1928,7 +2066,7 @@ Object.assign(ACT_EXTRA, {
     if (v==='scan-public') scanTo('EVT-2026-K7QM-4TR'); if (v==='scan-invite') scanTo('EVT-2026-P3HX-9WN','7K2Q'); if (v==='scan-bare') scanTo('EVT-2026-P3HX-9WN');
     if (v==='scan-closed') scanTo('EVT-2026-M4NV-8KD'); if (v==='scan-bad') scanTo('EVT-2026-K7QM-4TX'); if (['near','near2'].includes(v)) { M.nearby = v==='near'?'one':'two'; M.nearDismiss = false; M.loc = M.loc==='off'?null:M.loc; M.stack=[]; mgo('home', false); }
     if (['geo','geo-weak','geo-denied'].includes(v)) { const bk='EVT-2026-K7QM-4TR'; M.geoOk[bk]=false; delete M.geoRes[bk]; M.geoTries=0; M.geoNext=null; scanTo(bk); M.pend=null;
-      if (v==='geo') { M.loc='on'; M.geoSim='outside'; M.geoNext='inside'; geoCheck(); } if (v==='geo-weak') { M.loc='on'; M.geoSim='weak'; geoCheck(); } if (v==='geo-denied') { M.loc=null; M.geoSim='inside'; M.sheet='geoloc'; render(); } } if (v==='enter-id') mgo('enterid', false);
+      if (v==='geo') { M.loc='on'; M.geoSim='outside'; geoCheck(); } if (v==='geo-weak') { M.loc='on'; M.geoSim='weak'; geoCheck(); } if (v==='geo-denied') { M.loc=null; M.geoSim='inside'; M.sheet='geoloc'; render(); } } if (v==='enter-id') mgo('enterid', false);
     if (v==='again') { M.contrib['EVT-2026-K7QM-4TR'] = M.contrib['EVT-2026-K7QM-4TR'] || 3; scanTo('EVT-2026-K7QM-4TR'); }
     if (v.startsWith('acct')) { S.user = null; M.signedIn = false; M.au = {}; M.stack = ['home']; mgo(v==='acct-new'?'signup':v==='acct-forgot'?'forgot':v==='acct-google'?'gpick':'signin', false); }
     if (v.startsWith('owner')) { if (!S.user || S.user.email!==OWNER.email) S.user = {...OWNER}; M.signedIn = true; M.asOwner = false; M.queue = []; M.submitting = false; }
@@ -1949,11 +2087,11 @@ Object.assign(ACT_EXTRA, {
   'm-nearadd'(el){ const id = el.dataset.v; M.loc = 'on'; M.geoOk[id] = true; M.geoRes[id] = 'inside'; M.sheet = null; M.nearby = null; M.stack = [M.screen]; scanTo(id); toast('✓ Inside the event area'); },
   'm-nearsee'(){ M.sheet = 'near'; render(); },
   'm-neardismiss'(){ M.nearDismiss = true; render(); toast('Hidden for this event. Its QR or link still works'); },
-  'm-loc'(el){ const gev = mEvent(); if (M.sheet==='geoloc' && gev && gev.geo) { M.loc = el.dataset.v; M.sheet = null; if (M.loc==='on') geoCheck(); else mgo('geodenied', false); return; }
+  'm-loc'(el){ const gev = mEvent(); if (M.sheet==='geoloc' && gev && gev.geo) { M.loc = el.dataset.v; M.sheet = null; if (M.loc==='on') geoCheck(); else { M.geoOk[gev.id] = true; M.geoRes[gev.id] = 'none'; render(); mResumePend(); } return; }
     M.loc = el.dataset.v; M.sheet = null; render(); if (M.loc==='on') toast('Location on. Only the organizer sees it'); mResumePend(); },
   'm-chip'(el){ M.nameErr=''; M.sheet = el.dataset.v; render(); setTimeout(()=>document.getElementById('m-name')?.focus(), 30); },
   'm-namesave'(){ const ev = mEvent(), v = (document.getElementById('m-name')?.value||'').trim(); if (ev.attribution && !v) { M.nameErr = 'Add your name. The organizer needs it.'; render(); return; } M.name = v; M.nameErr=''; M.sheet = null; const sub = M.nameAtSubmit; M.nameAtSubmit = false; render(); if (sub) ACT_EXTRA['m-submit'](); else mResumePend(); },
-  'm-nameanon'(){ const i = document.getElementById('m-name'); if (i) i.value=''; M.name=''; M.nameErr=''; M.sheet=null; const sub = M.nameAtSubmit; M.nameAtSubmit = false; render(); if (sub) ACT_EXTRA['m-submit'](); },
+  'm-nameanon'(){ const i = document.getElementById('m-name'); if (i) i.value=''; M.name=''; M.nameErr=''; if (M.nameAtSubmit) { const ce = mEvent(); if (ce) M.contactDone[ce.id] = true; M.anon = true; } M.sheet=null; const sub = M.nameAtSubmit; M.nameAtSubmit = false; render(); if (sub) ACT_EXTRA['m-submit'](); },
   'm-resume-pend'(){ mResumePend(); },
   'm-notice'(){ toast('Your files are used only as evidence for this event, seen by its organizer and people they choose, and kept exactly as sent.'); },
   'm-g3step'(el){ M.g3step = +el.dataset.v; render(); },
@@ -1969,12 +2107,11 @@ Object.assign(ACT_EXTRA, {
   'm-keep'(){ toast('Files will resume on their own when the connection returns'); },
   'm-after'(el){ M.afterCreate = el.dataset.v; render(); },
   'm-submit'(){ const ev = mEvent();
-    if (!M.asOwner && ev.attribution && !M.name.trim()) { M.nameErr = 'Add your name to submit. Your files are kept.'; M.sheet = 'name'; render(); document.getElementById('m-name')?.focus(); return; }
-    if (!M.asOwner && !M.fan && !ev.attribution && !M.name.trim() && !M.askedName[ev.id]) { M.askedName[ev.id] = true; M.nameAtSubmit = true; M.nameErr=''; M.sheet = 'name'; render(); return; }
+    if (!M.asOwner && !M.fan && !M.contactDone[ev.id]) { M.nameAtSubmit = true; M.nameErr=''; M.err={}; M.sheet = 'contact'; render(); return; }
     M.nameErr=''; const busy = M.queue.some(q=>['uploading','queued','paused','retrying'].includes(q.state));
     if (busy) { M.submitting = true; mrender(true); pump(); const w = setInterval(()=>{ if (!M.submitting) { clearInterval(w); return; } if (!M.queue.some(q=>['uploading','queued','paused','retrying'].includes(q.state))) { clearInterval(w); M.submitting = false; finish(); } }, 300); return; }
     finish();
-    function finish(){ M.receipt = { ev:ev.id, n:M.queue.filter(q=>q.state==='received').length, who: M.asOwner ? S.user.name : (M.name.trim()||'Anonymous'), at:NOW, not:M.queue.filter(q=>q.state==='rejected'||q.state==='failed') }; log('Contribution submitted · '+M.receipt.n+' files', ev.id); if (!M.asOwner) M.contrib[ev.id] = (M.contrib[ev.id]||0) + M.receipt.n; M.receipt.ids = M.queue.filter(q=>q.state==='received').map(q=>q.fileId); M.receipt.items = M.queue.filter(q=>q.state==='received').map(q=>({...q})); M.receipt.ref = 'CR-2026-1123-'+hx(ev.id+NOW+M.receipt.n,4).toUpperCase(); M.receipt.loc = M.loc; M.stack=[]; mProcStart(); } },
+    function finish(){ M.receipt = { ev:ev.id, n:M.queue.filter(q=>q.state==='received').length, who: M.asOwner ? S.user.name : (M.name.trim()||'Anonymous'), at:NOW, not:M.queue.filter(q=>q.state==='rejected'||q.state==='failed') }; log('Contribution submitted · '+M.receipt.n+' files', ev.id); if (!M.asOwner) M.contrib[ev.id] = (M.contrib[ev.id]||0) + M.receipt.n; M.receipt.ids = M.queue.filter(q=>q.state==='received').map(q=>q.fileId); M.receipt.items = M.queue.filter(q=>q.state==='received').map(q=>({...q})); M.receipt.ref = 'CR-2026-1123-'+hx(ev.id+NOW+M.receipt.n,4).toUpperCase(); M.receipt.loc = M.loc; M.receipt.contact = (!M.asOwner && !M.anon) ? M.contact : ''; M.receipt.anon = !M.asOwner && M.anon; delete M.contactDone[ev.id]; M.anon = false; M.stack=[]; mProcStart(); } },
   'm-exit'(){ M.submitting=false; M.queue=[]; M.receipt=null; M.follow=null; M.linkSent=null; if (M.asOwner) { mgo('status', false); } else mgo('event', false); },
   'm-more'(){ M.submitting=false; M.queue=[]; M.receipt=null; M.follow=null; M.linkSent=null; mgo('event', false); },
   'm-done'(){ M.submitting=false; M.queue=[]; M.receipt=null; M.follow=null; if (M.asOwner) mgo('status', false); else { M.stack=[]; mgo(M.signedIn?'owner':'home', false); } },
@@ -1993,9 +2130,16 @@ Object.assign(ACT_EXTRA, {
   'm-camdemo'(){ M.cam.blocked = false; M.cam.sim = true; mrender(true); },
   'm-camnative'(){ const k = M.cam.mode; M.pickKind = k; const inp = document.getElementById('pick-take'); inp.setAttribute('accept', k==='Photos'?'image/*':k==='Videos'?'video/*':'audio/*'); inp.setAttribute('capture','environment'); inp.value=''; mback(); inp.click(); },
   'm-follow'(){ M.follow='form'; M.err={}; render(); },
+  'm-contactgo'(){ const ev = mEvent(), n = (document.getElementById('m-name')?.value||'').trim(), c = (document.getElementById('m-contact')?.value||'').trim();
+    M.name = n; M.contact = c; M.nameErr = ''; M.err = {};
+    if (ev.attribution && !n) M.nameErr = 'Add your name. The organizer needs it.';
+    if (!(/^\S+@\S+\.\S+$/.test(c) || (c.replace(/\D/g,'').length>=7 && /^[+\d\s().-]+$/.test(c)))) M.err.ct = 'Enter an email address or a phone number, or submit anonymously.';
+    if (M.nameErr || M.err.ct) { render(); return; }
+    M.contactDone[ev.id] = true; M.anon = false; M.sheet = null; M.nameAtSubmit = false; render(); ACT_EXTRA['m-submit'](); },
+  'm-linkagain'(){ toast('Link sent again to '+(M.receipt&&M.receipt.contact||'you')); },
   'm-savelink'(){ M.sheet='savelink'; render(); },
   'm-emaillink'(){ M.err={}; M.sheet='emaillink'; render(); },
-  'm-cblink'(el){ const url = cbLink(M.receipt); M.sheet=null; render(); if (el.dataset.v==='share' && navigator.share) { navigator.share({title:'My CivilCamAi submission', url}).catch(()=>{}); return; } copy(url, el.dataset.v==='share'?'Link ready to share. Send it only to yourself':'Private link copied'); },
+  'm-cblink'(el){ const url = cbLink(M.receipt); M.sheet=null; render(); if (el.dataset.v==='share' && navigator.share) { navigator.share({title:'My CivilCamAi submission', url}).catch(()=>{}); return; } copy(url, M.receipt&&M.receipt.anon?'Link copied. Save it to view your report again':'Link copied'); },
   'm-emailgo'(){ const v = document.getElementById('m-le')?.value.trim(), f = document.getElementById('m-lfollow')?.checked; if (!/^\S+@\S+\.\S+$/.test(v||'')) { M.err={le:'Enter a full email address.'}; render(); return; } M.err={}; M.linkSent=v; if (f && M.follow!=='done') { M.follow='done'; const fe = mEvent(); if (fe) fe.followers=(fe.followers||0)+1; } M.sheet=null; render(); toast('Link sent to '+v); },
   'm-follow-go'(){ const v = document.getElementById('m-fe')?.value.trim(); if (!/^\S+@\S+\.\S+$/.test(v||'')) { M.err={fe:'Enter a full email address.'}; render(); return; } M.follow='done'; M.err={}; const fe = mEvent(); if (fe) fe.followers = (fe.followers||0)+1; render(); },
   
@@ -2010,7 +2154,7 @@ Object.assign(ACT_EXTRA, {
     if (Object.keys(M.err).length) { render(); document.querySelector('.mscreen').scrollTop = 0; return; }
     if (d.geo && d.geo.on && !geoArea(d.geo)) { d.geo.err = 'Set the area first, search for the venue, set a radius or draw it.'; render(); return; }
     if (!M.signal) { M.cfail = true; render(); document.querySelector('.mscreen').scrollTop = 0; return; } M.cfail = false;
-    NOW += 1; const ev = { id:newId(), title:d.title.trim(), type:d.type||'Other', desc:d.desc, start:'Nov 23, '+clock(NOW)+' EST', end:'', place:d.place, organizer:d.org.trim(), privacy:d.privacy, media:{...d.media}, attribution:d.attr, uploads:true, status:'Open', seal:null, code:d.privacy==='Invite only'?CODE().slice(0,4):null, created:NOW+1e6, files:[], review:null, reports:[], links:[], owner:S.user.email };
+    NOW += 1; const ev = { id:newId(), title:d.title.trim(), type:d.type||'Other', desc:d.desc, start:'Nov 23, '+clock(NOW)+' EST', end:'', place:d.place, organizer:d.org.trim(), privacy:d.privacy, media:{...d.media}, attribution:d.attr, uploads:true, status:'Open', seal:null, code:d.privacy==='Invite only'?CODE().slice(0,4):null, created:NOW+1e6, files:[], review:null, reports:[], links:[], owner:S.user.email, cover:d.cover||null };
     { const ga = geoArea(d.geo); if (ga) ev.geo = { ...ga, version:1, refused:0, hist:[{v:1,t:ga.label+' · '+ga.km2+' km²',by:S.user.name,at:NOW}] }; }
     S.events.push(ev); log('Event created on the mobile app', ev.id); M.ev = ev.id; M.stack=['owner'];
     if (M.quickRec) { M.quickRec = false; M.asOwner = true; M.queue=[]; toast('Event created · '+ev.id); mgo('event', false); ACT_EXTRA['m-cam'](); return; }
@@ -2057,10 +2201,10 @@ Object.assign(ACT_EXTRA, {
   'm-rmsheet'(){ M.err = {}; M.sheet = 'remove'; render(); },
   'm-doremove'(){ const ev = mEvent(), f = ev.files.find(x=>x.id===M.fileId), r = (document.getElementById('mrm')?.value||'').trim(); if (!r) { M.err = {rm:'Give a reason. It’s kept in the log.'}; render(); return; }
     f.removed = {by:S.user.name, at:NOW, reason:r}; if (ev.review && ev.review.state==='complete' && ev.review.ids.includes(f.id)) ev.review.removedSince = (ev.review.removedSince||0)+1; log('File removed from record · '+f.name+' · “'+r+'”', ev.id); M.err = {}; M.sheet = null; toast('Removed from the record. The original and its fingerprint are kept'); mback(); },
-  'm-edit'(){ const ev = mEvent(); M.edraft = { title:ev.title, desc:ev.desc, org:ev.organizer, privacy:ev.privacy, uploads:ev.uploads }; M.err = {}; M.delErr = ''; mgo('medit'); },
+  'm-edit'(){ const ev = mEvent(); M.edraft = { title:ev.title, desc:ev.desc, org:ev.organizer, privacy:ev.privacy, uploads:ev.uploads, cover:ev.cover||null }; M.err = {}; M.delErr = ''; mgo('medit'); },
   'me-priv'(el){ meSync(); M.edraft.privacy = el.dataset.v; render(); }, 'me-up'(){ meSync(); M.edraft.uploads = !M.edraft.uploads; render(); },
   'me-save'(){ meSync(); const ev = mEvent(), d = M.edraft; M.err = {}; if (!d.title.trim()) { M.err.title = 'Add a title, spaces alone don’t count.'; render(); document.querySelector('.mscreen').scrollTop = 0; return; }
-    const up = ev.uploads !== d.uploads; Object.assign(ev, { title:d.title.trim(), desc:d.desc, organizer:d.org.trim()||ev.organizer, uploads:d.uploads });
+    const up = ev.uploads !== d.uploads; if ((d.cover&&d.cover.src)!==(ev.cover&&ev.cover.src)) log(d.cover?'Cover photo changed':'Cover photo reset to default', ev.id); Object.assign(ev, { title:d.title.trim(), desc:d.desc, organizer:d.org.trim()||ev.organizer, uploads:d.uploads, cover:d.cover||null });
     if (d.privacy!==ev.privacy) { ev.privacy = d.privacy; if (d.privacy==='Invite only' && !ev.code) ev.code = CODE().slice(0,4); log('Privacy changed to '+d.privacy, ev.id); }
     log(up ? (d.uploads?'Uploads reopened':'Uploads closed') : 'Event edited on the mobile app', ev.id); M.edraft = null; toast('Saved. Event ID, QR code and link are unchanged.'); mback(); },
   'me-archive'(){ const ev = mEvent(); ev.archived = true; ev.uploads = false; log('Event archived', ev.id); M.edraft = null; toast('Archived, hidden from your events and uploads closed. Restore it on the web app.'); M.stack = []; mgo('events', false); },
@@ -2168,14 +2312,14 @@ function mReceipt(ev){ const r = M.receipt, fs = mProcFiles(), withCap = fs.filt
     <div class="col" style="align-items:center;text-align:center;gap:8px"><span class="mbigok">${ic('check',34)}</span><h2 style="font-size:24px">${M.asOwner?'Added to your event':'Thank you'+(r.who!=='Anonymous'?', '+esc(r.who.split(' ')[0]):'')}</h2><span class="sm muted">${r.n} file${r.n===1?' was':'s were'} received, fingerprinted and added to <b style="color:var(--fg)">${esc(ev.title)}</b>.</span></div>
     <div class="card" style="gap:8px"><div class="row sp"><span class="eyebrow">Contribution receipt</span><span class="mono xs" style="color:var(--fg)">${r.ref}</span></div>
       <div class="kv"><span>Event</span><span class="mono xs">${r.ev}</span></div><div class="kv"><span>Contributor</span><span>${esc(r.who)}</span></div><div class="kv"><span>Received at</span><span>${stamp(r.at)}</span></div><div class="kv"><span>Your location</span><span>${r.loc==='on'?'Shared. Only the organizer sees it':'Not shared'}</span></div></div>
-    ${M.asOwner?'':`<div class="cbcard"><h3>Come back to this submission</h3><p>Check how your files are handled and get your report when it’s ready. No account needed.</p><span class="cbdev"><i></i>Saved on this phone</span>${M.linkSent?`<div class="okbox xs" role="status">Link sent to <b>${esc(M.linkSent)}</b>. Check your email.</div>`:''}<div class="cbrow"><button class="g3cta2" data-act="m-savelink">${ic('share',16)} Save link</button><button class="g3cta2" data-act="m-emaillink">${ic('mail',16)} ${M.linkSent?'Send again':'Email it to me'}</button></div></div>`}
+    ${M.asOwner?'':`<div class="cbcard"><h3>${r.anon?'Submitted anonymously':'Come back to this submission'}</h3><p>${r.anon?'This submission is final. It can’t be returned to or changed. Save the report link to view your report again.':`We sent a link to <b>${esc(r.contact)}</b>. Use it to view your report and add more files later. No account needed.`}</p><div class="cbrow"><button class="g3cta2" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button>${r.anon?'':`<button class="g3cta2" data-act="m-linkagain">${ic('mail',16)} Send again</button>`}</div></div>`}
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">${stat(r.n,'received')}${stat(fp+'/'+fs.length,'fingerprinted')}${stat(withCap+'/'+fs.length,'capture time')}</div>
     ${r.not.length?`<div class="errbox"><b class="xs" style="color:var(--err,#FF5A63)">Not sent (${r.not.length})</b>${r.not.map(q=>`<br><span class="xs">${esc(q.name)}: ${q.reason||'not sent'}</span>`).join('')}</div>`:''}
     <div class="msec">Your files</div>
     ${fs.map(f=>{ const th = f.thumb || (f.type==='Audio'?null:EVIMG[f.id.charCodeAt(f.id.length-1)%3]); return `<div class="mev"><span class="mthumb" style="${th?`background-image:url(${th})`:''}">${th?(f.type==='Video'?'<span class="mplay">▶</span>':''):ic('mic',22)}</span><span class="col" style="gap:3px;min-width:0;flex:1"><b class="sm" style="overflow-wrap:anywhere">${esc(f.name)}</b><span class="xs muted">${f.type} · ${f.size} · ${f.cap!=null?'captured '+clock(f.cap):'no capture time'}${f.device&&/CivilCamAi/.test(f.device)?' · in-app':''}</span><span class="mono xs muted">SHA-256 ${f.fp.slice(0,20)}…</span><span class="mpill" style="align-self:flex-start">Received, not validated</span></span></div>`; }).join('')}
     <div class="card" style="gap:6px"><span class="eyebrow">What happens next</span><span class="sm" style="color:var(--fg2)">${M.asOwner?'Your files are in the event record. Start an AI review from the event summary when you’re ready.':'Only the organizer, and people they choose, can see your files. They may run an AI review; you can’t change or delete files once sent, so nothing can be altered later.'}</span><span class="xs dim" style="font-style:italic">Validation supports the record. It does not determine what happened.</span></div>
     ${M.follow==='done'?`<div class="okbox">Check your email and tap the link to start following this event.</div>`:M.follow==='form'?`<div class="card" style="gap:8px"><b class="sm">Follow this event</b><span class="xs muted">Email updates about this event only. We’ll ask you to confirm first. Every update has an unsubscribe link.</span><div class="fld"><label class="lab" for="m-fe">Email</label><input class="in ${M.err.fe?'err':''}" id="m-fe" type="email" placeholder="name@example.com">${M.err.fe?`<span class="errt">${M.err.fe}</span>`:'<span class="hint">Never shown publicly or attached to your files.</span>'}</div><button class="btn sm-btn" data-act="m-follow-go">Follow</button></div>`:''}
-    <div class="col" style="gap:8px"><button class="btn" data-act="m-creport">${ic('download',16)} Download report (PDF)</button><button class="mbtnline" data-act="m-share">${ic('share',16)} Share receipt</button>
+    <div class="col" style="gap:8px"><button class="btn" data-act="m-creport">${ic('download',16)} Download report (PDF)</button>${M.asOwner?`<button class="mbtnline" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button>`:''}
       ${M.follow||M.asOwner?'':'<button class="btn2" data-act="m-follow">Follow this event by email</button>'}
       <div class="row" style="flex-wrap:nowrap"><button class="btn2 sm-btn" style="flex:1" data-act="m-more">Add more files</button><button class="btn2 sm-btn" style="flex:1" data-act="m-exit">${M.asOwner?'Back to event summary':'Done'}</button></div></div></div>`; }
 function cReport(ev){ const r = M.receipt, fs = mProcFiles(), withCap = fs.filter(f=>f.cap!=null).length, withLoc = fs.filter(f=>f.loc||f.bloc).length;
@@ -2199,14 +2343,15 @@ function mGate(pd){ const ev = mEvent(); if (M.asOwner || M.fan || !ev) return f
 function geoCheck(){ const ev = mEvent(); M.sheet = 'geochk'; render();
   setTimeout(() => { const r = M.geoSim; if (M.geoNext) { M.geoSim = M.geoNext; M.geoNext = null; } M.sheet = null;
     if (r==='inside') { M.geoOk[ev.id] = true; M.geoRes[ev.id] = 'inside'; M.geoTries = 0; if (M.screen!=='event') mgo('event', false); else render(); toast('✓ Inside the event area'); mResumePend(); return; }
-    if (r==='outside') { M.geoTries = 0; mgo('outside', false); return; }
-    M.geoTries++; if (M.geoTries>=3) { M.geoOk[ev.id] = true; M.geoRes[ev.id] = 'weak'; M.geoTries = 0; if (M.screen!=='event') mgo('event', false); else render(); toast('Accepted. The organizer sees “Location not precise enough” beside your files'); mResumePend(); return; }
-    mgo('geoweak', false); }, 900); }
+    M.geoOk[ev.id] = true; M.geoRes[ev.id] = r==='outside' ? 'outside' : 'weak'; M.geoTries = 0; if (M.screen!=='event') mgo('event', false); else render();
+    toast(r==='outside' ? 'You’re outside the event area. Your files are still accepted' : 'Location not precise. Your files are still accepted'); mResumePend(); }, 900); }
 function mResumePend(){ const pd = M.pend; if (!pd) return; M.pend = null; if (pd.a==='cam') ACT_EXTRA['m-cam'](); else if (pd.a==='sheet') ACT_EXTRA['m-sheet']({dataset:{v:pd.v}}); }
 function mSignedIn(u){ S.user = {...u}; M.signedIn = true; S.fails = 0; S.lockUntil = 0; log('Signed in on the mobile app'); M.au = {}; M.stack = []; mgo(u.type ? 'owner' : 'acctype', false); }
 function msSync(){ const a = M.au, n = document.getElementById('ms-name'), e = document.getElementById('ms-email'); if (n) a.name = n.value; if (e) a.email = e.value.trim(); const w = document.getElementById('ms-pw'); if (w) a.pw = w.value; }
 function meSync(){ const d = M.edraft; if (!d) return; const g = id => document.getElementById(id); if (g('me-title')) d.title = g('me-title').value; if (g('me-desc')) d.desc = g('me-desc').value; if (g('me-org')) d.org = g('me-org').value; }
 function mcSync(){ const d = M.cdraft; if (!d) return; const g = id => document.getElementById(id); if (g('mc-title')) d.title = g('mc-title').value; if (g('mc-desc')) d.desc = g('mc-desc').value; if (g('mc-place')) d.place = g('mc-place').value; if (g('mc-org')) d.org = g('mc-org').value; }
+document.getElementById('cv-file').addEventListener('change', e => { const f = e.target.files[0]; e.target.value=''; if (!f) return; if (!/^image\/(jpeg|png)$/.test(f.type)) { toast('Use a JPG or PNG photo'); return; } if (f.size > 10*1024*1024) { toast('That photo is over 10 MB. Choose a smaller one'); return; }
+  const r = new FileReader(); r.onload = () => { const d = cvDraft(S.cvScope); if (!d) return; d.cover = { src:r.result, from:'upload', name:f.name }; d.cvPick = false; render(); }; r.readAsDataURL(f); });
 ['pick-take','pick-lib'].forEach(id => document.getElementById(id).addEventListener('change', e => { const files = [...e.target.files]; const k = M.pickKind, how = id==='pick-take'?'taken':'library'; e.target.value = ''; if (files.length && k) addFiles(files, k, how); else { M.sheet = null; render(); } }));
 
 const PAGES = { home, capture:outPage('capture'), contributions:contributionsPage, advisor:advisorPage, civilseal:civilsealPage, security:securityPage, alerts:alertsPage, support:supportPage,
@@ -2258,6 +2403,7 @@ function modalHtml(){
     <span class="mono sm muted">${ev.id} · never changes</span>
     <div class="fld"><label class="lab" for="e-title">Event title</label><input class="in ${S.err.title?'err':''}" id="e-title" maxlength="120" value="${esc(d.title)}" data-d="title">${S.err.title?`<span class="errt">${S.err.title}</span>`:''}</div>
     <div class="fld"><label class="lab" for="e-desc">Description</label><textarea class="in" id="e-desc" data-d="desc" maxlength="500">${esc(d.desc)}</textarea></div>
+    ${coverField(d,'d',ev)}
     <div class="fld"><label class="lab" for="e-org">Organizer name</label><input class="in" id="e-org" value="${esc(d.organizer)}" data-d="organizer"></div>
     <div class="row sp card" style="flex-direction:row;background:var(--bg);flex-wrap:nowrap"><div class="col" style="gap:2px"><b class="sm">Accept uploads</b><span class="xs muted">${d.uploads?'On. People who scan can add files.':'Off. People who scan can see the event but can’t add.'}</span></div><button class="tog ${d.uploads?'on':''}" role="switch" aria-checked="${d.uploads}" aria-label="Accept uploads" data-act="e-uploads"></button></div>
     <span class="lab">Who can contribute?</span><div class="row" style="gap:6px">${['Public','Invite only','Private'].map(p=>`<button class="chip ${d.privacy===p?'on':''}" data-act="e-priv" data-v="${p}">${p}${p===ev.privacy?' (current)':''}</button>`).join('')}</div>
@@ -2387,17 +2533,17 @@ const ACT = {
   'd-create'(){ const d = S.draft; d.busy = true; d.err=false; render();
     setTimeout(() => { if (d.failOnce) { d.failOnce=false; d.busy=false; d.err=true; render(); return; }
       const fmt = v => { if(!v) return ''; const dt = new Date(v); return dt.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' EST'; };
-      const ev = { id:newId(), title:d.title.trim(), type:d.type||'Other', desc:d.desc, start:fmt(d.start), end:fmt(d.end), place:d.place, organizer:d.organizer.trim(), privacy:d.privacy, media:{...d.media}, attribution:d.attribution, uploads:true, status:'Open', seal:null, code: d.privacy==='Invite only'?CODE().slice(0,4):null, created:NOW+1e6, files:[], review:null, reports:[], links:[], owner:S.user.email };
+      const ev = { id:newId(), title:d.title.trim(), type:d.type||'Other', desc:d.desc, start:fmt(d.start), end:fmt(d.end), place:d.place, organizer:d.organizer.trim(), privacy:d.privacy, media:{...d.media}, attribution:d.attribution, uploads:true, status:'Open', seal:null, code: d.privacy==='Invite only'?CODE().slice(0,4):null, created:NOW+1e6, files:[], review:null, reports:[], links:[], owner:S.user.email, cover:d.cover||null };
       const ga = geoArea(d.geo); if (ga) ev.geo = { ...ga, version:1, refused:0, hist:[{v:1,t:ga.label+' · '+ga.km2+' km²',by:S.user.name,at:NOW}] };
       S.events.push(ev); log('Event created'+(ga?' · geofenced':''), ev.id); S.modal=null; S.draft=null; go('ready-'+ev.id); }, 900); },
   'open-event'(el){ go('event-'+el.dataset.id); },
-  edit(el){ const ev = evById(el.dataset.id); S.draft = { title:ev.title, desc:ev.desc, organizer:ev.organizer, uploads:ev.uploads, privacy:ev.privacy }; S.err={}; S.modal={k:'edit', id:ev.id}; render(); },
+  edit(el){ const ev = evById(el.dataset.id); S.draft = { title:ev.title, desc:ev.desc, organizer:ev.organizer, uploads:ev.uploads, privacy:ev.privacy, cover:ev.cover||null }; S.err={}; S.modal={k:'edit', id:ev.id}; render(); },
   'e-uploads'(){ S.draft.uploads = !S.draft.uploads; render(); },
   'e-priv'(el){ S.draft.privacy = el.dataset.v; render(); },
   'save-edit'(el){ const ev = evById(el.dataset.id), d = S.draft; S.err={}; if (!d.title.trim()) { S.err.title='Add a title, spaces alone don’t count.'; render(); return; }
     if (d.geo && d.geo.on && !geoArea(d.geo)) { d.geo.err = 'Set the area before saving, or turn geofencing off.'; render(); return; }
     { const ga = geoArea(d.geo), cur = ev.geo; if (!ga && cur) { ev.geo = null; log('Geofencing turned off', ev.id); } else if (ga && (!cur || cur.label!==ga.label || cur.km2!==ga.km2)) { const v = cur ? cur.version+1 : 1; ev.geo = { ...ga, version:v, refused:cur?cur.refused:0, hist:[{v,t:ga.label+' · '+ga.km2+' km²',by:S.user.name,at:NOW}, ...(cur?cur.hist:[])] }; log('Event area '+(cur?'changed to v'+v:'set'), ev.id); } }
-    const up = ev.uploads !== d.uploads; Object.assign(ev, { title:d.title.trim(), desc:d.desc, organizer:d.organizer, uploads:d.uploads });
+    const up = ev.uploads !== d.uploads; if ((d.cover&&d.cover.src)!==(ev.cover&&ev.cover.src)) log(d.cover?'Cover photo changed':'Cover photo reset to default', ev.id); Object.assign(ev, { title:d.title.trim(), desc:d.desc, organizer:d.organizer, uploads:d.uploads, cover:d.cover||null });
     if (d.privacy!==ev.privacy) { ev.privacy = d.privacy; if (d.privacy==='Invite only' && !ev.code) ev.code = CODE().slice(0,4); log('Privacy changed to '+d.privacy, ev.id); }
     if (up) log(d.uploads?'Uploads reopened':'Uploads closed', ev.id); else log('Event edited', ev.id);
     S.modal=null; S.draft=null; toast('Changes saved. Event ID, QR code and link are unchanged.'); render(); },
