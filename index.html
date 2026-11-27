@@ -262,6 +262,32 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cvgrid button{all:unset;cursor:pointer;aspect-ratio:1;border-radius:8px;background-size:cover;background-position:center;border:2px solid transparent}
 .cvgrid button:hover,.cvgrid button:focus-visible{border-color:var(--fg)}
 .cvgrid button.on{border-color:var(--red)}
+/* Submission page (opened from the link) */
+.sbhero{margin:0 -18px;height:120px;flex:none;background-size:cover;background-position:center;position:relative}
+.sbhero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,13,.2),var(--bg))}
+.sblift{margin-top:-54px;position:relative;z-index:1;display:flex;flex-direction:column;gap:6px}
+.sblift h2{margin:0;font-size:22px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.sbmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--fg2)}
+.sbmeta code{font-family:var(--f-mono);font-size:10.5px;color:var(--fg);background:var(--raise);border:1px solid var(--line2);padding:2px 7px;border-radius:5px}
+.sbprog{border-radius:16px;background:var(--surface);border:1px solid var(--line);padding:12px 6px 10px;display:flex;flex-direction:column;gap:10px}
+.sbprog .h{padding:0 8px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sbsteps{display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.sbsteps::before{content:"";position:absolute;top:13px;left:10%;right:10%;height:2px;background:var(--line2)}
+.sbsteps .bar{position:absolute;top:13px;left:10%;height:2px;background:var(--ok)}
+.sbsteps div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:var(--muted);position:relative}
+.sbsteps i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:800;background:var(--raise);border:1.5px solid var(--line2);color:var(--muted)}
+.sbsteps div.d{color:var(--fg)}.sbsteps div.d i{background:var(--ok);border-color:var(--ok);color:#06140C}
+.sbsteps div.c{color:var(--fg)}.sbsteps div.c i{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.sbprog p{margin:0;padding:8px 8px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--fg2)}
+.sbfile{display:flex;gap:10px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line)}
+.sbfile:last-child{border:0}
+.sbfile .th{width:40px;height:40px;border-radius:9px;background-size:cover;background-position:center;flex:none;background-color:var(--raise);display:grid;place-items:center;color:var(--muted)}
+.sbfile .tx{display:flex;flex-direction:column;gap:2px;font-size:13px;min-width:0;flex:1}
+.sbfile code{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbpill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;flex:none;border:1px solid var(--ok-line);background:var(--ok-bg);color:var(--ok)}
+.sbpill.n{border-color:var(--line2);background:var(--raise);color:var(--fg2)}
+.sblinks{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px}
+.sblinks button{background:none;border:0;padding:0;color:var(--fg2);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
 /* A3 guest event screen */
 .g3hero{margin:0 -18px;height:200px;flex:none;background-size:cover;background-position:center 40%;position:relative}
 .g3hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,13,.55) 0%,rgba(7,9,13,.1) 35%,rgba(7,9,13,.6) 70%,var(--bg) 100%)}
@@ -578,7 +604,7 @@ function mkFile(ev, o){
 }
 function seed(){
   const evs = [];
-  const a = { followers:3, id:'EVT-2026-K7QM-4TR', title:'Brickyard Fan Zone, Turn 3', type:'Sports / Stadium', desc:'Crowd at the Turn 3 barrier. Capture wide shots and the gate area.',
+  const a = { followers:3, id:'EVT-2026-K7QM-4TR', title:'Brickyard Fan Zone, Turn 3', type:'Sports / Stadium', desc:'',
     start:'Nov 23, 7:00 PM EST', end:'Nov 23, 11:59 PM EST', place:'Indianapolis Motor Speedway, IN', organizer:'Indianapolis Motor Speedway', privacy:'Public',
     media:{Photos:true,Videos:true,Audio:true,Documents:true}, attribution:false, uploads:true, status:'Open', seal:null, code:null, created:BASE-20, files:[], review:null, reports:[], links:[], example:true };
   const F = (o) => a.files.push(mkFile(a,o));
@@ -605,7 +631,7 @@ function seed(){
   F({name:'IMG_8813.JPG',who:'Priya S.',dev:'p12',rec:BASE+172,cap:BASE+171,size:'2.0 MB',device:'OnePlus 12'});
   a.reports.push({ref:'RPT-51C0',at:BASE+130,by:'Anand Roy',opts:'Names on · Prepared for J. Smith, Acme Insurance',files:14,ver:'None',sha:hx('rpt1')});
   evs.push(a);
-  const b = { id:'EVT-2026-P3HX-9WN', title:'Riverside Council Meeting', type:'Public Meeting', desc:'Council vote on the river path. Record speakers and the public comment period.',
+  const b = { id:'EVT-2026-P3HX-9WN', title:'Riverside Council Meeting', type:'Public Meeting', desc:'',
     start:'Nov 12, 6:30 PM CST', end:'Nov 12, 9:00 PM CST', place:'Riverside City Hall, IL', organizer:'Anand Roy', privacy:'Invite only', media:{Photos:true,Videos:true,Audio:true,Documents:false},
     attribution:true, uploads:true, status:'Open', seal:null, code:'7K2Q', created:BASE-15000, files:[], review:null, reports:[], links:[], example:true };
   [['IMG_5512.JPG','Photo','R. Okafor'],['VID_5520.MP4','Video','R. Okafor'],['council_audio.m4a','Audio','L. Chen']].forEach(([n,t,w],i)=>b.files.push(mkFile(b,{name:n,type:t,who:w,dev:'q'+i,rec:BASE-14000+i*7,cap:BASE-14001+i*7})));
@@ -619,6 +645,15 @@ function seed(){
   evs.push({ id:'EVT-2026-D2CM-5HR', title:'Downtown Climate March, Jan 18', type:'Demonstration', desc:'March route from the river to City Hall.', start:'Jan 18, 11:00 AM EST', end:'', place:'Downtown Indianapolis, IN', organizer:'Anand Roy', privacy:'Public',
     media:{Photos:true,Videos:true,Audio:true,Documents:false}, attribution:false, uploads:true, status:'Open', seal:null, code:null, created:BASE+20, files:[], review:null, reports:[], links:[], example:true });
   evs.forEach(e => e.owner = 'anand@example.com');
+  { const r = { id:'EVT-2026-R8WM-3QA', title:'Riverfront Night Market', type:'Public gathering', desc:'', start:'Nov 21, 6:00 PM EST', end:'Nov 21, 11:00 PM EST', place:'White River State Park, IN', organizer:'Riverfront Business Alliance', privacy:'Public',
+      media:{Photos:true,Videos:true,Audio:true,Documents:false}, attribution:false, uploads:true, status:'Open', seal:null, code:null, created:BASE-3000, files:[], review:null, reports:[], links:[], example:true, owner:'events@riverfront.example' };
+    [['IMG_7720.JPG','Photo'],['IMG_7723.JPG','Photo'],['VID_7731.MOV','Video']].forEach(([n,t],i)=>r.files.push(mkFile(r,{name:n,type:t,who:'Anand Roy',dev:'acct-anand',rec:BASE-2900+i*4,cap:BASE-2901+i*4,device:'Apple iPhone 15',acct:'anand@example.com',sub:'CR-2026-1121-7Q2D'})));
+    ['IMG_7801.JPG','IMG_7805.JPG'].forEach((n,i)=>r.files.push(mkFile(r,{name:n,who:'Anonymous',dev:'rx'+i,rec:BASE-2850+i*6,cap:BASE-2851+i*6})));
+    const w = { id:'EVT-2026-W5KF-7LT', title:'Westside 5K, Finish Line', type:'Sports / Stadium', desc:'', start:'Nov 9, 8:00 AM EST', end:'Nov 9, 11:00 AM EST', place:'Westside Park, Indianapolis, IN', organizer:'Westside Running Club', privacy:'Public',
+      media:{Photos:true,Videos:true,Audio:false,Documents:false}, attribution:false, uploads:false, status:'CivilSealed', seal:'CS-2026-1110-4M8P', code:null, created:BASE-20000, files:[], review:null, reports:[], links:[], example:true, owner:'race@westside.example' };
+    w.files.push(mkFile(w,{name:'IMG_5512.JPG',who:'Anand Roy',dev:'acct-anand',rec:BASE-19900,cap:BASE-19901,device:'Apple iPhone 15',acct:'anand@example.com',sub:'CR-2026-1109-2K9T'}));
+    w.files.push(mkFile(w,{name:'IMG_5530.JPG',who:'Anonymous',dev:'wx0',rec:BASE-19880,cap:BASE-19881}));
+    w.review = runResults(w, w.files.map(f=>f.id), 1, BASE-19800); evs.push(r, w); }
   const bk = evs.find(e=>e.id==='EVT-2026-K7QM-4TR'); if (bk) { bk.geo = { method:'shape', label:'Drawn shape', km2:0.42, radius:null, version:2, refused:14, hist:[{v:2,t:'Drawn shape · 0.42 km²',by:'Anand Roy',at:BASE+72},{v:1,t:'Radius 400 m · 0.50 km²',by:'Anand Roy',at:BASE-20}] }; let k=0; bk.files.forEach(f=>{ f.geo = (f.loc||f.bloc) ? 'inside' : ['weak','none','outside'][k++%3]; }); }
   const dm = evs.find(e=>e.id==='EVT-2026-D2CM-5HR'); if (dm) dm.geo = { method:'radius', label:'Radius 800 m', km2:2.01, radius:800, version:1, refused:0, hist:[{v:1,t:'Radius 800 m · 2.01 km²',by:'Anand Roy',at:BASE+20}] };
   return evs;
@@ -852,12 +887,12 @@ function privChip(p){ return `<span class="chip">${p}</span>`; }
 function eventsPage(all){
   const mine = S.events.filter(e => !e.deleted && !e.archived && (all || canSee(e)));
   const sup = S.user.role==='super';
-  if (!mine.length) return `<div class="row sp"><h1>My events</h1><button class="btn" data-act="create">+ Create New Event ID</button></div>
+  if (!mine.length) return `<div class="row sp"><h1>My events</h1><button class="btn" data-act="create">+ New event</button></div>
     <div class="card" style="align-items:center;text-align:center;padding:48px 20px;border-style:dashed"><h2>No events yet</h2><p class="muted" style="max-width:420px">An event gives you an Event ID and a QR code. People scan it to send you photos, video and audio, no app needed.</p><button class="btn" data-act="create">Create your first event</button></div>
     <div class="note">Only Events, Create, Account and Help. Nothing else until roles are granted. No sample events.</div>`;
   const rows = mine.slice().sort((a,b)=>b.created-a.created).map(e => { const c = counts(e);
     return `<tr class="click" data-act="open-event" data-id="${e.id}"><td><b style="color:var(--fg)">${esc(e.title)}</b><br><span class="mono xs muted">${e.id}</span></td><td class="sm">${esc(e.start)}</td><td>${privChip(e.privacy)}</td><td>${e.status==='CivilSealed'?'<span class="chip r">CivilSealed</span>':'<span class="chip">Open</span>'}</td><td class="sm">${e.uploads?'Open':'Closed'}</td><td class="num" style="text-align:right">${c.files}</td></tr>`; }).join('');
-  return `<div class="row sp"><div class="col" style="gap:4px"><h1>${all?'Events · all accounts':'My events'}</h1>${mine.some(e=>e.example)?'':''}</div>${sup?'':'<button class="btn" data-act="create">+ Create New Event ID</button>'}</div>
+  return `<div class="row sp"><div class="col" style="gap:4px"><h1>${all?'Events · all accounts':'My events'}</h1>${mine.some(e=>e.example)?'':''}</div>${sup?'':'<button class="btn" data-act="create">+ New event</button>'}</div>
   ${sup?'<div class="note">Super admins can open any event’s workspace. Each visit is logged.</div>':''}
   <div class="card" style="padding:4px 6px"><div class="tblwrap"><table class="t"><thead><tr><th>Event</th><th>Starts</th><th>Privacy</th><th>Status</th><th>Uploads</th><th style="text-align:right">Files</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
 }
@@ -872,7 +907,7 @@ function createDlg(){
   if (d.step===1) b = `
     <div class="fld"><label class="lab" for="c-title">Event title <span style="color:var(--red-text)">*</span></label><input class="in ${e.title?'err':''}" id="c-title" maxlength="120" data-d="title" value="${esc(d.title)}" placeholder="e.g. Downtown Climate March, Jan 18" data-autofocus><span class="cnt" id="c-title-n">${d.title.length} / 120</span>${e.title?`<span class="errt">${e.title}</span>`:''}</div>
     <div class="fld"><span class="lab" id="c-type-l">Event type${sg('type')}</span><div class="row" role="radiogroup" aria-labelledby="c-type-l" style="gap:6px">${TYPES.map(t=>`<button class="chip ${d.type===t?'on':''}" role="radio" aria-checked="${d.type===t}" data-act="d-type" data-v="${t}">${t}</button>`).join('')}</div><span class="hint">Sets suggested media and report wording. Your own choices are kept.</span></div>
-    <div class="fld"><label class="lab" for="c-desc">Description <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="c-desc" maxlength="500" data-d="desc" placeholder="What should people capture?">${esc(d.desc)}</textarea></div>
+    <div class="fld"><label class="lab" for="c-desc">Internal notes <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="c-desc" maxlength="500" data-d="desc" placeholder="Notes for you and your team">${esc(d.desc)}</textarea><span class="hint">Only you and your team see this. Contributors don’t.</span></div>
     ${coverField(d,'d',null)}
     <div class="grid2" style="gap:10px"><div class="fld"><label class="lab" for="c-start">Starts</label><input class="in" id="c-start" type="datetime-local" data-d="start" value="${d.start}"></div><div class="fld"><label class="lab" for="c-end">Ends <span class="muted" style="font-weight:400">(optional)</span></label><input class="in ${e.end?'err':''}" id="c-end" type="datetime-local" data-d="end" value="${d.end}">${e.end?`<span class="errt">${e.end}</span>`:''}</div></div>
     <div class="fld"><label class="lab" for="c-place">Location</label><input class="in" id="c-place" data-d="place" value="${esc(d.place)}" placeholder="${d.locState==='detecting'?'Detecting location…':'Type a place'}"><span class="hint">${d.locState==='detecting'?'Detecting your location, type now if you like; what you type is never overwritten.':d.locState==='found'?'Detected · editable':'Location is off, type it, or leave it. You can still create the event.'}</span></div>
@@ -894,8 +929,8 @@ function createDlg(){
     ${d.err?`<div class="errbox" role="alert"><b style="color:var(--fg)">We couldn’t create the event.</b> Nothing you entered was lost. Try again, if the first try went through, you’ll get that same event, not a copy.</div>`:''}
     ${d.busy?'<div class="note" role="status">Creating your Event ID… A second tap won’t create a second event.</div>':''}`; }
   const none = d.step===3 && !Object.values(d.media).some(Boolean);
-  const next = d.step<3 ? `<button class="btn" data-act="d-next">Next: ${d.step===1?'Privacy':'Evidence'}</button>` : `<button class="btn" data-act="d-create" ${none||d.busy?'disabled':''}>${d.busy?'Creating…':d.err?'Try again':'Create Event ID'}</button>`;
-  return `<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="c-h"><div class="dlg-h"><h2 id="c-h">Create New Event ID</h2><button class="x" aria-label="Close" data-act="d-cancel">✕</button></div>
+  const next = d.step<3 ? `<button class="btn" data-act="d-next">Next: ${d.step===1?'Privacy':'Evidence'}</button>` : `<button class="btn" data-act="d-create" ${none||d.busy?'disabled':''}>${d.busy?'Creating…':d.err?'Try again':'Create event'}</button>`;
+  return `<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="c-h"><div class="dlg-h"><h2 id="c-h">Create event</h2><button class="x" aria-label="Close" data-act="d-cancel">✕</button></div>
     <div class="dlg-b">${steps}${b}</div><div class="dlg-f">${d.step>1?'<button class="btn2" data-act="d-back">Back</button>':'<button class="btn2" data-act="d-cancel">Cancel</button>'}${next}</div></div>`;
 }
 function discardDlg(){ return `<div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dd-h"><div class="dlg-b"><h2 id="dd-h">Discard this event?</h2><p class="muted">What you’ve entered will be lost. No event has been created yet.</p><div class="row"><button class="btn danger" data-act="d-discard">Discard</button><button class="btn2" data-act="d-keep">Keep editing</button></div></div></div>`; }
@@ -1215,7 +1250,7 @@ function home(){
     <span class="row xs" style="gap:8px;color:var(--fg2)">${MARK.replace(/width="30" height="30"/,'width="18" height="18"')} Your World. Your Evidence.</span>
     <div class="big">Capture it.<br>Protect it.<br><span style="color:var(--red-text)">Rely on it.</span></div>
     <p class="sm" style="color:var(--fg2);max-width:330px">CivilCamAi helps you capture, validate and protect what matters most.</p>
-    <div class="row"><button class="btn" data-act="create">Create New Event ID</button><a class="btn2" href="#support">Learn More</a></div></div></section>${scoreCard()}</div>
+    <div class="row"><button class="btn" data-act="create">Create event</button><a class="btn2" href="#support">Learn More</a></div></div></section>${scoreCard()}</div>
   <div class="cols3">${recentEventsCard()}${contributionsCard()}${alertsCard()}</div>`;
 }
 function livePage(){
@@ -1225,14 +1260,14 @@ function livePage(){
     return `<div class="card"><div class="row sp"><span class="row" style="gap:8px"><span style="width:10px;height:10px;border-radius:5px;background:var(--red);box-shadow:0 0 0 4px rgba(230,11,29,.2)"></span><b class="xs" style="letter-spacing:.12em;color:var(--red-text)">LIVE</b></span><span class="mono xs muted">${e.id}</span></div><h2>${esc(e.title)}</h2>
       <div class="grid2" style="grid-template-columns:repeat(3,1fr);gap:8px"><div class="stat" style="background:var(--bg)"><span class="xs muted">Files</span><b style="font-size:20px">${c.files}</b></div><div class="stat" style="background:var(--bg)"><span class="xs muted">Contributors</span><b style="font-size:20px">${c.contributors}</b></div><div class="stat" style="background:var(--bg)"><span class="xs muted">Last file</span><b style="font-size:20px">${last?clock(last.rec):'None'}</b></div></div>
       <div class="row"><a class="btn sm-btn" href="#event-${e.id}">Open workspace</a><button class="btn2 sm-btn" data-act="show-qr" data-id="${e.id}">Show QR</button></div></div>`; }).join('')}</div>`
-    : `<div class="card" style="align-items:center;text-align:center;padding:40px"><b>Nothing live right now</b><span class="sm muted">Events with uploads open appear here with their live counts.</span><button class="btn sm-btn" data-act="create">Create New Event ID</button></div>`) +
+    : `<div class="card" style="align-items:center;text-align:center;padding:40px"><b>Nothing live right now</b><span class="sm muted">Events with uploads open appear here with their live counts.</span><button class="btn sm-btn" data-act="create">Create event</button></div>`) +
   `<div class="note">The Live™ page isn’t in the J1–J6 specs. Shown here: your events with uploads open, from real records. Confirm what Live should be.</div>`;
 }
 function capturePage(){
   const evs = myEvents().filter(e=>e.uploads);
   return pageHead('Mobile Capture PWA','Capture photos, video and audio straight into your events from your phone, no app store.', '<span class="chip r">NEW</span>') +
   `<div class="grid2"><div class="card" style="align-items:center;text-align:center"><h3>Open on your phone</h3><div class="qrbox"><div data-qr="https://civilcamai.ai/capture" data-size="180" role="img" aria-label="QR code to open Mobile Capture"></div></div><span class="mono sm">civilcamai.ai/capture</span><span class="sm muted">Scan with your phone camera, then Share → Add to Home Screen.</span></div>
-  <div class="card"><h3>Capture to an event</h3>${evs.length?`<div class="fld"><label class="lab" for="cap-ev">Event</label><select class="in" id="cap-ev">${evs.map(e=>`<option value="${e.id}">${esc(e.title)} · ${e.id}</option>`).join('')}</select></div><button class="btn" data-act="cap-start">Start capturing</button><span class="sm muted">Opens the same contribute page your contributors use, signed in as the organizer. The camera never opens by itself. You choose Take or Choose from camera roll.</span>`:'<span class="sm muted">Create an event first, capture goes into an event’s record.</span><button class="btn sm-btn" data-act="create">Create New Event ID</button>'}
+  <div class="card"><h3>Capture to an event</h3>${evs.length?`<div class="fld"><label class="lab" for="cap-ev">Event</label><select class="in" id="cap-ev">${evs.map(e=>`<option value="${e.id}">${esc(e.title)} · ${e.id}</option>`).join('')}</select></div><button class="btn" data-act="cap-start">Start capturing</button><span class="sm muted">Opens the same contribute page your contributors use, signed in as the organizer. The camera never opens by itself. You choose Take or Choose from camera roll.</span>`:'<span class="sm muted">Create an event first, capture goes into an event’s record.</span><button class="btn sm-btn" data-act="create">Create event</button>'}
   <div class="col" style="gap:6px;margin-top:6px"><span class="eyebrow">What happens to each file</span><span class="check sm">Stored unchanged and fingerprinted (SHA-256) on our servers</span><span class="check sm">Type and metadata read, missing values shown as “not present”</span><span class="check sm">Listed in the event workspace within 10 seconds</span></div></div></div>`;
 }
 function cockpitPage(){
@@ -1288,7 +1323,7 @@ function advisorPage(){
 }
 function casesPage(){
   const evs = myEvents().slice().sort((a,b)=>b.created-a.created);
-  return pageHead('Case Files / Event IDs','Every Event ID you own, with its record, reports, links and seal.', '<button class="btn" data-act="create">+ Create New Event ID</button>') +
+  return pageHead('Case Files / Event IDs','Every Event ID you own, with its record, reports, links and seal.', '<button class="btn" data-act="create">+ New event</button>') +
   `<div class="card" style="padding:6px"><div class="tblwrap"><table class="t"><thead><tr><th>Event ID</th><th>Event</th><th style="text-align:right">Files</th><th>AI review</th><th>Reports</th><th>Secure links</th><th>CivilSeal</th></tr></thead><tbody>${evs.map(e=>{ const r=e.review;
     return `<tr class="click" data-act="open-event" data-id="${e.id}"><td class="mono xs" style="color:var(--fg)">${e.id}</td><td><b style="color:var(--fg)">${esc(e.title)}</b><br><span class="xs muted">${esc(e.start)} · ${e.privacy}</span></td><td class="num" style="text-align:right">${counts(e).files}</td><td class="xs">${r&&r.state==='complete'?'Version '+r.version:r?r.state[0].toUpperCase()+r.state.slice(1):'Not reviewed'}</td><td class="xs">${e.reports.length?e.reports.length+' · last '+e.reports[0].ref:'None'}</td><td class="xs">${e.links.filter(l=>!l.revoked).length||'None'}</td><td>${e.status==='CivilSealed'?`<span class="chip r">${e.seal}</span>`:'<span class="xs muted">Not sealed</span>'}</td></tr>`; }).join('') || '<tr><td colspan="7" style="padding:24px;text-align:center">No Event IDs yet.</td></tr>'}</tbody></table></div></div>`;
 }
@@ -1684,7 +1719,7 @@ function mobileFrame(){
   const guide = `<aside class="mguide"><a href="#start" class="row" style="gap:8px;color:var(--fg);text-decoration:none;font-weight:600">← Back to start</a>
     <div class="col" style="gap:4px"><span class="eyebrow r">Mobile app · PWA</span><h2>Try a journey</h2><span class="sm muted">Each one starts the phone at a different point. Everything is clickable inside the phone.</span></div>
     <div class="col" style="gap:6px"><span class="eyebrow">Contributors</span>
-      ${[['scan-public','Scan a Public event QR','Brickyard Fan Zone, Turn 3'],['scan-invite','Scan an Invite-only QR (with code)','Riverside Council, name required'],['scan-bare','Open an Invite-only link without the code','“Share code required”'],['scan-closed','Scan a closed event','“Not accepting contributions”'],['scan-bad','Open a wrong or Private link','“Event not found”'],['near','Walk into an event area','Nearby event on the home screen'],['near2','Two events here','Choose between overlapping events'],['geo','Upload from outside the area','Accepted and marked outside'],['geo-weak','Weak GPS indoors','Accepted and marked not precise'],['geo-denied','Decline location on a geofenced event','Still accepted, no location'],['enter-id','Type an Event ID','Can’t scan the QR'],['again','Contribute again later','Same phone, second visit']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
+      ${[['scan-public','Scan a Public event QR','Brickyard Fan Zone, Turn 3'],['scan-invite','Scan an Invite-only QR (with share code)','Riverside Council, name required'],['scan-bare','Open an Invite-only link without the share code','“Share code required”'],['scan-closed','Scan a closed event','“Not accepting contributions”'],['scan-bad','Open a wrong or Private link','“Event not found”'],['near','Walk into an event area','Nearby event on the home screen'],['near2','Two events here','Choose between overlapping events'],['geo','Upload from outside the area','Accepted and marked outside'],['geo-weak','Weak GPS indoors','Accepted and marked not precise'],['geo-denied','Decline location on a geofenced event','Still accepted, no location'],['enter-id','Type an Event ID','Can’t scan the QR'],['again','Contribute again later','Same phone, second visit'],['sublink','Open your submission link','From the email or text, no sign-in'],['signed-contrib','Contribute while signed in','Saved to My contributions'],['myc','My contributions','Evidence you sent to other events']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
       <span class="eyebrow" style="margin-top:10px">Organizer account</span>
       ${[['acct-new','Create an account','Sign up → confirm email → account type → empty home'],['acct-signin','Sign in','Wrong password, lockout, unconfirmed email'],['acct-forgot','Forgot password','Email link → new password'],['acct-google','Continue with Google','Choose account, new account, cancel']].map(([k,t,d])=>`<button class="gitem" data-act="m-journey" data-v="${k}"><b class="sm">${t}</b><span class="xs muted">${d}</span></button>`).join('')}
       <span class="eyebrow" style="margin-top:10px">Organizers on a phone</span>
@@ -1710,6 +1745,7 @@ const MNAV = ['owner','events','alerts','profile','status','aireview','media','p
 const mTabOf = s => s==='owner'||s==='pickev' ? 'owner' : s==='alerts' ? 'alerts' : ['profile','mpedit','mpw','mdel'].includes(s) ? 'profile' : 'events';
 function mNav(){ const t = mTabOf(M.screen), un = myNotes().filter(n=>!n.read).length;
   return `<nav class="mnav" aria-label="App">${[['owner','home','Home'],['events','cal','Events'],['alerts','bell','Alerts'],['profile','user','Profile']].map(([k,i,l])=>`<button class="${t===k?'on':''}" data-act="m-tab" data-v="${k}" ${t===k?'aria-current="page"':''}>${ic(i,20)}${l.toUpperCase()}${k==='alerts'&&un?`<span class="mbadge">${un}</span>`:''}</button>`).join('')}</nav>`; }
+const mEvSeg = () => `<div class="seg2" role="tablist" style="display:flex"><button style="flex:1" role="tab" class="${M.evTab!=='contrib'?'on':''}" aria-selected="${M.evTab!=='contrib'}" data-act="m-evtab" data-v="mine">My events</button><button style="flex:1" role="tab" class="${M.evTab==='contrib'?'on':''}" aria-selected="${M.evTab==='contrib'}" data-act="m-evtab" data-v="contrib">My contributions</button></div>`;
 const mTabTop = (title, right='') => `<div class="mtop"><b style="font-size:20px;flex:1">${title}</b>${right}</div>`;
 const SLOGAN = `<h1 class="mslogan"><em>You</em> record.<br><em>We</em> protect.<br>The record holds.</h1>`;
 function mEvState(e){ return e.status==='CivilSealed' ? ['SEALED','ok'] : e.archived ? ['ARCHIVED',''] : e.uploads ? ['OPEN','w'] : ['CLOSED','']; }
@@ -1736,8 +1772,15 @@ function mOwner(s, ev){
       <div class="msec">Recent events <button class="viewall" data-act="m-tab" data-v="events">All ›</button></div>
       ${evs.slice(0,3).map(mEvRow).join('') || `<div class="card" style="gap:10px"><b>No events yet</b><span class="xs muted">An event gives you an Event ID and a QR code. People scan it to send you photos, video and audio, no app needed.</span><span class="eyebrow" style="margin-top:4px">How it works</span>${[['1','Start an event','Get an Event ID, a QR code and a link.'],['2','Share the QR','People at the scene send files, no account, no app.'],['3','Review and report','Files are fingerprinted as they arrive; review, report and share.']].map(([n,t,d])=>`<div class="row" style="gap:10px;flex-wrap:nowrap;align-items:flex-start"><span class="mico" style="width:28px;height:28px;border-radius:14px;font-weight:800;font-size:13px">${n}</span><span class="col" style="gap:1px"><b class="sm">${t}</b><span class="xs muted">${d}</span></span></div>`).join('')}<button class="btn" data-act="m-quick">Start your first event</button></div>`}
     </div>`; }
+  if (s==='events' && M.evTab==='contrib') { const all = myContribs(), F = M.mycF||'All', SB = ['Received','Received','Received','Locked','Checked','Sealed'];
+    const list = all.filter(r => F==='All' || (F==='Report ready' ? subStageOf(r)>=5 : subStageOf(r)<5));
+    return mTabTop('Events') + `<div class="mbody" style="gap:12px">${mEvSeg()}
+      ${all.length?`<div class="row" style="gap:6px">${['All','In progress','Report ready'].map(x=>`<button class="chip ${F===x?'on':''}" data-act="m-mycf" data-v="${x}">${x}</button>`).join('')}</div>
+      ${list.map(r=>{ const ev = evById(r.ev), st = subStageOf(r); return `<button class="mev" style="width:100%;text-align:left;cursor:pointer" data-act="m-opensub" data-v="${r.ref}"><span class="mthumb" style="background-image:url(${evImg(ev)})"></span><span class="col" style="gap:3px;min-width:0;flex:1"><b class="sm" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(ev.title)}</b><span class="xs muted">${r.n} file${r.n>1?'s':''} · ${esc(ev.start.split(',')[0])} · ${esc(ev.organizer)}</span></span><span class="mpill ${st>=5?'g':''}">${SB[st]}</span></button>`; }).join('') || '<div class="card" style="align-items:center"><span class="muted sm">Nothing here yet.</span></div>'}
+      <span class="xs dim" style="text-align:center">Files you add to your own events are in My events.</span>`
+      : `<div class="card" style="align-items:center;text-align:center;gap:10px;padding:26px 16px"><b>No contributions yet</b><span class="sm muted">When you send photos, video or audio to someone else’s event while signed in, it shows up here with its report.</span><button class="btn" data-act="m-go" data-v="enterid">Enter an Event ID</button></div>`}</div>`; }
   if (s==='events') { const evs = myEvents().filter(e=>!e.archived).sort((a,b)=>b.created-a.created);
-    return mTabTop('My events', `<button class="btn sm-btn" data-act="m-create">+ New</button>`) + `<div class="mbody">
+    return mTabTop('Events', `<button class="btn sm-btn" data-act="m-create">+ New</button>`) + `<div class="mbody">${mEvSeg()}
       ${evs.map(e=>{ const c = counts(e), st = mEvState(e); return `<button class="mbig" style="padding:0;overflow:hidden;flex-direction:column;align-items:stretch;gap:10px" data-act="m-status" data-v="${e.id}"><span style="height:86px;background:linear-gradient(180deg,rgba(7,9,13,0),var(--surface)),url(${evImg(e)}) center/cover"></span><span class="col" style="gap:4px;padding:0 14px 14px;align-items:flex-start"><span class="row" style="gap:6px;flex-wrap:nowrap;width:100%"><b class="sm" style="text-align:left;flex:1">${esc(e.title)}</b><span class="mpill ${st[1]}">${st[0]}</span></span><span class="mono xs muted">${e.id}</span><span class="xs muted">${c.files} files · ${c.contributors} contributors${c.proc?' · '+c.proc+' processing':''}</span></span></button>`; }).join('') || `<div class="card" style="align-items:center;text-align:center"><b>No events yet</b><button class="btn sm-btn" data-act="m-quick">Start your first event</button></div>`}
       <span class="xs dim" style="text-align:center">Archived events are on the web app.</span></div>`; }
   if (s==='alerts') { const ns = myNotes(), un = ns.filter(n=>!n.read).length;
@@ -1914,7 +1957,7 @@ function mManage(s, ev){
   if (s==='medit') { const d = M.edraft; if (!d) return null; const e = M.err;
     return mTop('Edit event') + `<div class="mbody" style="gap:12px">
       <div class="fld"><label class="lab" for="me-title">Event title <span style="color:var(--err)">*</span></label><input class="in ${e.title?'err':''}" id="me-title" maxlength="120" value="${esc(d.title)}">${e.title?`<span class="errt">${e.title}</span>`:''}</div>
-      <div class="fld"><label class="lab" for="me-desc">Description</label><textarea class="in" id="me-desc" maxlength="500">${esc(d.desc||'')}</textarea></div>
+      <div class="fld"><label class="lab" for="me-desc">Internal notes <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="me-desc" maxlength="500">${esc(d.desc||'')}</textarea><span class="hint">Only you and your team see this. Contributors don’t.</span></div>
       ${coverField(d,'m',mEvent())}
       <div class="fld"><label class="lab" for="me-org">Organizer name</label><input class="in" id="me-org" value="${esc(d.org)}"></div>
       <div class="row sp" style="flex-wrap:nowrap"><span class="lab">Who can contribute?</span></div><div class="col" style="gap:6px">${['Public','Invite only','Private'].map(p=>`<button class="opt ${d.privacy===p?'on':''}" style="padding:10px 12px" data-act="me-priv" data-v="${p}"><span class="rad"></span><b class="sm">${p}</b></button>`).join('')}</div>
@@ -1944,11 +1987,11 @@ function mScreen(s){
     <div style="margin-top:auto;border-top:1px solid var(--line);padding-top:14px" class="col"><span class="xs muted">Organizing an event?</span><button class="btn2" data-act="m-go" data-v="signin">Sign in to manage your events</button><a href="#start" class="xs" style="color:var(--muted);text-align:center;text-decoration:none">← Back to start</a></div></div>`;
   if (s==='scanner') return mTop('Scan event QR') + `<div class="mbody" style="gap:14px"><div class="scanner"><div class="scanbox"></div><span class="xs" style="position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#fff">Point your camera at the QR code</span></div>
     <span class="xs muted">The camera can’t run inside this preview. Pick a QR to “scan”:</span>
-    ${[['scan-public','Brickyard Fan Zone, Turn 3','Public'],['scan-invite','Riverside Council Meeting','Invite only · with share code'],['scan-bare','Riverside Council Meeting','Invite only · link without code'],['scan-closed','Gate C Entry, Season Opener','Uploads closed'],['scan-bad','A printed QR with a typo','Wrong ID']].map(([k,t,d])=>`<button class="mbig" style="padding:12px" data-act="m-journey" data-v="${k}"><span class="qrmini"></span><span class="col" style="gap:0;align-items:flex-start"><b class="sm">${t}</b><span class="xs muted">${d}</span></span></button>`).join('')}</div>`;
+    ${[['scan-public','Brickyard Fan Zone, Turn 3','Public'],['scan-invite','Riverside Council Meeting','Invite only · with share code'],['scan-bare','Riverside Council Meeting','Invite only · link without share code'],['scan-closed','Gate C Entry, Season Opener','Uploads closed'],['scan-bad','A printed QR with a typo','Wrong ID']].map(([k,t,d])=>`<button class="mbig" style="padding:12px" data-act="m-journey" data-v="${k}"><span class="qrmini"></span><span class="col" style="gap:0;align-items:flex-start"><b class="sm">${t}</b><span class="xs muted">${d}</span></span></button>`).join('')}</div>`;
   if (s==='enterid') return mTop('Enter Event ID') + `<div class="mbody"><span class="sm muted">It’s printed under the QR code.</span><div class="fld"><label class="lab" for="m-id">Event ID</label><input class="in mono ${M.idErr?'err':''}" id="m-id" value="${esc(M.idVal)}" placeholder="EVT-2026-K7QM-4TR" autocapitalize="characters">${M.idErr?`<span class="errt">${M.idErr}</span>`:'<span class="hint">Lower case and spaces are fine.</span>'}</div><button class="btn" data-act="m-findid">Open event</button></div>`;
-  if (s==='notfound') return mTop('') + `<div class="mbody mcenter"><span class="mfail">?</span><h2>Event not found</h2><p class="muted">Check the code with the organizer, or scan the QR again.</p><div class="col" style="width:100%"><button class="btn" data-act="m-go" data-v="scanner">Try again</button><button class="btn2" data-act="m-go" data-v="enterid">Enter Event ID</button><button class="btn3" data-act="m-go" data-v="signin">Organizer? Sign in</button></div></div>`;
+  if (s==='notfound') return mTop('') + `<div class="mbody mcenter"><span class="mfail">?</span><h2>Event not found</h2><p class="muted">Check the share code with the organizer, or scan the QR again.</p><div class="col" style="width:100%"><button class="btn" data-act="m-go" data-v="scanner">Try again</button><button class="btn2" data-act="m-go" data-v="enterid">Enter Event ID</button><button class="btn3" data-act="m-go" data-v="signin">Organizer? Sign in</button></div></div>`;
   if (s==='code') return mTop('') + `<div class="mbody mcenter"><span class="mfail">#</span><h2>Share code required</h2><p class="muted">This event is invite only. Scan the QR from the organizer to include the share code.</p>
-    <div class="fld" style="width:100%;text-align:left"><label class="lab" for="m-code">Share code</label><input class="in mono ${M.codeErr?'err':''}" id="m-code" placeholder="4 characters" ${M.codeTries>=3?'disabled':''}>${M.codeErr?`<span class="errt" role="alert">${M.codeErr}</span>`:'<span class="hint">Ask the organizer for the 4-character code.</span>'}</div>
+    <div class="fld" style="width:100%;text-align:left"><label class="lab" for="m-code">Share code</label><input class="in mono ${M.codeErr?'err':''}" id="m-code" placeholder="4 characters" ${M.codeTries>=3?'disabled':''}>${M.codeErr?`<span class="errt" role="alert">${M.codeErr}</span>`:'<span class="hint">Ask the organizer for the 4-character share code.</span>'}</div>
     <button class="btn" style="width:100%" data-act="m-code" ${M.codeTries>=3?'disabled':''}>Enter share code</button></div>`;
   if (s==='closed') return mTop('') + `<div class="mbody">${evHeader(ev,true)}<div class="card" style="gap:6px"><b>This event isn’t accepting contributions</b><span class="sm muted">The organizer has closed uploads. Nothing you send now would be added.</span></div><button class="btn2" data-act="m-home">Done</button></div>`;
   if (s==='outside') return mTop('') + `<div class="mbody mcenter"><span class="mfail">◎</span><h2>You’re outside this event’s area</h2><p class="muted">Uploads are open to people at the venue. Move inside the area and try again.</p>${M.queue.length||M.pend?'<div class="okbox xs" style="width:100%">Your selected files are kept.</div>':''}<button class="btn" style="width:100%" data-act="m-checkagain">Check again</button>
@@ -1984,7 +2027,8 @@ function mScreen(s){
   }
   if (s==='cam' && M.cam) return mCam(ev);
   if (s==='mproc' && M.receipt) return mTop('Processing', false, '<span style="width:36px"></span>') + mProc(ev);
-  if (s==='creport' && M.receipt) return mTop('Contribution report') + `<div class="mbody"><span class="sm muted">Your files only. The organizer’s other evidence is never included.</span>${cReport(ev)}<button class="btn" data-act="m-toast" data-v="${M.receipt.ref}.pdf opens in your phone’s PDF viewer, share or save it from there">${ic('download',16)} Download PDF</button><button class="mbtnline" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button><span class="xs muted" style="text-align:center">${M.receipt.anon?'Save this link to view your report again.':'We also sent this link to '+esc(M.receipt.contact)+'.'}</span></div>`;
+  if (s==='msub') return mSub(ev);
+  if (s==='creport' && M.receipt) return mTop('Contribution report') + `<div class="mbody"><span class="sm muted">Your files only. The organizer’s other evidence is never included.</span>${cReport(ev)}<button class="btn" data-act="m-toast" data-v="${M.receipt.ref}.pdf opens in your phone’s PDF viewer, share or save it from there">${ic('download',16)} Download PDF</button><button class="mbtnline" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button><span class="xs muted" style="text-align:center">${M.receipt.anon?'Save this link to view your report again.':M.receipt.acct?'Also saved in My contributions.':'We also sent this link to '+esc(M.receipt.contact)+'.'}</span></div>`;
   if (s==='receipt' && M.receipt && M.receipt.ids) return mReceipt(ev);
   if (s==='receipt') { const r = M.receipt;
     return mTop('', false) + `<div class="mbody"><h2 style="font-size:26px">Thank you</h2><p class="muted">Your files were received and added to this event’s record. You can close this page.</p>
@@ -2001,7 +2045,7 @@ function mScreen(s){
       ${Object.keys(e).length?`<div class="errbox" role="alert"><b style="color:var(--fg)">${Object.keys(e).length} thing${Object.keys(e).length>1?'s':''} to fix</b></div>`:''}
       <div class="fld"><label class="lab" for="mc-title">Event title <span style="color:var(--red-text)">*</span></label><input class="in ${e.title?'err':''}" id="mc-title" maxlength="120" value="${esc(d.title)}" placeholder="e.g. Downtown Climate March">${e.title?`<span class="errt">${e.title}</span>`:''}</div>
       <div class="fld"><span class="lab">Event type</span><div class="row" style="gap:6px">${TYPES.map(t=>`<button class="chip ${d.type===t?'on':''}" data-act="mc-type" data-v="${t}">${t}</button>`).join('')}</div></div>
-      <div class="fld"><label class="lab" for="mc-desc">Description <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="mc-desc" maxlength="500" placeholder="What should people capture?">${esc(d.desc)}</textarea></div>
+      <div class="fld"><label class="lab" for="mc-desc">Internal notes <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="mc-desc" maxlength="500" placeholder="Notes for you and your team">${esc(d.desc)}</textarea><span class="hint">Only you and your team see this. Contributors don’t.</span></div>
       ${coverField(d,'m',null)}
       <div class="fld"><label class="lab" for="mc-place">Location</label><input class="in" id="mc-place" value="${esc(d.place)}" placeholder="Type a place"><span class="hint">Detected from GPS · editable</span></div>
       <div class="fld"><label class="lab" for="mc-org">Organizer name <span style="color:var(--red-text)">*</span></label><input class="in ${e.org?'err':''}" id="mc-org" value="${esc(d.org)}">${e.org?`<span class="errt">${e.org}</span>`:''}</div>
@@ -2021,10 +2065,17 @@ function mScreen(s){
 }
 function mSheet(){
   const evq = mEvent();
+  if (M.sheet==='asme') { const n = M.queue.filter(q=>q.state!=='rejected').length;
+    return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="dialog" aria-modal="true" aria-labelledby="ma-h"><h3 id="ma-h">Submit ${n} file${n>1?'s':''}</h3>
+      <div class="row" style="gap:10px;flex-wrap:nowrap;padding:10px 12px;border-radius:12px;background:var(--raise)"><span class="mico">${ic('user',18)}</span><span class="col" style="gap:1px"><span class="xs muted">Submitting as</span><b class="sm">${esc(S.user.name)}</b></span></div>
+      <span class="sm muted">Saved to My contributions, so you can come back, see your report and add more files. The organizer sees your name.</span>
+      <button class="btn" data-act="m-asmego">Submit</button>
+      <div class="note xs"><b style="color:var(--fg)">Submit anonymously instead?</b> It won’t be linked to your account or shown in My contributions, and it’s final.</div><button class="btn2" data-act="m-nameanon">Submit anonymously</button>
+      <button class="btn3" data-act="m-sheet-close">Cancel</button></section>`; }
   if (M.sheet==='contact') { const req = evq && evq.attribution;
     return `<div class="mscrim" data-act="m-sheet-close"></div><section class="msheet" role="dialog" aria-modal="true" aria-labelledby="mc2-h"><h3 id="mc2-h">Get a link to come back</h3><span class="sm muted">We’ll send you a link to your receipt and report, so you can view it and add more files later. No account and no code.</span>
       <div class="fld"><label class="lab" for="m-name">Your name${req?'':' (optional)'}</label><input class="in ${M.nameErr?'err':''}" id="m-name" value="${esc(M.name)}" autocomplete="name" placeholder="${req?'Your name':'Leave blank if you prefer'}">${M.nameErr?`<span class="errt" role="alert">${M.nameErr}</span>`:''}</div>
-      <div class="fld"><label class="lab" for="m-contact">Email or phone</label><input class="in ${M.err.ct?'err':''}" id="m-contact" value="${esc(M.contact||'')}" autocomplete="email" placeholder="name@example.com or phone number">${M.err.ct?`<span class="errt" role="alert">${M.err.ct}</span>`:'<span class="hint">Used only to send you your link.</span>'}</div>
+      <div class="fld"><label class="lab" for="m-contact">Email or phone</label><input class="in ${M.err.ct?'err':''}" id="m-contact" value="${esc(M.contact||'')}" autocomplete="email" placeholder="name@example.com or phone number">${M.err.ct?`<span class="errt" role="alert">${M.err.ct}</span>`:'<span class="hint">We send one email or text with your link, and nothing else unless you ask.</span>'}</div>
       <button class="btn" data-act="m-contactgo">Submit</button>
       ${req?'':`<div class="note xs"><b style="color:var(--fg)">Submitting anonymously?</b> Anonymous submissions are final. You won’t be able to come back to this submission, add files to it or change it.</div><button class="btn2" data-act="m-nameanon">Submit anonymously</button>`}
       <button class="btn3" data-act="m-sheet-close">Cancel</button></section>`; }
@@ -2067,6 +2118,9 @@ Object.assign(ACT_EXTRA, {
     if (v==='scan-closed') scanTo('EVT-2026-M4NV-8KD'); if (v==='scan-bad') scanTo('EVT-2026-K7QM-4TX'); if (['near','near2'].includes(v)) { M.nearby = v==='near'?'one':'two'; M.nearDismiss = false; M.loc = M.loc==='off'?null:M.loc; M.stack=[]; mgo('home', false); }
     if (['geo','geo-weak','geo-denied'].includes(v)) { const bk='EVT-2026-K7QM-4TR'; M.geoOk[bk]=false; delete M.geoRes[bk]; M.geoTries=0; M.geoNext=null; scanTo(bk); M.pend=null;
       if (v==='geo') { M.loc='on'; M.geoSim='outside'; geoCheck(); } if (v==='geo-weak') { M.loc='on'; M.geoSim='weak'; geoCheck(); } if (v==='geo-denied') { M.loc=null; M.geoSim='inside'; M.sheet='geoloc'; render(); } } if (v==='enter-id') mgo('enterid', false);
+    if (v==='signed-contrib' || v==='myc') { if (!S.user || S.user.email!==OWNER.email) S.user = {...OWNER}; M.signedIn = true; M.asOwner = false; M.queue = []; M.submitting = false;
+      if (v==='myc') { M.evTab = 'contrib'; M.stack = []; mgo('events', false); } else { scanTo('EVT-2026-R8WM-3QA'); } }
+    if (v==='sublink') { const bk = evById('EVT-2026-K7QM-4TR'), ids = live(bk).filter(f=>f.who==='Maya R.').map(f=>f.id); M.ev = bk.id; M.asOwner = false; M.fan = false; M.receipt = { ev:bk.id, n:ids.length, who:'Maya R.', at:Math.max(...live(bk).filter(f=>ids.includes(f.id)).map(f=>f.rec)), not:[], ids, items:[], ref:'CR-2026-1123-41F7', loc:'off', contact:'maya.r@example.com', anon:false }; M.stack = []; mgo('msub', false); }
     if (v==='again') { M.contrib['EVT-2026-K7QM-4TR'] = M.contrib['EVT-2026-K7QM-4TR'] || 3; scanTo('EVT-2026-K7QM-4TR'); }
     if (v.startsWith('acct')) { S.user = null; M.signedIn = false; M.au = {}; M.stack = ['home']; mgo(v==='acct-new'?'signup':v==='acct-forgot'?'forgot':v==='acct-google'?'gpick':'signin', false); }
     if (v.startsWith('owner')) { if (!S.user || S.user.email!==OWNER.email) S.user = {...OWNER}; M.signedIn = true; M.asOwner = false; M.queue = []; M.submitting = false; }
@@ -2079,7 +2133,7 @@ Object.assign(ACT_EXTRA, {
     if (v==='owner-ai') { M.stack=['owner','status']; M.ev='EVT-2026-K7QM-4TR'; mgo('aireview', false); } },
   'm-findid'(){ const v = (document.getElementById('m-id')?.value||'').toUpperCase().replace(/\s+/g,'-').replace(/^EVT-?/,'EVT-').replace(/--+/g,'-'); M.idVal = v; const ev = S.events.find(e=>e.id.replace(/-/g,'')===v.replace(/-/g,''));
     if (!v) { M.idErr='Enter the Event ID from under the QR code.'; render(); return; } M.idErr=''; scanTo(ev?ev.id:v); },
-  'm-code'(){ const ev = mEvent(), v = (document.getElementById('m-code')?.value||'').trim().toUpperCase(); if (v===ev.code) { M.codeErr=''; mgo('event', false); return; } M.codeTries++; M.codeErr = M.codeTries>=3 ? 'Too many wrong codes. Try again in a few minutes, or scan the organizer’s QR.' : 'That code isn’t right. Check it with the organizer and try again.'; render(); },
+  'm-code'(){ const ev = mEvent(), v = (document.getElementById('m-code')?.value||'').trim().toUpperCase(); if (v===ev.code) { M.codeErr=''; mgo('event', false); return; } M.codeTries++; M.codeErr = M.codeTries>=3 ? 'Too many wrong codes. Try again in a few minutes, or scan the organizer’s QR.' : 'That share code isn’t right. Check it with the organizer and try again.'; render(); },
   'm-checkagain'(){ geoCheck(); },
   'm-geoallow'(){ M.loc = 'on'; geoCheck(); },
   'm-geoback'(){ M.pend = null; mgo('event', false); },
@@ -2107,11 +2161,11 @@ Object.assign(ACT_EXTRA, {
   'm-keep'(){ toast('Files will resume on their own when the connection returns'); },
   'm-after'(el){ M.afterCreate = el.dataset.v; render(); },
   'm-submit'(){ const ev = mEvent();
-    if (!M.asOwner && !M.fan && !M.contactDone[ev.id]) { M.nameAtSubmit = true; M.nameErr=''; M.err={}; M.sheet = 'contact'; render(); return; }
+    if (!M.asOwner && !M.fan && !M.contactDone[ev.id]) { M.nameAtSubmit = true; M.nameErr=''; M.err={}; M.sheet = M.signedIn && S.user ? 'asme' : 'contact'; render(); return; }
     M.nameErr=''; const busy = M.queue.some(q=>['uploading','queued','paused','retrying'].includes(q.state));
     if (busy) { M.submitting = true; mrender(true); pump(); const w = setInterval(()=>{ if (!M.submitting) { clearInterval(w); return; } if (!M.queue.some(q=>['uploading','queued','paused','retrying'].includes(q.state))) { clearInterval(w); M.submitting = false; finish(); } }, 300); return; }
     finish();
-    function finish(){ M.receipt = { ev:ev.id, n:M.queue.filter(q=>q.state==='received').length, who: M.asOwner ? S.user.name : (M.name.trim()||'Anonymous'), at:NOW, not:M.queue.filter(q=>q.state==='rejected'||q.state==='failed') }; log('Contribution submitted · '+M.receipt.n+' files', ev.id); if (!M.asOwner) M.contrib[ev.id] = (M.contrib[ev.id]||0) + M.receipt.n; M.receipt.ids = M.queue.filter(q=>q.state==='received').map(q=>q.fileId); M.receipt.items = M.queue.filter(q=>q.state==='received').map(q=>({...q})); M.receipt.ref = 'CR-2026-1123-'+hx(ev.id+NOW+M.receipt.n,4).toUpperCase(); M.receipt.loc = M.loc; M.receipt.contact = (!M.asOwner && !M.anon) ? M.contact : ''; M.receipt.anon = !M.asOwner && M.anon; delete M.contactDone[ev.id]; M.anon = false; M.stack=[]; mProcStart(); } },
+    function finish(){ M.receipt = { ev:ev.id, n:M.queue.filter(q=>q.state==='received').length, who: M.asOwner ? S.user.name : (M.name.trim()||'Anonymous'), at:NOW, not:M.queue.filter(q=>q.state==='rejected'||q.state==='failed') }; log('Contribution submitted · '+M.receipt.n+' files', ev.id); if (!M.asOwner) M.contrib[ev.id] = (M.contrib[ev.id]||0) + M.receipt.n; M.receipt.ids = M.queue.filter(q=>q.state==='received').map(q=>q.fileId); M.receipt.items = M.queue.filter(q=>q.state==='received').map(q=>({...q})); M.receipt.ref = 'CR-2026-1123-'+hx(ev.id+NOW+M.receipt.n,4).toUpperCase(); M.receipt.loc = M.loc; M.receipt.contact = (!M.asOwner && !M.anon) ? M.contact : ''; M.receipt.anon = !M.asOwner && M.anon; M.receipt.acct = !M.asOwner && !M.anon && M.signedIn && !!S.user; if (M.receipt.acct) M.receipt.ids.forEach(id => { const f = ev.files.find(x=>x.id===id); if (f) { f.acct = S.user.email; f.sub = M.receipt.ref; f.who = S.user.name; } }); delete M.contactDone[ev.id]; M.anon = false; M.stack=[]; mProcStart(); } },
   'm-exit'(){ M.submitting=false; M.queue=[]; M.receipt=null; M.follow=null; M.linkSent=null; if (M.asOwner) { mgo('status', false); } else mgo('event', false); },
   'm-more'(){ M.submitting=false; M.queue=[]; M.receipt=null; M.follow=null; M.linkSent=null; mgo('event', false); },
   'm-done'(){ M.submitting=false; M.queue=[]; M.receipt=null; M.follow=null; if (M.asOwner) mgo('status', false); else { M.stack=[]; mgo(M.signedIn?'owner':'home', false); } },
@@ -2137,6 +2191,13 @@ Object.assign(ACT_EXTRA, {
     if (M.nameErr || M.err.ct) { render(); return; }
     M.contactDone[ev.id] = true; M.anon = false; M.sheet = null; M.nameAtSubmit = false; render(); ACT_EXTRA['m-submit'](); },
   'm-linkagain'(){ toast('Link sent again to '+(M.receipt&&M.receipt.contact||'you')); },
+  'm-asmego'(){ const ev = mEvent(); M.name = S.user.name; M.contact = S.user.email; M.contactDone[ev.id] = true; M.anon = false; M.sheet = null; M.nameAtSubmit = false; render(); ACT_EXTRA['m-submit'](); },
+  'm-evtab'(el){ M.evTab = el.dataset.v; render(); },
+  'm-mycf'(el){ M.mycF = el.dataset.v; render(); },
+  'm-opensub'(el){ const r = myContribs().find(x=>x.ref===el.dataset.v); if (!r) return; M.receipt = r; M.ev = r.ev; M.asOwner = false; mgo('msub'); },
+  'm-myc'(){ M.evTab = 'contrib'; M.queue = []; M.receipt = null; M.stack = []; mgo('events', false); },
+  'm-subadd'(){ const r = M.receipt; scanTo(r.ev); toast('Add files. They go in as a new contribution linked to '+(r.contact||'you')); },
+  'm-subremove'(){ toast('Request sent to the organizer. Nothing is deleted until they act on it'); },
   'm-savelink'(){ M.sheet='savelink'; render(); },
   'm-emaillink'(){ M.err={}; M.sheet='emaillink'; render(); },
   'm-cblink'(el){ const url = cbLink(M.receipt); M.sheet=null; render(); if (el.dataset.v==='share' && navigator.share) { navigator.share({title:'My CivilCamAi submission', url}).catch(()=>{}); return; } copy(url, M.receipt&&M.receipt.anon?'Link copied. Save it to view your report again':'Link copied'); },
@@ -2312,7 +2373,7 @@ function mReceipt(ev){ const r = M.receipt, fs = mProcFiles(), withCap = fs.filt
     <div class="col" style="align-items:center;text-align:center;gap:8px"><span class="mbigok">${ic('check',34)}</span><h2 style="font-size:24px">${M.asOwner?'Added to your event':'Thank you'+(r.who!=='Anonymous'?', '+esc(r.who.split(' ')[0]):'')}</h2><span class="sm muted">${r.n} file${r.n===1?' was':'s were'} received, fingerprinted and added to <b style="color:var(--fg)">${esc(ev.title)}</b>.</span></div>
     <div class="card" style="gap:8px"><div class="row sp"><span class="eyebrow">Contribution receipt</span><span class="mono xs" style="color:var(--fg)">${r.ref}</span></div>
       <div class="kv"><span>Event</span><span class="mono xs">${r.ev}</span></div><div class="kv"><span>Contributor</span><span>${esc(r.who)}</span></div><div class="kv"><span>Received at</span><span>${stamp(r.at)}</span></div><div class="kv"><span>Your location</span><span>${r.loc==='on'?'Shared. Only the organizer sees it':'Not shared'}</span></div></div>
-    ${M.asOwner?'':`<div class="cbcard"><h3>${r.anon?'Submitted anonymously':'Come back to this submission'}</h3><p>${r.anon?'This submission is final. It can’t be returned to or changed. Save the report link to view your report again.':`We sent a link to <b>${esc(r.contact)}</b>. Use it to view your report and add more files later. No account needed.`}</p><div class="cbrow"><button class="g3cta2" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button>${r.anon?'':`<button class="g3cta2" data-act="m-linkagain">${ic('mail',16)} Send again</button>`}</div></div>`}
+    ${M.asOwner?'':`<div class="cbcard"><h3>${r.anon?'Submitted anonymously':r.acct?'Saved to My contributions':'Come back to this submission'}</h3><p>${r.anon?'This submission is final. It can’t be returned to or changed. Save the report link to view your report again.':`${r.acct?'Come back any time from Events, My contributions, to see how your files are handled and get your report.':`We sent a link to <b>${esc(r.contact)}</b>. Use it to view your report and add more files later. No account needed.`}`}</p><div class="cbrow"><button class="g3cta2" data-act="m-cblink" data-v="copy">${ic('copy',16)} Copy link</button>${r.anon?'':r.acct?`<button class="g3cta2" data-act="m-myc">Open My contributions</button>`:`<button class="g3cta2" data-act="m-linkagain">${ic('mail',16)} Send again</button>`}</div></div>`}
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">${stat(r.n,'received')}${stat(fp+'/'+fs.length,'fingerprinted')}${stat(withCap+'/'+fs.length,'capture time')}</div>
     ${r.not.length?`<div class="errbox"><b class="xs" style="color:var(--err,#FF5A63)">Not sent (${r.not.length})</b>${r.not.map(q=>`<br><span class="xs">${esc(q.name)}: ${q.reason||'not sent'}</span>`).join('')}</div>`:''}
     <div class="msec">Your files</div>
@@ -2346,6 +2407,24 @@ function geoCheck(){ const ev = mEvent(); M.sheet = 'geochk'; render();
     M.geoOk[ev.id] = true; M.geoRes[ev.id] = r==='outside' ? 'outside' : 'weak'; M.geoTries = 0; if (M.screen!=='event') mgo('event', false); else render();
     toast(r==='outside' ? 'You’re outside the event area. Your files are still accepted' : 'Location not precise. Your files are still accepted'); mResumePend(); }, 900); }
 function mResumePend(){ const pd = M.pend; if (!pd) return; M.pend = null; if (pd.a==='cam') ACT_EXTRA['m-cam'](); else if (pd.a==='sheet') ACT_EXTRA['m-sheet']({dataset:{v:pd.v}}); }
+const SBSTEPS = ['Captured','Received','Locked','Checked','Sealed'];
+function subStage(ev, f){ if (!f || f.proc!=='Processed') return 2; if (ev.status==='CivilSealed') return 5; const r = ev.review; if (r && r.state==='complete' && r.ids && r.ids.includes(f.id)) return 4; return 3; }
+function myContribs(){ if (!S.user) return []; const g = {};
+  S.events.forEach(ev => { if (ev.deleted) return; live(ev).forEach(f => { if (f.acct===S.user.email && f.sub) { const k = f.sub; (g[k] ||= { ev:ev.id, ids:[], ref:k, who:S.user.name, contact:S.user.email, anon:false, acct:true, not:[], items:[], loc:'off', at:0 }); g[k].ids.push(f.id); g[k].at = Math.max(g[k].at, f.rec); } }); });
+  return Object.values(g).map(r => ({...r, n:r.ids.length})).sort((a,b)=>b.at-a.at); }
+function subStageOf(r){ const ev = evById(r.ev), fs = r.ids.map(id=>ev.files.find(f=>f.id===id)).filter(Boolean); return fs.length ? Math.min(...fs.map(f=>subStage(ev,f))) : 2; }
+function mSub(ev){ const r = M.receipt; if (!r) return null; const fs = mProcFiles(), st = fs.length ? Math.min(...fs.map(f=>subStage(ev,f))) : 2;
+  const msg = {2:'Your files arrived and are being fingerprinted.',3:'Your files are fingerprinted and kept exactly as sent. The organizer hasn’t run checks on them yet.',4:'Checks have run on your files. The report is sealed when the organizer requests a CivilSeal.',5:'All done. Your files are sealed into the event’s record.'}[st];
+  const pill = k => k>=5?'Sealed':k>=4?'Checked':k>=3?'Locked':'Received';
+  return mTop('', false) + `<div class="mbody" style="padding-top:0;gap:14px">
+    <div class="sbhero" style="background-image:url(${evImg(ev)})"></div>
+    <div class="sblift"><h2>${esc(ev.title)}</h2><div class="sbmeta"><span>Your submission · ${r.at>=BASE?stamp(r.at):esc(ev.start)}</span><code>${r.ref}</code></div></div>
+    <div class="sbprog"><span class="h">Where your files are</span><div class="sbsteps"><span class="bar" style="width:${(st-1)/4*80}%"></span>${SBSTEPS.map((n,k)=>`<div class="${k+1<st?'d':k+1===st?(st===5?'d':'c'):''}"><i>${k+1}</i>${n}</div>`).join('')}</div><p>${msg}</p></div>
+    <div class="card" style="padding:0;gap:0">${fs.map(f=>{ const th = thumbUrl(f); return `<div class="sbfile"><span class="th" style="${th?`background-image:url(${th})`:''}">${th?'':ic('mic',18)}</span><span class="tx"><b style="font-weight:600;overflow-wrap:anywhere">${esc(f.name)}</b><code>SHA-256 ${f.fp.slice(0,8)} … ${f.fp.slice(-6)}</code></span><em class="sbpill ${subStage(ev,f)<3?'n':''}">${pill(subStage(ev,f))}</em></div>`; }).join('')}</div>
+    <span class="xs muted">Only your own files. The organizer’s other evidence and their review results aren’t shown here.</span>
+    <div class="col" style="gap:10px"><button class="btn" data-act="m-creport">${ic('download',16)} ${st>=5?'Download sealed report':'View your contribution report'}</button>${r.anon?'':`<button class="mbtnline" data-act="m-subadd">Add more files</button>`}</div>
+    <div class="sblinks"><button data-act="m-cblink" data-v="copy">Copy link</button><button data-act="m-subremove">Ask to remove a file</button></div>
+    <span class="xs dim" style="font-style:italic">Validation supports the record. It does not determine what happened.</span></div>`; }
 function mSignedIn(u){ S.user = {...u}; M.signedIn = true; S.fails = 0; S.lockUntil = 0; log('Signed in on the mobile app'); M.au = {}; M.stack = []; mgo(u.type ? 'owner' : 'acctype', false); }
 function msSync(){ const a = M.au, n = document.getElementById('ms-name'), e = document.getElementById('ms-email'); if (n) a.name = n.value; if (e) a.email = e.value.trim(); const w = document.getElementById('ms-pw'); if (w) a.pw = w.value; }
 function meSync(){ const d = M.edraft; if (!d) return; const g = id => document.getElementById(id); if (g('me-title')) d.title = g('me-title').value; if (g('me-desc')) d.desc = g('me-desc').value; if (g('me-org')) d.org = g('me-org').value; }
@@ -2402,7 +2481,7 @@ function modalHtml(){
   if (m.k==='edit') { const ev = evById(m.id), d = S.draft; inner = `<div class="dlg" role="dialog" aria-modal="true" aria-labelledby="ed-h"><div class="dlg-h"><h2 id="ed-h">Edit event</h2><button class="x" aria-label="Close" data-act="close">✕</button></div><div class="dlg-b">
     <span class="mono sm muted">${ev.id} · never changes</span>
     <div class="fld"><label class="lab" for="e-title">Event title</label><input class="in ${S.err.title?'err':''}" id="e-title" maxlength="120" value="${esc(d.title)}" data-d="title">${S.err.title?`<span class="errt">${S.err.title}</span>`:''}</div>
-    <div class="fld"><label class="lab" for="e-desc">Description</label><textarea class="in" id="e-desc" data-d="desc" maxlength="500">${esc(d.desc)}</textarea></div>
+    <div class="fld"><label class="lab" for="e-desc">Internal notes <span class="muted" style="font-weight:400">(optional)</span></label><textarea class="in" id="e-desc" data-d="desc" maxlength="500">${esc(d.desc)}</textarea><span class="hint">Only you and your team see this. Contributors don’t.</span></div>
     ${coverField(d,'d',ev)}
     <div class="fld"><label class="lab" for="e-org">Organizer name</label><input class="in" id="e-org" value="${esc(d.organizer)}" data-d="organizer"></div>
     <div class="row sp card" style="flex-direction:row;background:var(--bg);flex-wrap:nowrap"><div class="col" style="gap:2px"><b class="sm">Accept uploads</b><span class="xs muted">${d.uploads?'On. People who scan can add files.':'Off. People who scan can see the event but can’t add.'}</span></div><button class="tog ${d.uploads?'on':''}" role="switch" aria-checked="${d.uploads}" aria-label="Accept uploads" data-act="e-uploads"></button></div>
