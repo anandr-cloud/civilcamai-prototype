@@ -7,16 +7,13 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="logo.png">
 <style>html,body{margin:0;padding:0;height:100%}</style>
+<title>CivilCamAI Demo</title>
 </head>
 <body>
-<title>CivilCamAI Demo</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-/* Layout: app shell, fixed left nav on desktop, top nav on phones; content column; drawers and dialogs over it.
-   Single dark look, from the CivilCamAi design system (dark default). */
 :root{
   --bg:#07090D; --surface:#0D1219; --raise:#131922; --line:#1B222C; --line2:#28303B; --side:#090C11; --active:#2A0A0F; --active-line:#7A1018;
   --fg:#F4F5F7; --fg2:#C9CDD3; --muted:#A0A7B1; --dim:#7D848E;
@@ -45,7 +42,6 @@ p{margin:0}
 .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .sp{justify-content:space-between}
 .col{display:flex;flex-direction:column;gap:10px}
-/* shell, mirrors the CivilCamAi Consumer app: grouped sidebar, top bar, content */
 .shell{display:flex;min-height:100%}
 .nav{width:268px;flex:none;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
 .brandmark{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);min-height:60px;text-decoration:none;color:var(--fg)}
@@ -122,7 +118,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .htiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 @media (max-width:900px){.htiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .htile{border:1px solid var(--line2);background:rgba(13,18,25,.85);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
-/* My Events, compact */
 .mehead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .mehead h1{font-size:28px;margin:0;line-height:1.1}
 .mehead p{margin:4px 0 0;font-size:13.5px;color:var(--muted)}
@@ -155,7 +150,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .dlc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .dlc summary::-webkit-details-marker{display:none}
 .dlc[open] summary .car{transform:rotate(180deg)}
-/* Event workspace: minimal + advanced */
 .wshead{display:flex;flex-direction:column;gap:12px;padding:16px 20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .wshead .t1{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .wshead h1{font-size:24px;line-height:1.15;margin:0;overflow-wrap:anywhere}
@@ -241,7 +235,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mtile{min-height:88px;border:1px solid var(--line2);border-radius:10px;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:13px;color:var(--fg);cursor:pointer}
 .mtile:hover{border-color:var(--active-line)}
 .mrow{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
-/* Come back to a submission */
 .cbcard{border-radius:16px;background:var(--surface);border:1px solid var(--line2);padding:14px;display:flex;flex-direction:column;gap:10px}
 .cbcard h3{margin:0;font-size:16px;font-weight:800}
 .cbcard p{margin:0;font-size:13px;color:var(--fg2);line-height:1.4}
@@ -252,7 +245,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cblink{font-family:var(--f-mono);font-size:12px;color:var(--fg);background:var(--raise);border:1px solid var(--line2);border-radius:10px;padding:10px 12px;overflow-wrap:anywhere}
 .cbchk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--fg2);cursor:pointer}
 .cbchk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--red);flex:none}
-/* Event cover photo */
 .cvf{display:flex;flex-direction:column;gap:8px}
 .cvrow{display:flex;gap:12px;align-items:center}
 .cvprev{width:120px;height:68px;border-radius:8px;background-size:cover;background-position:center;flex:none;border:1px solid var(--line2);position:relative}
@@ -262,7 +254,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cvgrid button{all:unset;cursor:pointer;aspect-ratio:1;border-radius:8px;background-size:cover;background-position:center;border:2px solid transparent}
 .cvgrid button:hover,.cvgrid button:focus-visible{border-color:var(--fg)}
 .cvgrid button.on{border-color:var(--red)}
-/* Submission page (opened from the link) */
 .sbhero{margin:0 -18px;height:120px;flex:none;background-size:cover;background-position:center;position:relative}
 .sbhero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,13,.2),var(--bg))}
 .sblift{margin-top:-54px;position:relative;z-index:1;display:flex;flex-direction:column;gap:6px}
@@ -288,7 +279,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sbpill.n{border-color:var(--line2);background:var(--raise);color:var(--fg2)}
 .sblinks{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px}
 .sblinks button{background:none;border:0;padding:0;color:var(--fg2);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
-/* A3 guest event screen */
 .g3hero{margin:0 -18px;height:200px;flex:none;background-size:cover;background-position:center 40%;position:relative}
 .g3hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,9,13,.55) 0%,rgba(7,9,13,.1) 35%,rgba(7,9,13,.6) 70%,var(--bg) 100%)}
 .g3bar{position:absolute;top:10px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;z-index:2}
@@ -338,7 +328,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .scanner{position:relative;height:300px;border-radius:14px;background:linear-gradient(160deg,#1A1F27,#050608);overflow:hidden}
 .scanbox{position:absolute;left:50%;top:44%;width:170px;height:170px;transform:translate(-50%,-50%);border:3px solid var(--red-text);border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
 .qrmini{width:40px;height:40px;flex:none;border-radius:4px;background:repeating-conic-gradient(#050608 0 25%,#fff 0 50%) 0 0/10px 10px;border:3px solid #fff}
-/* mobile app, consumer app layout, CivilCamAI brand colours */
 .phone{--err:#FF5A63;--errline:#6B1016}
 .phone .btn{border-radius:10px;font-weight:800;letter-spacing:.02em} .phone .btn2{border-radius:10px}
 .phone .errt{color:var(--err)} .phone .in.err{border-color:#E60B1D} .phone .errbox{border-color:var(--errline);background:#1A0507} .phone .mfail{border-color:var(--errline);color:var(--err);background:#1A0507}
@@ -381,7 +370,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mshield{width:58px;height:58px;border-radius:50%;border:1px solid var(--ok-line);background:var(--ok-bg);color:var(--ok);display:flex;align-items:center;justify-content:center;flex:none}
 .mavatar{width:56px;height:56px;border-radius:28px;background:var(--red-wash);border:1px solid var(--red-line);color:var(--red-text);font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex:none}
 @media (max-width:820px){ .mguide{display:none} .mwrap{padding:0} .phone{width:100%;height:100vh;height:100dvh;border:0;border-radius:0;box-shadow:none} .pstatus{display:none} }
-/* controls */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:4px;border:0;background:var(--red);color:#fff;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none}
 .btn:hover{background:#C70918}
 .btn2{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 16px;border-radius:4px;border:1px solid var(--line2);background:var(--surface);color:var(--fg);font-weight:600;font-size:14px;cursor:pointer;text-decoration:none}
@@ -438,7 +426,6 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 .steps{display:flex;gap:6px} .steps span{flex:1;font-size:12px;font-weight:600;color:var(--dim);padding-top:8px;border-top:3px solid var(--line)}
 .steps span.on{color:var(--fg);border-top-color:var(--red)} .steps span.done{color:var(--muted);border-top-color:var(--red-line)}
 .pipe{display:flex;gap:6px;flex-wrap:wrap;font-size:11px}
-/* overlays */
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:40;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
 .dlg{width:min(520px,100%);background:var(--surface);border:1px solid var(--line2);border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.7);display:flex;flex-direction:column;margin-top:4vh}
 .dlg.wide{width:min(1120px,100%)}
@@ -452,7 +439,6 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 .kv span:first-child{color:var(--muted);white-space:nowrap}
 .kv span:last-child{text-align:right;min-width:0;overflow-wrap:anywhere}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);font-weight:600;font-size:14px;padding:10px 16px;border-radius:6px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
-/* prototype panel */
 .proto{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 .proto-pill{background:#FDE68A;color:#1B1503;border:0;border-radius:20px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .proto-panel{width:min(320px,calc(100vw - 32px));background:#FFFBEB;color:#1B1503;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 16px 40px rgba(0,0,0,.6);font-size:13px}
@@ -460,7 +446,6 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 .proto-panel button.on{background:#1B1503;color:#FDE68A;border-color:#1B1503}
 .proto-panel .seg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .sim{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:#FDE68A;color:#1B1503;font-weight:700}
-/* auth */
 .auth{min-height:100vh;min-height:100dvh;display:grid;grid-template-columns:1fr 1.1fr}
 .auth .brand{background:var(--surface);border-right:1px solid var(--line);padding:clamp(32px,4vw,64px);display:flex;flex-direction:column;gap:18px}
 .auth .brand .pitch{margin-block:auto;display:flex;flex-direction:column;gap:18px;max-width:520px}
@@ -565,7 +550,6 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 .georead{display:flex;justify-content:space-between;border:1px solid var(--line);border-radius:6px;padding:7px 10px;font-size:13px}
 .nearby{border:1px solid var(--red-line);background:linear-gradient(135deg,#2A0508,var(--surface));border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
 .geochip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:12px;border:1px solid var(--red-line);background:var(--red-wash);color:var(--red-text)}
-/* paper (report) */
 .paper{background:var(--paper);color:var(--ink);border-radius:3px;aspect-ratio:1.414/1;width:100%;max-width:100%;display:flex;flex-direction:column;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 .paper .pg{flex:1;padding:4% 4.5%;display:flex;flex-direction:column;gap:1.4%;overflow:hidden;font-size:clamp(9px,1.25vw,13px)}
 .paper .pf{border-top:1px solid #D5D9DE;padding:.8% 4.5%;display:flex;justify-content:space-between;gap:8px;font-family:var(--f-mono);font-size:clamp(6px,.75vw,9px);color:var(--ink2)}
@@ -587,9 +571,8 @@ table.t{width:100%;border-collapse:collapse;font-size:13px}
 <div aria-hidden="true" style="position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden"><input type="file" id="cv-file" accept="image/jpeg,image/png" tabindex="-1"><input type="file" id="pick-take" tabindex="-1"><input type="file" id="pick-lib" multiple tabindex="-1"></div>
 
 <script>
-/* ============ data ============ */
-const BASE = 19*60; // 7:00 PM EST, Nov 23 2026
-let NOW = BASE + 172; // 9:52 PM
+const BASE = 19*60; 
+let NOW = BASE + 172;
 const clock = m => { const t = (m % 1440 + 1440) % 1440; let h = Math.floor(t/60), mm = Math.floor(t%60); const ap = h>=12?'PM':'AM'; h = h%12||12; return `${h}:${String(mm).padStart(2,'0')} ${ap}`; };
 const stamp = m => `Nov 23, ${clock(m)} EST`;
 function hx(s, n=64){ let h1=0x811c9dc5, out=''; for(let k=0;out.length<n;k++){ for(const c of s+k){ h1^=c.charCodeAt(0); h1=Math.imul(h1,16777619)>>>0; } out+=h1.toString(16).padStart(8,'0'); } return out.slice(0,n); }
@@ -625,7 +608,7 @@ function seed(){
   F({name:'IMG_8761.JPG',dev:'p9',rec:BASE+162,cap:BASE+161,size:'2.5 MB',device:'Google Pixel 8',loc:'39.7955, -86.2352'});
   F({name:'memo_02.m4a',type:'Audio',who:'Maya R.',dev:'p2',rec:BASE+163,size:'1.2 MB',typeRes:'M4A · equivalent (audio/x-m4a)'});
   F({name:'IMG_8770.JPG',dev:'p10',rec:BASE+165,cap:BASE+164,size:'2.9 MB',device:'Apple iPhone 12'});
-  // review v1 covering the above, then two new files after it
+  
   a.review = runResults(a, a.files.map(f=>f.id), 1, BASE+167);
   F({name:'IMG_8812.HEIC',dev:'p11',rec:BASE+171,cap:BASE+170,size:'3.1 MB',typeRes:'HEIC · matches label',device:'Apple iPhone 15'});
   F({name:'IMG_8813.JPG',who:'Priya S.',dev:'p12',rec:BASE+172,cap:BASE+171,size:'2.0 MB',device:'OnePlus 12'});
@@ -658,7 +641,6 @@ function seed(){
   const dm = evs.find(e=>e.id==='EVT-2026-D2CM-5HR'); if (dm) dm.geo = { method:'radius', label:'Radius 800 m', km2:2.01, radius:800, version:1, refused:0, hist:[{v:1,t:'Radius 800 m · 2.01 km²',by:'Anand Roy',at:BASE+20}] };
   return evs;
 }
-/* review engine, simulated (AI results are labelled "Simulated prototype") */
 function fileResult(f){
   if (f.proc==='Quarantined') return {s:'Excluded', r:'quarantined, security check', tone:'g'};
   if (f.proc==='Failed') return {s:'Gap', r:'Could not be read, file damaged', tone:'r'};
@@ -674,7 +656,6 @@ function runResults(ev, ids, version, at){
   return { state:'complete', version, ids:[...ids], results, at, progress:ids.length, versions:[], removedSince:0 };
 }
 
-/* ============ state ============ */
 const S = {
   user:null, persona:'owner', pending:null, flash:null, modal:null, drawer:null, protoOpen:false,
   events: seed(), audit:[], returnTo:null, filter:{type:'All',attention:false,q:''}, phased:true, pauseNext:false,
@@ -688,7 +669,6 @@ function note(title, body, href){ S.notes.unshift({at:NOW, title, body, href, re
 const evById = id => S.events.find(e=>e.id===id);
 const live = ev => ev.files.filter(f=>!f.removed);
 
-/* ============ derived ============ */
 function counts(ev){
   const fs = live(ev);
   const devs = new Set(fs.map(f=>f.dev)), anon = new Set(fs.filter(f=>f.who==='Anonymous').map(f=>f.dev));
@@ -709,13 +689,11 @@ function reviewView(ev){
   return { r, inRun, newer, assessed, gaps, usable, total: inRun.length };
 }
 
-/* ============ routing ============ */
 const AUTH_FREE = ['signin','signup','check-email','confirm','forgot','reset'];
 function route(){ return (location.hash||'').replace(/^#/,'') || 'start'; }
 function go(h){ if (location.hash === '#'+h) render(); else location.hash = h; }
 window.addEventListener('hashchange', () => { S.drawer=null; S.modal=null; S.err={}; S.navOpen=false; S.umenu=false; S.trust=false; render(); window.scrollTo(0,0); });
 
-/* ============ render ============ */
 let pendingRender = false;
 function soft(){ if (route()==='mobile') { mrender(); return; } const a = document.activeElement; if (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)) { pendingRender = true; return; } render(); }
 document.addEventListener('focusout', () => { if (pendingRender) setTimeout(()=>{ if(pendingRender){ pendingRender=false; render(); } }, 0); });
@@ -799,7 +777,6 @@ function shell(active, body){
 }
 function alreadyIn(){ return `<div class="card" style="max-width:520px"><h2>You’re already signed in</h2><p class="muted">Signed in as ${esc(S.user.email)}.</p><div class="row"><a class="btn" href="#home">Go to my dashboard</a><button class="btn2" data-act="signout">Sign out</button></div></div>`; }
 
-/* ---------- auth ---------- */
 function authPage(r){
   const brand = `<div class="brand"><span class="brandmark" style="border:0;padding:0;min-height:0">${MARK}<span><b>CivilCam<em>Ai</em></b><small>CONSUMER</small></span></span><div class="pitch"><span class="eyebrow">Evidence behind the story</span>
     <div class="hl"><span style="font-weight:400">Capture. Validate.</span><br><span style="font-weight:700;color:var(--red-text)">Defend.</span></div>
@@ -860,7 +837,6 @@ function accountType(){
     <button class="btn" data-act="type-continue" ${t?'':'disabled'}>Continue</button></div></div></div>`;
 }
 
-/* ---------- app pages ---------- */
 function appPage(r){
   const u = S.user, sup = u.role==='super';
   if (['roles','protocol','governance'].includes(r) && !sup) return shell('', denied());
@@ -897,7 +873,6 @@ function eventsPage(all){
   <div class="card" style="padding:4px 6px"><div class="tblwrap"><table class="t"><thead><tr><th>Event</th><th>Starts</th><th>Privacy</th><th>Status</th><th>Uploads</th><th style="text-align:right">Files</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
 }
 
-/* ---------- create dialog ---------- */
 const TYPES = ['Sports / Stadium','Public Meeting','Demonstration','Incident','Hotel / Property','Other'];
 function newDraft(){ return { step:1, title:'', type:'', desc:'', start:'2026-11-24T19:00', end:'', place:'', locState:'detecting', organizer:S.user.name, privacy:'Public', media:{Photos:true,Videos:true,Audio:true,Documents:true}, attribution:false, busy:false, failOnce:false }; }
 function createDlg(){
@@ -935,7 +910,6 @@ function createDlg(){
 }
 function discardDlg(){ return `<div class="dlg" role="alertdialog" aria-modal="true" aria-labelledby="dd-h"><div class="dlg-b"><h2 id="dd-h">Discard this event?</h2><p class="muted">What you’ve entered will be lost. No event has been created yet.</p><div class="row"><button class="btn danger" data-act="d-discard">Discard</button><button class="btn2" data-act="d-keep">Keep editing</button></div></div></div>`; }
 
-/* ---------- event ready ---------- */
 const contribUrl = ev => `https://civilcamai.ai/contribute/${ev.id}${ev.privacy==='Invite only'?'?code='+ev.code:''}`;
 function readyPage(ev){
   const c = counts(ev);
@@ -953,7 +927,6 @@ function readyPage(ev){
   <div><a class="btn" href="#event-${ev.id}">Go to event workspace →</a></div>`;
 }
 
-/* ---------- workspace ---------- */
 const procTone = f => ({Processed:'st-ok',Waiting:'st-g',Processing:'st-w',Failed:'st-r',Quarantined:'st-r'})[f.proc];
 const STEPS = ['Receive','Fingerprint','Type check','Metadata','Review copy'];
 function procLabel(f){ if (f.proc==='Processing') return 'Processing · '+STEPS[Math.min(f.step,4)]; if (f.proc==='Failed') return 'Failed, '+(f.fail||'a step failed')+'. Our team has been told.'; if (f.proc==='Quarantined') return 'Quarantined, security check'; return f.proc; }
@@ -1055,7 +1028,6 @@ function exportPanel(ev){
     ${ev.links.length?`<span class="eyebrow">Secure links</span><div class="tblwrap"><table class="t"><tbody>${ev.links.map((l,i)=>`<tr><td class="sm">${esc(l.label)}</td><td class="xs">Expires ${l.exp}</td><td class="xs">Opened ${l.opens}×</td><td>${l.revoked?'<span class="chip r">Revoked</span>':`<button class="btn3 xs" data-act="revoke" data-id="${ev.id}" data-i="${i}">Revoke</button>`}</td></tr>`).join('')}</tbody></table></div>`:''}</div>`;
 }
 
-/* ---------- report viewer ---------- */
 
 function onePager(ev, rp){
   const snap = rp.snap, c = snap.c, rv = snap.rv, done = rv && rv.r && rv.r.state==='complete', fs = snap.files, r = done ? rv.r : null;
@@ -1130,7 +1102,6 @@ function reportViewer(ev){
     <div class="col" style="gap:20px;max-width:860px;width:100%;margin:0 auto">${onePager(ev, rp)}${app}</div>`;
 }
 
-/* ---------- account ---------- */
 function accountPage(){
   const u = S.user;
   return `<h1>Account</h1><div class="grid2"><div class="card"><h3>Profile</h3>
@@ -1143,7 +1114,6 @@ function accountPage(){
     <button class="btn2" style="align-self:flex-start" data-act="signout">Sign out</button>`;
 }
 
-/* ---------- staff (super admin) ---------- */
 function dashboard(){
   const evs = S.events.filter(e=>!e.deleted), files = evs.reduce((n,e)=>n+live(e).length,0);
   const failed = evs.reduce((n,e)=>n+live(e).filter(f=>f.proc==='Failed').length,0), paused = evs.filter(e=>e.review&&e.review.state==='paused').length;
@@ -1174,7 +1144,6 @@ function protocolPage(){
 }
 
 const ACT_EXTRA = {};
-/* ---------- consumer app pages (layout from the CivilCamAi Consumer design) ---------- */
 const myEvents = () => S.events.filter(e => !e.deleted && e.owner===S.user.email);
 const myNotes = () => S.notes.filter(n => n.owner===S.user.email);
 const SPEC = t => '';
@@ -1379,7 +1348,6 @@ function supportPage(){
   <div class="card" style="gap:0">${Q.map(([q,a])=>`<details style="border-bottom:1px solid var(--line);padding:14px 0"><summary style="cursor:pointer;font-weight:600">${q}</summary><p class="sm" style="color:var(--fg2);margin-top:8px;max-width:70ch">${a}</p></details>`).join('')}</div>
   <div class="note">Still stuck? Email <span class="mono" style="color:var(--fg)">support@civilcamai.ai</span>.</div>`;
 }
-/* ---------- My Events portfolio + event page (layout from the CivilCamAi Consumer design) ---------- */
 const EVIMG = ['ev1.jpg','ev2.jpg','ev3.jpg'];
 const evImg = ev => (ev && ev.cover && ev.cover.src) || EVIMG[Math.max(0,S.events.indexOf(ev)) % 3];
 function coverage(ev){ const rv = reviewView(ev); if (!rv || rv.r.state!=='complete' || !rv.total) return null; return Math.round(rv.assessed.length / counts(ev).files * 100); }
@@ -1612,11 +1580,10 @@ Object.assign(ACT_EXTRA, {
   'req-seal'(el){ S.sealSel = el.dataset.id; go('civilseal'); },
 });
 
-const OUT = { capture:['Mobile Capture PWA','The PWA app flow is shown in its own demo, not inside the owner app.'], live:['CivilCamAi Live™','Removed: Troy, 2 Nov: “take that off your list.” The ops-dashboard version replaces it.'], cockpit:['CSI Evidence Cockpit','On hold, whether it’s in the first six months is “not sure”; Troy will decide with David and Frank.'],
-  cases:['Case Files / Event IDs','Removed, a placeholder that belongs in Enterprise (Troy).'], takedown:['Take It Down Center','Not in the first six months: Troy doesn’t expect it in the first eight months (hedged).'],
-  guardian:['Guardian Center™','Not in the first six months (Troy). This is Guardian Center only: Guardian Mode is not removed until Troy confirms.'] };
+const OUT = { capture:['Mobile Capture PWA','Shown in the mobile app demo.'], live:['CivilCamAi Live™','Planned for a later phase.'], cockpit:['CSI Evidence Cockpit','Planned for a later phase.'],
+  cases:['Case Files / Event IDs','Part of the Enterprise plan.'], takedown:['Take It Down Center','Planned for a later phase.'],
+  guardian:['Guardian Center™','Planned for a later phase.'] };
 const outPage = k => () => pageHead(OUT[k][0], '') + `<div class="card" style="max-width:640px"><span class="chip w" style="align-self:flex-start">Out of current scope</span><p style="color:var(--fg2)">${OUT[k][1]}</p><a class="btn2 sm-btn" style="align-self:flex-start" href="#home">Back to Dashboard</a></div>`;
-/* ================= START PAGE ================= */
 function startPage(){
   const T = (k, icon, eyebrow, title, desc, items, cta) => `<button class="stile" data-act="enter" data-v="${k}"><span class="row sp" style="width:100%"><span class="secic" style="width:44px;height:44px;border-radius:10px;color:var(--red-text)">${ic(icon,22)}</span><span class="eyebrow">${eyebrow}</span></span>
     <span class="col" style="gap:6px;align-items:flex-start;text-align:left"><b style="font-size:24px;letter-spacing:-.01em">${title}</b><span class="sm muted">${desc}</span></span>
@@ -1635,14 +1602,13 @@ function startPage(){
   </div></div>`;
 }
 
-/* ================= MOBILE APP (PWA) ================= */
 const M = { contactDone:{}, contact:'', anon:false, submitting:false, pickKind:null, screen:'home', stack:[], ev:null, name:'', loc:null, queue:[], sheet:null, signal:true, rate:false, codeTries:0, codeErr:'', idErr:'', idVal:'', receipt:null, follow:null, err:{}, sentCount:0, asOwner:false, afterCreate:'ready', cdraft:null, nameErr:'', signedIn:false, rep:null, lnk:null, mf:'All', au:{}, mail:null, camBlocked:false, failing:false, slow:false, locked:false, lockNote:false, leftover:null, contrib:{}, fileId:null, edraft:null, delErr:'', fan:false, cfail:false, cdraft0:'', cam:null, okEv:{}, pend:null, geoSim:'inside', geoNext:null, geoOk:{}, geoRes:{}, geoTries:0, nearby:null, nearDismiss:false, askedName:{}, nameAtSubmit:false, procSig:'', procT:null, procDone:false };
 const MSEQ = {n:0};
 function mgo(s, push=true){ if (M.screen==='cam' && s!=='cam') stopCam(); if (s==='home' && M.signedIn) s = 'owner'; if (s==='mreport') M.rep = null; if (s==='mshare') M.lnk = null; if (push && M.screen!==s) M.stack.push(M.screen); M.screen = s; M.sheet=null; render(); const sc = document.querySelector('.mscreen'); if (sc) sc.scrollTop = 0; }
 function mback(){ if (M.screen==='cam') stopCam(); let b = M.stack.pop() || 'home'; if (b==='home' && M.signedIn) b = 'owner'; M.screen = b; M.sheet=null; render(); }
 const ACCEPT = { Photos:['jpg','jpeg','heic','heif','png'], Videos:['mov','mp4'], Audio:['m4a','mp3','wav'], Documents:['pdf'] };
 const KIND = { Photos:'Photo', Videos:'Video', Audio:'Audio', Documents:'Document' };
-const LIMIT = { Photos:50, Videos:2048, Audio:500, Documents:50 }; // MB, prototype values for ⟨J3 P-01⟩
+const LIMIT = { Photos:50, Videos:2048, Audio:500, Documents:50 };
 const fmtSize = b => b>=1073741824 ? (b/1073741824).toFixed(1)+' GB' : b>=1048576 ? (b/1048576).toFixed(1)+' MB' : Math.max(1,Math.round(b/1024))+' KB';
 function scanTo(id, code){
   const ev = evById(id); M.submitting = false; M.sheet = null;
@@ -2459,7 +2425,6 @@ Object.assign(ACT_EXTRA, {
   'sup-ask'(){ toast('Thanks, our team will reply by email.'); },
 });
 
-/* ---------- modals & drawers ---------- */
 function modalHtml(){
   const m = S.modal; let inner = '';
   if (m.k==='create') inner = createDlg();
@@ -2541,7 +2506,6 @@ function drawerHtml(){
   </div></aside>`;
 }
 
-/* ============ simulations ============ */
 function plog(ev, m){ (S.plog[ev.id] ||= []).unshift({t:clock(NOW).replace(/ [AP]M/,''), m}); }
 function processFile(ev, f, failAt, from){
   if (from!=null) { f.proc='Processing'; f.step=from; } else { f.proc='Waiting'; f.step=0; } soft();
@@ -2583,7 +2547,6 @@ function startReview(ev){
   ev.review.resume = step;
 }
 
-/* ============ actions ============ */
 function val(id){ const el = document.getElementById(id); return el ? el.value : ''; }
 const ACT = {
   google(){ S.info=null; S.modal={k:'google'}; render(); },
@@ -2748,11 +2711,9 @@ document.addEventListener('change', e => { const t = e.target; if (t.dataset && 
 document.addEventListener('click', e => { const b = e.target.closest('[data-ver-back]'); if (b) { (S.viewVer ||= {})[b.dataset.verBack] = null; render(); } });
 document.addEventListener('keydown', e => { if (S.drawer && !S.modal && (e.key==='ArrowRight'||e.key==='ArrowLeft') && !/INPUT|TEXTAREA/.test((document.activeElement||{}).tagName||'')) { ACT['file-nav']({dataset:{d:e.key==='ArrowRight'?'1':'-1'}}); return; } if (e.key==='Escape' && S.light) { S.light=null; render(); return; } if (e.key==='Escape' && (S.modal||S.drawer)) { if (S.modal && S.modal.k==='create') ACT['d-cancel'](); else ACT.close(); } });
 
-/* first-sign-in: route new users through account type */
 const _go = go;
 go = function(h){ if (S.user && S.user.role==='owner' && !S.user.type && h!=='account-type' && !AUTH_FREE.includes(h)) { S.returnTo = h; h = 'account-type'; } _go(h); };
 
-/* ============ prototype panel ============ */
 function renderProto(){
   const p = document.getElementById('proto'), sup = S.user && S.user.role==='super';
   if (['start','mobile'].includes(route())) { p.innerHTML=''; return; }
